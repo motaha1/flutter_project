@@ -1,0 +1,1 @@
+class Listrectangle510ItemModel { }

@@ -1,0 +1,72 @@
+name: final_grad_proj
+description: A new Flutter project.
+version: 1.0.0+1
+environment: 
+  sdk: '>=2.12.0 <3.0.0'
+dependencies: 
+  flutter: 
+    sdk: flutter
+  get: ^4.6.5
+  connectivity_plus: ^2.3.6
+  shared_preferences: ^2.0.15
+  cached_network_image: ^3.2.1
+  flutter_svg: ^0.22.0
+  flutter_login_facebook: ^1.1.0
+  http: ^0.13.3
+  google_sign_in: ^5.0.7
+  flutter_switch: ^0.3.2
+  smooth_page_indicator: ^1.0.0+2
+  carousel_slider: ^4.0.0
+  pin_code_fields: ^7.3.0
+  sms_autofill: ^2.0.0
+  intl: ^0.17.0
+  permission_handler: ^10.0.0
+  images_picker: ^1.2.11
+  url_launcher: 6.0.20
+dev_dependencies: 
+  flutter_test: 
+    sdk: flutter
+flutter: 
+  uses-material-design: true
+  assets: 
+    - assets/
+    - assets/images/
+  fonts: 
+    - family: Rubik
+      fonts: 
+        - asset: assets/fonts/RubikBold.ttf
+          weight: 700
+        - asset: assets/fonts/RubikMedium.ttf
+          weight: 500
+        - asset: assets/fonts/RubikRegular.ttf
+          weight: 400
+        - asset: assets/fonts/RubikLight.ttf
+          weight: 300
+        - asset: assets/fonts/RubikRomanRegular.ttf
+          weight: 400
+    - family: Overpass
+      fonts: 
+        - asset: assets/fonts/OverpassBold.ttf
+          weight: 700
+        - asset: assets/fonts/OverpassLight.ttf
+          weight: 300
+        - asset: assets/fonts/OverpassRegular.ttf
+          weight: 400
+        - asset: assets/fonts/OverpassSemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/OverpassRomanRegular.ttf
+          weight: 400
+    - family: PT Sans
+      fonts: 
+        - asset: assets/fonts/PTSansBold.ttf
+          weight: 700
+        - asset: assets/fonts/PTSansRegular.ttf
+          weight: 400
+    - family: Abel
+      fonts: 
+        - asset: assets/fonts/AbelRegular.ttf
+          weight: 400
+    - family: Inter
+      fonts: 
+        - asset: assets/fonts/InterRegular.ttf
+          weight: 400

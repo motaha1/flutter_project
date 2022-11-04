@@ -1,0 +1,1 @@
+class Listellipse141SixItemModel { }
