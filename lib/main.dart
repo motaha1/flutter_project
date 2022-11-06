@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // test commit (for github)
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: AppLocalization(),
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
       initialBinding: InitialBindings(),
       initialRoute: AppRoutes.initialRoute,
       getPages: AppRoutes.pages,
-      ///////
     );
   }
 }
