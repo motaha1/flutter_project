@@ -23,6 +23,8 @@ dependencies:
   permission_handler: ^10.0.0
   images_picker: ^1.2.11
   url_launcher: 6.0.20
+  device_preview: ^1.1.0
+  flutter_screenutil: ^5.6.0
 dev_dependencies: 
   flutter_test: 
     sdk: flutter

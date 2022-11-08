@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:final_grad_proj/core/app_export.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppStyle {
   static TextStyle txtRobotoRegular20Black90037 = TextStyle(
@@ -99,7 +100,7 @@ class AppStyle {
   static TextStyle txtOverpassRegular14 = TextStyle(
     color: ColorConstant.bluegray90072,
     fontSize: getFontSize(
-      14,
+      14.sp,
     ),
     fontFamily: 'Overpass',
     fontWeight: FontWeight.w400,
@@ -191,7 +192,7 @@ class AppStyle {
   static TextStyle txtOverpassBold14 = TextStyle(
     color: ColorConstant.indigoA400,
     fontSize: getFontSize(
-      14,
+      14.sp,
     ),
     fontFamily: 'Overpass',
     fontWeight: FontWeight.w700,
@@ -331,7 +332,7 @@ class AppStyle {
   static TextStyle txtOverpassLight16 = TextStyle(
     color: ColorConstant.bluegray90072,
     fontSize: getFontSize(
-      16,
+      16.sp,
     ),
     fontFamily: 'Overpass',
     fontWeight: FontWeight.w300,
@@ -406,7 +407,7 @@ class AppStyle {
   static TextStyle txtOverpassBold24 = TextStyle(
     color: ColorConstant.bluegray900,
     fontSize: getFontSize(
-      24,
+      24.sp,
     ),
     fontFamily: 'Overpass',
     fontWeight: FontWeight.w700,

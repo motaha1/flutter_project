@@ -173,7 +173,7 @@ final Map<String, String> enUs = {
   "lbl_phone": "Phone",
   "lbl3": ")",
   "msg_health_is_essen":
-      "Health is essential to a healthy life. Ask for Care now!!",
+      "Health is essential to a healthy life.",
   "lbl_other_issues": "Other issues",
   "msg_what_is_the_mem": "What is the member you suffer from?",
   "lbl_abdullah_mamun": "Abdullah Mamun",
