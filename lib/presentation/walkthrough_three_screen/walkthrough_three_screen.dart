@@ -1,5 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../walkthrough_four_screen/walkthrough_four_screen.dart';
 import '../walkthrough_one_screen/walkthrough_one_screen.dart';
 import '../walkthrough_two_screen/walkthrough_two_screen.dart';
 import 'controller/walkthrough_three_controller.dart';
@@ -17,7 +18,12 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
   // controller.nextPage(duration: duration, curve: curve)
 
   Widget build(BuildContext context) {
-    final pages = [WalkthroughOneScreen(), WalkthroughTwoScreen() , WalkthroughThreeScreen5()];
+    final pages = [
+      WalkthroughOneScreen(),
+      WalkthroughTwoScreen(),
+      WalkthroughThreeScreen5(),
+      WalkthroughFourScreen()
+    ];
     return Scaffold(
       backgroundColor: ColorConstant.whiteA700,
       body: SafeArea(
@@ -32,9 +38,8 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
                 width: double.infinity,
                 child: PageView.builder(
                   controller: controller,
-                  itemCount: 3,
+                  itemCount: 4,
                   itemBuilder: (_, index) {
-
                     print(index);
                     return pages[index % pages.length];
                   },
@@ -42,8 +47,7 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
               ),
 
               Padding(
-                  padding: EdgeInsets.only(
-                      left: 40.w, top: 10.h, right: 38.w),
+                  padding: EdgeInsets.only(left: 40.w, top: 10.h, right: 38.w),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,6 +56,7 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
                         GestureDetector(
                             onTap: () {
                               //     onTapTxtSkip();
+                              onTapTxtSkip();
                             },
                             child: Padding(
                                 padding: EdgeInsets.only(top: 1.h),
@@ -77,11 +82,9 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
                                     spacing: 8.w,
                                     activeDotColor: ColorConstant.indigoA400,
                                     dotColor: ColorConstant.gray400,
-                                   // jumpScale: 50,
+                                    // jumpScale: 50,
                                     dotHeight: 8.00.h,
-                                    dotWidth: 6.00.w
-                                    )
-                                    )),
+                                    dotWidth: 6.00.w))),
                         GestureDetector(
                             onTap: () {
                               //  onTapTxtNext();
@@ -93,6 +96,9 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
                               print(controller.offset);
                               print(controller.position);
                               print(controller.page);
+                              if (controller.page == 3) {
+                                onTapTxtNext();
+                              }
                             },
                             child: Padding(
                                 padding: EdgeInsets.only(bottom: 3.h),
@@ -107,6 +113,14 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
       ),
     );
   }
+
+  onTapTxtSkip() {
+    Get.toNamed(AppRoutes.welcomeScreen);
+  }
+
+  onTapTxtNext() {
+    Get.toNamed(AppRoutes.welcomeScreen);
+  }
 }
 
 final colors = const [
@@ -118,19 +132,16 @@ final colors = const [
   Colors.amber,
 ];
 
-
-
-
-
-
 class WalkthroughThreeScreen5 extends StatefulWidget {
   @override
-  State<WalkthroughThreeScreen5> createState() => _WalkthroughThreeScreenState5();
+  State<WalkthroughThreeScreen5> createState() =>
+      _WalkthroughThreeScreenState5();
 }
 
 class _WalkthroughThreeScreenState5 extends State<WalkthroughThreeScreen5> {
-      final controller = PageController(viewportFraction: 0.8, keepPage: true, initialPage: 2);
-      
+  final controller =
+      PageController(viewportFraction: 0.8, keepPage: true, initialPage: 2);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -145,14 +156,15 @@ class _WalkthroughThreeScreenState5 extends State<WalkthroughThreeScreen5> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                       Padding(
-                          padding:
-                              EdgeInsets.only(left: 40.w, top: 209.h, right: 40.w),
+                          padding: EdgeInsets.only(
+                              left: 40.w, top: 209.h, right: 40.w),
                           child: CommonImageView(
                               svgPath: ImageConstant.imgGroup3645,
                               height: 196.00.h,
-                              width:245.00.w)),
+                              width: 245.00.w)),
                       Padding(
-                          padding: EdgeInsets.only(left: 40.w, top: 103.h, right: 40.w),
+                          padding: EdgeInsets.only(
+                              left: 40.w, top: 103.h, right: 40.w),
                           child: Text("msg_contact_the_spe".tr,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
@@ -160,7 +172,8 @@ class _WalkthroughThreeScreenState5 extends State<WalkthroughThreeScreen5> {
                                   .copyWith(height: 1.00.h))),
                       Container(
                           width: 225.00.w,
-                          margin: EdgeInsets.only(left: 40.w, top: 40.h, right: 40.w),
+                          margin: EdgeInsets.only(
+                              left: 40.w, top: 40.h, right: 40.w),
                           child: Text("msg_we_provide_comm".tr,
                               maxLines: null,
                               textAlign: TextAlign.center,
@@ -222,4 +235,3 @@ class _WalkthroughThreeScreenState5 extends State<WalkthroughThreeScreen5> {
     Get.toNamed(AppRoutes.walkthroughFourScreen);
   }
 }
-
