@@ -7,10 +7,10 @@ dependencies:
   flutter: 
     sdk: flutter
   get: ^4.6.5
-  connectivity_plus: ^2.3.6
+  connectivity_plus: ^3.0.2
   shared_preferences: ^2.0.15
   cached_network_image: ^3.2.1
-  flutter_svg: ^0.22.0
+  flutter_svg: ^1.1.6
   flutter_login_facebook: ^1.1.0
   http: ^0.13.3
   google_sign_in: ^5.0.7
@@ -22,9 +22,10 @@ dependencies:
   intl: ^0.17.0
   permission_handler: ^10.0.0
   images_picker: ^1.2.11
-  url_launcher: 6.0.20
+  url_launcher: ^6.1.6
   device_preview: ^1.1.0
   flutter_screenutil: ^5.6.0
+  vector_graphics_compiler: ^0.0.2
 dev_dependencies: 
   flutter_test: 
     sdk: flutter

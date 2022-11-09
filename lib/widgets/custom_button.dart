@@ -1,5 +1,6 @@
 import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton(
@@ -150,9 +151,9 @@ class CustomButton extends StatelessWidget {
         );
       case ButtonShape.CircleBorder25:
         return BorderRadius.circular(
-          getHorizontalSize(
-            25.00,
-          ),
+          
+            25.00.r
+          
         );
       case ButtonShape.RoundedBorder12:
         return BorderRadius.circular(
@@ -230,7 +231,7 @@ class CustomButton extends StatelessWidget {
         return TextStyle(
           color: ColorConstant.bluegray900Bf,
           fontSize: getFontSize(
-            13,
+            13.sp,
           ),
           fontFamily: 'Overpass',
           fontWeight: FontWeight.w700,

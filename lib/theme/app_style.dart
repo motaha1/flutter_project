@@ -175,7 +175,7 @@ class AppStyle {
   static TextStyle txtOverpassBold13 = TextStyle(
     color: ColorConstant.bluegray900Bf,
     fontSize: getFontSize(
-      13,
+      13.sp,
     ),
     fontFamily: 'Overpass',
     fontWeight: FontWeight.w700,

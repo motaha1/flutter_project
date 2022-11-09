@@ -199,7 +199,7 @@ class ImageConstant {
   static String imgArrowleftBluegray500 =
       'assets/images/img_arrowleft_bluegray_500.svg';
 
-  static String imgGroup3645 = 'assets/images/img_group3645.svg';
+  static String imgGroup3645 = 'assets/images/img_group3645.png';
 
   static String imgEye = 'assets/images/img_eye.svg';
 

@@ -7,6 +7,7 @@ import 'controller/walkthrough_three_controller.dart';
 import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+//import 'package:vector_graphics_compiler/vector_graphics_compiler.dart';
 
 class WalkthroughThreeScreen extends StatefulWidget {
   @override
@@ -159,7 +160,7 @@ class _WalkthroughThreeScreenState5 extends State<WalkthroughThreeScreen5> {
                           padding: EdgeInsets.only(
                               left: 40.w, top: 209.h, right: 40.w),
                           child: CommonImageView(
-                              svgPath: ImageConstant.imgGroup3645,
+                              url: 'https://i.ibb.co/7ShPnnG/img-group3645.png',
                               height: 196.00.h,
                               width: 245.00.w)),
                       Padding(
