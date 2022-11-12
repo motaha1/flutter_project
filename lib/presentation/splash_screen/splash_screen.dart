@@ -4,7 +4,7 @@ import 'controller/splash_controller.dart';
 import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends GetWidget<SplashController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -64,6 +64,6 @@ class SplashScreen extends StatelessWidget {
   }
 
   onTapImgBg() {
-    Get.toNamed(AppRoutes.walkthroughOneScreen);
+    Get.toNamed(AppRoutes.walkthroughThreeScreen);
   }
 }

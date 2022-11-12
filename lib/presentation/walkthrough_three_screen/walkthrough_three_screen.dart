@@ -1,4 +1,5 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 import '../walkthrough_four_screen/walkthrough_four_screen.dart';
 import '../walkthrough_one_screen/walkthrough_one_screen.dart';
@@ -20,7 +21,7 @@ class _WalkthroughThreeScreenState extends State<WalkthroughThreeScreen> {
 
   Widget build(BuildContext context) {
     final pages = [
-      WalkthroughOneScreen(),
+     WalkthroughOneScreen(),
       WalkthroughTwoScreen(),
       WalkthroughThreeScreen5(),
       WalkthroughFourScreen()
@@ -158,11 +159,16 @@ class _WalkthroughThreeScreenState5 extends State<WalkthroughThreeScreen5> {
                         children: [
                       Padding(
                           padding: EdgeInsets.only(
-                              left: 40.w, top: 209.h, right: 40.w),
-                          child: CommonImageView(
-                              url: 'https://i.ibb.co/7ShPnnG/img-group3645.png',
-                              height: 196.00.h,
-                              width: 245.00.w)),
+                              left: 40.w, top: 100.h /*209.h*/, right: 40.w),
+                          // child: Lottie.network('https://assets7.lottiefiles.com/packages/lf20_42B8LS.json')) , 
+                         child: Lottie.network('https://assets4.lottiefiles.com/packages/lf20_42B8LS.json' , width: 245.00.w,
+  height: 350.h, fit: BoxFit.fill) ), 
+                        //  CommonImageView(
+                        //       url: 'https://i.ibb.co/7ShPnnG/img-group3645.png',
+                        //       height: 196.00.h,
+                        //       width: 245.00.w)),
+                        
+
                       Padding(
                           padding: EdgeInsets.only(
                               left: 40.w, top: 103.h, right: 40.w),
