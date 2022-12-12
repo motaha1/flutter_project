@@ -1,3 +1,4 @@
+import 'package:final_grad_proj/gsk_2022/another/presentation/three_screen/three_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -24,10 +25,11 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                       Container(
                           height: (260.00.h),
                           width: (258.00.w),
-                          margin: EdgeInsets.only(left: 32.w, top: 112.h, right: 32.w),
+                          margin: EdgeInsets.only(
+                              left: 32.w, top: 112.h, right: 32.w),
                           child:
                               Stack(alignment: Alignment.centerLeft, children: [
-                        /*    Align(
+                            /*    Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
                                     height: (258.00.h),
@@ -44,13 +46,14 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                                     child: CommonImageView(
                                         svgPath:
                                             'assets/images/img_maskgroup_258X258.svg',
-                                        height:(258.00.h),
+                                        height: (258.00.h),
                                         width: (258.00.w))))
                           ])),
-                          // SvgPicture.asset(ImageConstant.imgMaskgroup258X258),
+                      // SvgPicture.asset(ImageConstant.imgMaskgroup258X258),
 
                       Padding(
-                          padding: EdgeInsets.only(left: 32.w, top: 34.h, right: 32.w),
+                          padding: EdgeInsets.only(
+                              left: 32.w, top: 34.h, right: 32.w),
                           child: Text("msg_welcome_to_ask".tr,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
@@ -58,7 +61,8 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                                   .copyWith(height: 1.00.h))),
                       Container(
                           width: (233.00.w),
-                          margin: EdgeInsets.only(left: 32.w, top: 28.h, right: 32.w),
+                          margin: EdgeInsets.only(
+                              left: 32.w, top: 28.h, right: 32.w),
                           child: Text("msg_do_you_want_som".tr,
                               maxLines: null,
                               textAlign: TextAlign.center,
@@ -67,7 +71,8 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                       CustomButton(
                           width: 311,
                           text: "msg_sign_up_with_em".tr.toUpperCase(),
-                          margin: EdgeInsets.only(left: 32.w, top: 34.h, right: 32.w),
+                          margin: EdgeInsets.only(
+                              left: 32.w, top: 34.h, right: 32.w),
                           variant: ButtonVariant.OutlineIndigoA40019,
                           shape: ButtonShape.CircleBorder25,
                           padding: ButtonPadding.PaddingAll13,
@@ -78,7 +83,8 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                             onTapRowfacebook();
                           },
                           child: Container(
-                              margin: EdgeInsets.only(left: 32.w, top: 10.h, right: 32.w),
+                              margin: EdgeInsets.only(
+                                  left: 32.w, top: 10.h, right: 32.w),
                               decoration: AppDecoration.outlineBluegray90019
                                   .copyWith(
                                       borderRadius:
@@ -89,8 +95,8 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                        padding:
-                                           EdgeInsets.only(top: 16.h, bottom: 16.h),
+                                        padding: EdgeInsets.only(
+                                            top: 16.h, bottom: 16.h),
                                         child: InkWell(
                                             onTap: () {
                                               onTapImgFacebook();
@@ -101,8 +107,10 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                                                 height: (18.00.h),
                                                 width: (18.00.w)))),
                                     Padding(
-                                        padding:EdgeInsets.only(
-                                            left: 21.w, top: 16.h, bottom: 19.h),
+                                        padding: EdgeInsets.only(
+                                            left: 21.w,
+                                            top: 16.h,
+                                            bottom: 19.h),
                                         child: Text(
                                             "msg_continue_with_f"
                                                 .tr
@@ -114,22 +122,31 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                       CustomButton(
                           width: 311.w,
                           text: "msg_continue_with_g".tr.toUpperCase(),
-                          margin:EdgeInsets.only(left: 32.w, top: 10.h, right: 32.w),
+                          margin: EdgeInsets.only(
+                              left: 32.w, top: 10.h, right: 32.w),
                           variant: ButtonVariant.OutlineBluegray90019,
                           shape: ButtonShape.CircleBorder25,
                           fontStyle: ButtonFontStyle.OverpassBold13,
                           prefixWidget: Container(
                               margin: EdgeInsets.only(right: 19.w),
                               child: CommonImageView(
-                                  svgPath: (ImageConstant.imgGoogle) ,height: (18.00.h),
-                                                width: (18.00.w) ))),
+                                  svgPath: (ImageConstant.imgGoogle),
+                                  height: (18.00.h),
+                                  width: (18.00.w)))),
                       GestureDetector(
                           onTap: () {
-                            onTapTxtLogin();
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        ThreeScreen()));
                           },
                           child: Padding(
                               padding: EdgeInsets.only(
-                                  left: 32.w, top: 16.h, right: 32.w, bottom: 5.h),
+                                  left: 32.w,
+                                  top: 16.h,
+                                  right: 32.w,
+                                  bottom: 5.h),
                               child: Text("lbl_login".tr.toUpperCase(),
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
@@ -157,6 +174,6 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
   }
 
   onTapTxtLogin() {
-    Get.toNamed(AppRoutes.loginScreen );
+    Get.toNamed(AppRoutes.loginScreen);
   }
 }

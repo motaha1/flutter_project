@@ -76,9 +76,21 @@ import 'package:final_grad_proj/presentation/doctor_details_screen/doctor_detail
 import 'package:final_grad_proj/presentation/doctor_details_screen/binding/doctor_details_binding.dart';
 import 'package:final_grad_proj/presentation/app_navigation_screen/app_navigation_screen.dart';
 import 'package:final_grad_proj/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
+import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
+//import 'package:final_grad_proj/youtube/youtube.dart';
+import 'package:get/get.dart';
+
+import 'package:final_grad_proj/gsk_2022/another/presentation/two_screen/two_screen.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/two_screen/binding/two_binding.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/three_screen/three_screen.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/three_screen/binding/three_binding.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/thank_you_screen/thank_you_screen.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/thank_you_screen/binding/thank_you_binding.dart';
+
 import 'package:get/get.dart';
 
 class AppRoutes {
+  static String hello = '/hello';
   static String splashScreen = '/splash_screen';
 
   static String walkthroughOneScreen = '/walkthrough_one_screen';
@@ -161,6 +173,16 @@ class AppRoutes {
 
   static String initialRoute = '/initialRoute';
 
+    static String twoScreen = '/two_screen';
+
+  static String threeScreen = '/three_screen';
+
+  static String thankYouScreen = '/thank_you_screen';
+
+  static String signintest = '/SignInScreen';
+
+  
+
   static List<GetPage> pages = [
     GetPage(
       name: splashScreen,
@@ -168,6 +190,12 @@ class AppRoutes {
       bindings: [
         SplashBinding(),
       ],
+    ),
+
+        GetPage(
+      name: signintest,
+      page: () => SignInScreen(),
+
     ),
     GetPage(
       name: walkthroughOneScreen,
@@ -435,12 +463,35 @@ class AppRoutes {
         AppNavigationBinding(),
       ],
     ),
+
+    GetPage(
+      name: twoScreen,
+      page: () => TwoScreen(),
+      bindings: [
+        TwoBinding(),
+      ],
+    ),
+    GetPage(
+      name: threeScreen,
+      page: () => ThreeScreen(),
+      bindings: [
+        ThreeBinding(),
+      ],
+    ),
+    GetPage(
+      name: thankYouScreen,
+      page: () => ThankYouScreen(),
+      bindings: [
+        ThankYouBinding(),
+      ],
+    ),
     GetPage(
       name: initialRoute,
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
       ],
-    )
+    ) , 
+
   ];
 }
