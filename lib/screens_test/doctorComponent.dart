@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 
+import '../gsk_2022/another/presentation/time_picker/screenthree_firebase.dart';
+
 class DoctorWidget extends StatelessWidget {
   Doctor doctor;
   DoctorWidget(this.doctor);
@@ -88,6 +90,8 @@ class DoctorWidget extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () {
                   //   AppRouter.appRouter.goToWidget(AddNewProduct(category.id!));
+                  Get.to(ThreeScreen_new('mudy2012@engineer.com'));
+
                 },
                 child: Text('appoiments')),
           )

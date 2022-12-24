@@ -1,10 +1,17 @@
+import 'package:final_grad_proj/gsk_2022/presentation/doctor_appointment_screen/booking.dart';
 import 'package:final_grad_proj/helper/db_helper.dart';
+import 'package:final_grad_proj/presentation/menu_screen/menu_screen.dart';
+import 'package:final_grad_proj/presentation/splash_screen/splash_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/provider/provider.dart';
 import 'package:final_grad_proj/provider/special.dart';
+import 'package:final_grad_proj/screens_test/main_screen.dart';
+import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
+import 'package:final_grad_proj/screens_test/splash_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -70,8 +77,12 @@ class AppInit extends StatelessWidget {
             locale: Get.deviceLocale, //for setting localization strings
             fallbackLocale: Locale('en', 'US'),
             title: 'final_grad_proj',
-            initialBinding: InitialBindings(),
-            initialRoute: AppRoutes.signintest,
+            // initialBinding: InitialBindings(),
+            // initialRoute: AppRoutes.signintest,
+             home:SplashScreen(),
+          
+             builder: EasyLoading.init(),
+
             getPages: AppRoutes.pages,
           );
         });

@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 class Doctor {
+
   String name;
-  String city; 
+  String city;
+  
+
   Doctor({
     required this.name,
     required this.city,

@@ -15,7 +15,4 @@ class Special extends ChangeNotifier {
     allCategories = await FirestoreHelper.firestoreHelper.getAllDoctors();
     notifyListeners();
   }
-
-  
-
 }

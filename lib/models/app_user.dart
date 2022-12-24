@@ -6,6 +6,7 @@ class AppUser {
   String? imageUrl;
   String name;
   String phoneNumber;
+  String? type ; 
 
   AppUser(
       {required this.email,
@@ -13,6 +14,7 @@ class AppUser {
       required this.phoneNumber,
       this.id,
       this.imageUrl , 
+      this.type , 
      });
 
   Map<String, dynamic> toMap() {

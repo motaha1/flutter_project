@@ -4,6 +4,7 @@ import 'package:final_grad_proj/components/custom_textfield.dart';
 import 'package:final_grad_proj/presentation/sign_up_screen/sign_up_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -37,8 +38,11 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                      onPressed: () {
-                        provider.signIn();
+                      onPressed: ()async {
+                        EasyLoading.show(status: 'loading...');
+                       await provider.signIn();
+                       EasyLoading.dismiss();
+
                       },
                       child: Text('Sign In')),
                   const SizedBox(

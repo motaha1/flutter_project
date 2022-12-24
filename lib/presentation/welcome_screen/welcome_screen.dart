@@ -1,4 +1,5 @@
 import 'package:final_grad_proj/gsk_2022/another/presentation/three_screen/three_screen.dart';
+import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,7 +9,7 @@ import 'package:final_grad_proj/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:final_grad_proj/domain/facebookauth/facebook_auth_helper.dart';
 
-class WelcomeScreen extends GetWidget<WelcomeController> {
+class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -139,7 +140,7 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        ThreeScreen()));
+                                       SignInScreen()));
                           },
                           child: Padding(
                               padding: EdgeInsets.only(
@@ -174,6 +175,6 @@ class WelcomeScreen extends GetWidget<WelcomeController> {
   }
 
   onTapTxtLogin() {
-    Get.toNamed(AppRoutes.loginScreen);
+    Get.to(SignInScreen());
   }
 }

@@ -1,5 +1,7 @@
 import 'package:final_grad_proj/gsk_2022/presentation/doctor_appointment_screen/appoiments_widget.dart';
+import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/provider/provider.dart';
+import 'package:final_grad_proj/screens_test/display_doctor.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +18,7 @@ class ThankYouScreenDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TodoClass>(builder: (context, provider, x) {
+    return Consumer<AuthProvider>(builder: (context, provider, x) {
       return Container(
           width: double.infinity,
           decoration: AppDecoration.fillWhiteA700
@@ -64,7 +66,7 @@ class ThankYouScreenDialog extends StatelessWidget {
                     width: getHorizontalSize(238.00),
                     margin: getMargin(left: 20, top: 33, right: 20),
                     child: Text(
-                        "You booked an appointment with Dr. ${provider.doctorname} \nPediatrician Purpieson on ${provider.date},\nat ${provider.time}",
+                        "You booked an appointment  \nPediatrician Purpieson ",
                         maxLines: null,
                         textAlign: TextAlign.center,
                         style: AppStyle.txtRubikRegular14Bluegray500)),
@@ -76,7 +78,7 @@ class ThankYouScreenDialog extends StatelessWidget {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => appoiment()));
+                            builder: (BuildContext context) => AllDoctorssScreen()));
                   },
                 ),
                 Padding(

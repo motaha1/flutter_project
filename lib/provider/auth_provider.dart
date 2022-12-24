@@ -6,11 +6,13 @@ import 'package:final_grad_proj/app_router/app_router.dart';
 import 'package:final_grad_proj/core/app_export.dart';
 import 'package:final_grad_proj/data_repositories/auth_helper.dart';
 import 'package:final_grad_proj/data_repositories/firestore_helper.dart';
+import 'package:final_grad_proj/models/appoiment.dart';
 import 'package:final_grad_proj/models/chat_model.dart';
 import 'package:final_grad_proj/screens_test/display_doctor.dart';
 import 'package:final_grad_proj/screens_test/main_screen.dart';
 import 'package:final_grad_proj/screens_test/open.dart';
 import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
+import 'package:final_grad_proj/screens_test/splash_test.dart';
 
 import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -77,8 +79,14 @@ class AuthProvider extends ChangeNotifier {
         notifyListeners();
 
         print(loggedUser?.email);
-
-        Get.to(AllDoctorssScreen());
+        print(loggedUser?.type);
+        //Get.to(AllDoctorssScreen());
+        if (loggedUser!.type == 'patient') {
+          Get.to(AllDoctorssScreen());
+        }
+             if (loggedUser!.type == 'Doctor') {
+          Get.to(splash_test());
+        }
 
         //AppRouter.appRouter.goToWidget(MyWidget11());
 
@@ -177,9 +185,6 @@ class AuthProvider extends ChangeNotifier {
       print(element.id);
     });
 
-
-
-
     // user_chat.docs.map((doc) {
     //   print(doc.id);
     // });
@@ -197,4 +202,71 @@ class AuthProvider extends ChangeNotifier {
   //   await FirestoreHelper.firestoreHelper.updateTheUser(loggedUser!);
   //   getUser(loggedUser!.id!);
   // }
+
+  String? start;
+  String? end;
+  String? date;
+
+  Future<String?> addNewAppoiment(Appoiment app) async {
+    try {
+      DocumentReference<Map<String, dynamic>> documentReference =
+          await FirebaseFirestore.instance
+              .collection('Doctor')
+              .doc(app.doctor)
+              .collection('appoiment')
+              .add(app.toMap());
+
+      DocumentReference<Map<String, dynamic>> documentReference1 =
+          await FirebaseFirestore.instance
+              .collection('Paient')
+              .doc(loggedUser!.email)
+              .collection('appoiment')
+              .add(app.toMap());
+      //  return documentReference.id;
+    } on Exception catch (e) {
+      log(e.toString());
+    }
+  }
+
+  List<Appoiment>? allappoiment;
+  List<Appoiment>? selectedApp;
+  String? selected_date_appoiment;
+
+  String? selected_date_appoiment_patient;
+  List<Appoiment>? allappoiment_paitent;
+
+  List<Appoiment>? selectedApp_toshow_paitent;
+
+  getAllappoiment(String docId) async {
+    allappoiment = null;
+    notifyListeners();
+    List<Appoiment>? app =
+        await FirestoreHelper.firestoreHelper.getAllappoimnets(docId);
+
+    allappoiment = app;
+    selectedApp = app!
+        .where((element) => element.date == selected_date_appoiment)
+        .toList();
+
+// selectedApp_toshow = app
+//         .where((element) => element.date == selected_date_appoiment)
+//         .toList();
+
+    notifyListeners();
+  }
+
+  getAllappoiment_Paitent() async {
+    allappoiment = null;
+    notifyListeners();
+    List<Appoiment>? app = await FirestoreHelper.firestoreHelper
+        .getAllappoimnets_patiant(loggedUser!.email);
+
+    allappoiment_paitent = app;
+
+    selectedApp_toshow_paitent = app!
+        .where((element) => element.date == selected_date_appoiment_patient)
+        .toList();
+
+    notifyListeners();
+  }
 }

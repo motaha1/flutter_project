@@ -16,8 +16,8 @@ class AuthHelper {
           .createUserWithEmailAndPassword(email: email, password: password);
       return userCredential.user?.uid;
     } on Exception catch (e) {
-      AppRouter.appRouter
-          .showCustomDialoug('Error in registeration', e.toString());
+      // AppRouter.appRouter
+      //     .showCustomDialoug('Error in registeration', e.toString());
     }
   }
 
@@ -29,8 +29,7 @@ class AuthHelper {
       return userCredential.user?.email; //uid
     } on Exception catch (e) {
       log(e.toString());
-      AppRouter.appRouter
-          .showCustomDialoug('Error in Authentication', e.toString());
+
     }
   }
 

@@ -1,8 +1,13 @@
+import 'package:final_grad_proj/core/app_export.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/bot.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/provider/special.dart';
 import 'package:final_grad_proj/screens_test/doctorComponent.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+
+import '../gsk_2022/another/presentation/appoiment_screen_firebase.dart';
 
 class AllDoctorssScreen extends StatelessWidget {
   @override
@@ -12,11 +17,22 @@ class AllDoctorssScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                // AppRouter.appRouter.goToWidget(AddNewCategory());
+              onPressed: () async {
+                await Provider.of<AuthProvider>(context, listen: false)
+                    .getAllappoiment_Paitent();
+                Get.to(appoiment_show_patient_firebase());
               },
-              icon: Icon(Icons.add))
+              icon: Icon(Icons.calendar_month_sharp)) , 
+
+                      IconButton(
+              onPressed: () async {
+           
+                Get.to(chat());
+              },
+              icon: Icon(Icons.chat))
         ],
+
+        
         title: Text('All Doctors'),
       ),
       body: Consumer2<Special, AuthProvider>(
