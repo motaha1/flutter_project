@@ -49,8 +49,8 @@ class DoctorWidget extends StatelessWidget {
                             onPressed: () {
                               // Provider.of<Special>(context, listen: false)
                               //     .deleteCategory(category);
-
-                              Get.off(() => chat_screen(doctor));
+                              Get.off(() => chat_screen());
+                              //  Get.off(() => chat_screen(doctor));
                             },
                             icon: Icon(Icons.medical_services_sharp)),
                       ),
@@ -91,7 +91,6 @@ class DoctorWidget extends StatelessWidget {
                 onPressed: () {
                   //   AppRouter.appRouter.goToWidget(AddNewProduct(category.id!));
                   Get.to(ThreeScreen_new('mudy2012@engineer.com'));
-
                 },
                 child: Text('appoiments')),
           )

@@ -2,6 +2,7 @@ import 'package:final_grad_proj/gsk_2022/presentation/doctor_appointment_screen/
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/provider/provider.dart';
 import 'package:final_grad_proj/screens_test/display_doctor.dart';
+import 'package:final_grad_proj/screens_test/splash_test.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -78,7 +79,7 @@ class ThankYouScreenDialog extends StatelessWidget {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => AllDoctorssScreen()));
+                            builder: (BuildContext context) => splash_test()));
                   },
                 ),
                 Padding(

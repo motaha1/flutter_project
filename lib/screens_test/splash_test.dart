@@ -1,24 +1,39 @@
 import 'package:final_grad_proj/core/app_export.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/screenthree_firebase.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/test.dart';
+import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:final_grad_proj/screens_test/chat_doctor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:provider/provider.dart';
 
 class splash_test extends StatelessWidget {
   const splash_test({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: ElevatedButton(child: Text('hello doctor'),onPressed: () {
+    return Consumer<AuthProvider>(builder: (context, provider, w) {
+      return Container(
+        child: Center(
+            child: ElevatedButton(
+          child: Text('hello doctor'),
+          onPressed: () async{
+          //   EasyLoading.show(status: 'loading...');
 
-Get.to(ThreeScreen_new('mudy2012@engineer.com'));
+          //  await provider.gethowiamtalk(); 
+          //  EasyLoading.dismiss();
+
+           Get.to(ThreeScreen_new('1'));
+           //Get.to(chat_screen());
+          },
         
-      },)),
-    );
+        )),
+      );
+    });
   }
 }

@@ -17,14 +17,14 @@ import 'Messages.dart';
 //   }
 // }
 
-class chat extends StatefulWidget {
-  const chat({Key? key}) : super(key: key);
+class chat_bot extends StatefulWidget {
+  const chat_bot({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<chat> {
+class _HomeState extends State<chat_bot> {
   late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
 

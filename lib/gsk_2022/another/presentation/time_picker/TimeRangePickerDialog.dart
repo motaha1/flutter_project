@@ -53,6 +53,9 @@ class _TimeRangePickerDialogState extends State<TimeRangePickerDialog> {
                       // print(data.periodStartIndex);
                       // print(data.periodEndIndex);
  print(data.hours[index].time);
+ print(data.hours[index].time);
+ print(data.hours[index].time);
+ print(data.hours[index].time);
 if (count == 0 ){
   provider.start = data.hours[index].time ; 
   count = 1 ; 

@@ -1,3 +1,4 @@
+import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/three_screen/clock.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/Availability.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/TimeRangePickerDialog.dart';
@@ -28,7 +29,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 class ThreeScreen_new extends StatefulWidget {
-  String? doctorId;
+  String doctorId;
 
   ThreeScreen_new(this.doctorId);
   @override
@@ -37,7 +38,7 @@ class ThreeScreen_new extends StatefulWidget {
 
 class _ThreeScreenState extends State<ThreeScreen_new> {
   String? doctorId;
-  List<Appoiment>? po = [];
+  List<dynamic>? po = [];
   _ThreeScreenState(this.doctorId);
 
   @override
@@ -88,22 +89,21 @@ class _ThreeScreenState extends State<ThreeScreen_new> {
 
     Provider.of<AuthProvider>(context, listen: false).selected_date_appoiment =
         today.toString().split(" ")[0];
-EasyLoading.show(status: 'loading...');
-    await Provider.of<AuthProvider>(context, listen: false)
-        .getAllappoiment('mudy2012@engineer.com');
 
-    po = Provider.of<AuthProvider>(context, listen: false).selectedApp;
+    // await Provider.of<AuthProvider>(context, listen: false)
+    //     .getAllappoiment('mudy2012@engineer.com');
+
+    //po = Provider.of<AuthProvider>(context, listen: false).selectedApp;
+    EasyLoading.show(status: 'loading...');
+    po = await DioHelper.diohelper
+        .getAppoimnet(doctorId!, today.toString().split(" ")[0]);
 
     print(po);
     func();
-       EasyLoading.dismiss();
+    EasyLoading.dismiss();
 
     setState(
-      () {
-
-     
-
-      },
+      () {},
     );
   }
 
@@ -118,6 +118,42 @@ EasyLoading.show(status: 'loading...');
 
     if (x == '11:00 AM') {
       return 11;
+    }
+
+    if (x == '12:00 PM') {
+      return 12;
+    }
+
+    if (x == '01:00 PM') {
+      return 13;
+    }
+
+    if (x == '02:00 PM') {
+      return 14;
+    }
+
+    if (x == '03:00 PM') {
+      return 15;
+    }
+    if (x == '04:00 PM') {
+      return 16;
+    }
+    if (x == '05:00 PM') {
+      return 17;
+    }
+    if (x == '06:00 PM') {
+      return 18;
+    }
+
+    if (x == '07:00 PM') {
+      return 19;
+    }
+    if (x == '08:00 PM') {
+      return 20;
+    }
+
+    if (x == '09:00 PM') {
+      return 21;
     }
 
     return 0;
@@ -193,20 +229,27 @@ EasyLoading.show(status: 'loading...');
                           ),
                         ),
                         CustomButton(
-                          onTap: () {
+                          onTap: () async {
                             print(provider.start ?? 'null');
                             print(provider.end ?? 'null');
-                            Appoiment app = new Appoiment(
-                                doctor: doctorId!,
-                                patiant:
-                                provider.loggedUser!.email,
-                                date: provider.date!,
-                                start: provider.start!,
-                                end: provider.end!);
-
-                            provider.addNewAppoiment(app);
- onTapConfirm() ; 
-                          //  Get.off(() => splash_test());
+                            // Appoiment app = new Appoiment(
+                            //     doctor: doctorId!,
+                            //     patiant: provider.loggedUser!.email,
+                            //     date: provider.date!,
+                            //     start: provider.start!,
+                            //     end: provider.end!);
+                            EasyLoading.show(
+                                status: 'Appointment is being booked ..... ');
+                            await DioHelper.diohelper.addAppoiment(
+                                provider.start!,
+                                provider.end!,
+                                provider.date!,
+                                '1',
+                                doctorId!);
+                            EasyLoading.dismiss();
+                            //provider.addNewAppoiment(app);
+                            onTapConfirm();
+                            //  Get.off(() => splash_test());
 
                             // Navigator.pushReplacement(
                             //     context,
@@ -241,14 +284,14 @@ EasyLoading.show(status: 'loading...');
   }
 }
 
-  onTapConfirm() {
-    Get.defaultDialog(
-      title: '',
-      backgroundColor: Colors.transparent,
-      content: ThankYouScreenDialog(
-        Get.put(
-          ThankYouScreenController(),
-        ),
+onTapConfirm() {
+  Get.defaultDialog(
+    title: '',
+    backgroundColor: Colors.transparent,
+    content: ThankYouScreenDialog(
+      Get.put(
+        ThankYouScreenController(),
       ),
-    );
-  }
+    ),
+  );
+}

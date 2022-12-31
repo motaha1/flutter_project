@@ -6,8 +6,10 @@ import 'package:final_grad_proj/app_router/app_router.dart';
 import 'package:final_grad_proj/core/app_export.dart';
 import 'package:final_grad_proj/data_repositories/auth_helper.dart';
 import 'package:final_grad_proj/data_repositories/firestore_helper.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/appoiment_screen_firebase_doctor.dart';
 import 'package:final_grad_proj/models/appoiment.dart';
 import 'package:final_grad_proj/models/chat_model.dart';
+import 'package:final_grad_proj/models/doctor_model.dart';
 import 'package:final_grad_proj/screens_test/display_doctor.dart';
 import 'package:final_grad_proj/screens_test/main_screen.dart';
 import 'package:final_grad_proj/screens_test/open.dart';
@@ -84,8 +86,9 @@ class AuthProvider extends ChangeNotifier {
         if (loggedUser!.type == 'patient') {
           Get.to(AllDoctorssScreen());
         }
-             if (loggedUser!.type == 'Doctor') {
-          Get.to(splash_test());
+        if (loggedUser!.type == 'Doctor') {
+          Get.to(AllDoctorssScreen());
+          //Get.to(appoiment_show_doctor_firebase());
         }
 
         //AppRouter.appRouter.goToWidget(MyWidget11());
@@ -154,12 +157,6 @@ class AuthProvider extends ChangeNotifier {
 
   List<Chat> chat = [];
   getuserchat(@required String receiver) async {
-    QuerySnapshot<Map<String, dynamic>> user_chat = await FirebaseFirestore
-        .instance
-        .collection('users')
-        .doc(loggedUser!.email)
-        .collection('chats')
-        .get();
     //FirebaseFirestore.instance.collection('users')
     await FirebaseFirestore.instance
         .collection('users')
@@ -178,11 +175,36 @@ class AuthProvider extends ChangeNotifier {
         });
       },
     );
+//gethowiamtalk()
+  }
 
+  List howiamtalk_string = [];
+  List<Doctor> howiamtalk_user = [];
+  gethowiamtalk() async {
+    QuerySnapshot<Map<String, dynamic>> user_chat =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(loggedUser!.email) //doc(logedin.email)
+            .collection('chats')
+            .get();
     print(user_chat.docs.length.toString());
+    // howiamtalk_string = [];
+    // howiamtalk_user = [];
 
-    user_chat.docs.forEach((element) {
+     user_chat.docs.forEach((element) {
       print(element.id);
+      howiamtalk_string.add(element.id);
+    });
+    print(howiamtalk_string.length);
+    howiamtalk_string.forEach((element) async {
+      DocumentSnapshot<Map<String, dynamic>> catsSnapshot =
+          await FirebaseFirestore.instance
+              .collection('Doctor')
+              .doc(element.toString())
+              .get();
+      print(catsSnapshot.id);
+      Map<String, dynamic>? jj = catsSnapshot.data();
+      howiamtalk_user.add(Doctor.fromMap_2(jj));
     });
 
     // user_chat.docs.map((doc) {
@@ -260,6 +282,22 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
     List<Appoiment>? app = await FirestoreHelper.firestoreHelper
         .getAllappoimnets_patiant(loggedUser!.email);
+
+    allappoiment_paitent = app;
+
+    selectedApp_toshow_paitent = app!
+        .where((element) => element.date == selected_date_appoiment_patient)
+        .toList();
+
+    notifyListeners();
+  }
+
+  ////////////
+  getAllappoiment_doctor() async {
+    allappoiment = null;
+    notifyListeners();
+    List<Appoiment>? app = await FirestoreHelper.firestoreHelper
+        .getAllappoimnets(loggedUser!.email);
 
     allappoiment_paitent = app;
 

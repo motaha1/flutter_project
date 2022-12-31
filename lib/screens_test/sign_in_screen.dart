@@ -32,6 +32,8 @@ class SignInScreen extends StatelessWidget {
                     height: 20,
                   ),
                   CustomTextfield(
+                    
+isPassword: true,
                     validation: provider.passwordValidation,
                     label: 'Password',
                     controller: provider.passwordLoginController,
