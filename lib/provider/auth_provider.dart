@@ -2,19 +2,26 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:final_grad_proj/app_router/app_router.dart';
 import 'package:final_grad_proj/core/app_export.dart';
 import 'package:final_grad_proj/data_repositories/auth_helper.dart';
+import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/data_repositories/firestore_helper.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/appoiment_screen_firebase_doctor.dart';
+import 'package:final_grad_proj/models/PatientProfile.dart';
+import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/models/appoiment.dart';
 import 'package:final_grad_proj/models/chat_model.dart';
 import 'package:final_grad_proj/models/doctor_model.dart';
+import 'package:final_grad_proj/models/notification.dart';
+import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
 import 'package:final_grad_proj/screens_test/display_doctor.dart';
 import 'package:final_grad_proj/screens_test/main_screen.dart';
 import 'package:final_grad_proj/screens_test/open.dart';
 import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
 import 'package:final_grad_proj/screens_test/splash_test.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
@@ -34,6 +41,15 @@ class AuthProvider extends ChangeNotifier {
   late String email;
   late String password;
   AppUser? loggedUser;
+
+  AuthProvider() {
+    getallspecial();
+    recumidation();
+    getalldoctor();
+  getmedicaltype();
+    //getnotification() ; 
+
+  }
   saveEmail(String email) {
     this.email = email;
   }
@@ -191,7 +207,7 @@ class AuthProvider extends ChangeNotifier {
     // howiamtalk_string = [];
     // howiamtalk_user = [];
 
-     user_chat.docs.forEach((element) {
+    user_chat.docs.forEach((element) {
       print(element.id);
       howiamtalk_string.add(element.id);
     });
@@ -306,5 +322,101 @@ class AuthProvider extends ChangeNotifier {
         .toList();
 
     notifyListeners();
+  }
+
+  List<SpecialistProfile>? allspecial;
+
+  getallspecial() async {
+    allspecial = await DioHelper.diohelper.getallspecial();
+    notifyListeners();
+    allspecial!.sort((a, b) =>
+        a.rattingScore!.starsAvg!.compareTo(-b.rattingScore!.starsAvg));
+
+    // fruits.sort((a, b) => getPrice(a).compareTo(getPrice(b)));
+  }
+
+  List<SpecialistProfile>? rec;
+
+  recumidation() async {
+    rec = await DioHelper.diohelper.recumidation('3');
+    rec![1].Fav = true;
+  }
+
+  dynamic user_api;
+  String? token;
+
+  login(String email, String password) async {
+    dynamic loggin_user = await DioHelper.diohelper.login(email, password);
+
+    if (loggin_user.runtimeType == String) {
+      print('email or password invalid');
+    } else {
+      if (loggin_user['user']['is_specialist'] == true) {
+        SpecialistProfile specialists = SpecialistProfile.fromJson(loggin_user);
+        user_api = specialists;
+        print('hello special ' + user_api.user.username);
+      } else if (loggin_user['user']['is_patient'] == true) {
+        PatientProfile patientProfile = PatientProfile.fromJson(loggin_user);
+        user_api = patientProfile;
+        print('hello patient ' + user_api.user.username);
+        token = await FirebaseMessaging.instance.getToken();
+        print('this is token' + token!);
+        DioHelper.diohelper
+            .fcmtoken(user_api.user.id.toString(), token!.toString());
+        Get.to(HomePage());
+      }
+    }
+  }
+
+  List<SpecialistProfile>? alldoctor;
+
+  getalldoctor() async {
+    alldoctor = await DioHelper.diohelper.alldoctors();
+    notifyListeners();
+    alldoctor!.sort((a, b) =>
+        a.rattingScore!.starsAvg!.compareTo(-b.rattingScore!.starsAvg));
+  }
+
+//   fcmtoken(String id , String token){
+// DioHelper.diohelper.fcmtoken(id, token) ;
+// notifyListeners() ;
+
+//   }
+
+  late List<SpecialistProfile>? searchdoctor = alldoctor;
+  late String city;
+  late String home;
+  var medical_type;
+  late String type;
+  getsearchdoctor() async {
+    if (city == 'all') {
+      city = '';
+    }
+    if (home == 'all') {
+      home = '';
+    } else if (home == 'at home') {
+      home = 'true';
+    } else if (home == 'at the clinic') {
+      home = 'false';
+    }
+
+    if (type == 'all') {
+      type = '';
+    }
+    searchdoctor = await DioHelper.diohelper.getdoctorfiltter(city, home, type);
+    notifyListeners();
+  }
+
+  getmedicaltype() async {
+    medical_type = await DioHelper.diohelper.medicaltype();
+  }
+
+  List<Notify>? notify;
+
+  getnotification() async {
+    print('hello world') ; 
+    notify = await DioHelper.diohelper.getnotify(user_api.user.email.toString());
+    notifyListeners() ; 
+
   }
 }

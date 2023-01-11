@@ -1,0 +1,1 @@
+class Specialist1ItemModel { }

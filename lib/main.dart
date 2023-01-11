@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:final_grad_proj/data_repositories/dio_helper.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/doctor_info.dart';
 import 'package:final_grad_proj/gsk_2022/presentation/doctor_appointment_screen/booking.dart';
 import 'package:final_grad_proj/helper/db_helper.dart';
+import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
 import 'package:final_grad_proj/presentation/menu_screen/menu_screen.dart';
 import 'package:final_grad_proj/presentation/splash_screen/splash_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
@@ -20,21 +25,26 @@ import 'package:provider/provider.dart';
 import 'core/app_export.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'wajeed/presentation/login_screen/login_screen.dart';
 
 void main() async {
   initializeDateFormatting();
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-//  final fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: "BJgqSGz-imZxdWZuTFjN69jtc3hgJfW8qR5O6xkXZSyBWvOG_d0CEyg2wgWNI_lErI0S3OsKsvX3u2w5AejITd4");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // final fcmToken = await FirebaseMessaging.instance.getToken();
 
-//   print(fcmToken);
+  // print(fcmToken);
+  // log(fcmToken!);
 
-//   FirebaseMessaging.onMessage.listen((event) {
-//     print(event.data.toString());
-//     print('666666666666666');
-//   });
+  FirebaseMessaging.onMessage.listen((event) async{
+    print(event.data.toString());
+    // print('2666666666666666');
+    // log('26666666666666');
+    Get.snackbar(event.notification!.title.toString(), event.notification!.body.toString());
+    await DioHelper.diohelper.savenotify("7" , event.notification!.title.toString() ,event.notification!.body.toString()) ; 
+  });
 
   //await DbHelper.dbHelper.initDatabase();
   SystemChrome.setPreferredOrientations([
@@ -84,7 +94,7 @@ class AppInit extends StatelessWidget {
             title: 'final_grad_proj',
             // initialBinding: InitialBindings(),
             // initialRoute: AppRoutes.signintest,
-            home:splash_test() ,
+            home: MyWidgetLogin(),
 
             builder: EasyLoading.init(),
 

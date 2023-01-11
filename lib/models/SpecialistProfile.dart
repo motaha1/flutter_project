@@ -1,99 +1,174 @@
-import 'dart:convert';
-
 class SpecialistProfile {
-  String email;
-  String username;
+  num? id;
+  User? user;
+  RattingScore? rattingScore;
+  String? createdAt;
+  String? updatedAt;
+  String? type;
+  num? hourCost;
+  String? dailyOpenFrom;
+  String? dailyOpenTo;
+  String? topDegree;
+  int? examinationAvgPeriod;
+  String? jobTitle;
+  bool? allowMessages;
+  bool? allowBooking;
+  String? medicalType;
+  bool? atHome;
+    bool? Fav;
+
+  SpecialistProfile(
+      {this.id,
+      this.user,
+      this.rattingScore,
+      this.createdAt,
+      this.updatedAt,
+      this.type,
+      this.hourCost,
+      this.dailyOpenFrom,
+      this.dailyOpenTo,
+      this.topDegree,
+      this.examinationAvgPeriod,
+      this.jobTitle,
+      this.allowMessages,
+      this.allowBooking,
+      this.medicalType,
+      this.atHome});
+
+  SpecialistProfile.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    rattingScore = json['rattingScore'] != null
+        ? new RattingScore.fromJson(json['rattingScore'])
+        : null;
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    type = json['type'];
+    hourCost = json['hour_cost'];
+    dailyOpenFrom = json['daily_open_from'];
+    dailyOpenTo = json['daily_open_to'];
+    topDegree = json['top_degree'];
+    examinationAvgPeriod = json['examination_avg_period'];
+    jobTitle = json['job_title'];
+    allowMessages = json['allow_Messages'];
+    allowBooking = json['allow_booking'];
+    medicalType = json['medical_type'];
+    atHome = json['at_home'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    if (this.rattingScore != null) {
+      data['rattingScore'] = this.rattingScore!.toJson();
+    }
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['type'] = this.type;
+    data['hour_cost'] = this.hourCost;
+    data['daily_open_from'] = this.dailyOpenFrom;
+    data['daily_open_to'] = this.dailyOpenTo;
+    data['top_degree'] = this.topDegree;
+    data['examination_avg_period'] = this.examinationAvgPeriod;
+    data['job_title'] = this.jobTitle;
+    data['allow_Messages'] = this.allowMessages;
+    data['allow_booking'] = this.allowBooking;
+    data['medical_type'] = this.medicalType;
+    data['at_home'] = this.atHome;
+    return data;
+  }
+}
+
+class User {
+  int? id;
+  String? avatar;
+  String? lastLogin;
+  bool? isSuperuser;
+  String? email;
+  String? username;
   String? gender;
   String? mobile;
-  String city;
-  String birthday;
-  String? avatar;
-  String type;
-  int? hour_cost;
-  String? daily_open_from;
+  String? city;
+  String? birthdate;
+  bool? isStaff;
+  bool? isActive;
+  bool? isPatient;
+  bool? isSpecialist;
+  String? fcmToken;
 
-  String? daily_open_to;
+  User(
+      {this.id,
+      this.avatar,
+      this.lastLogin,
+      this.isSuperuser,
+      this.email,
+      this.username,
+      this.gender,
+      this.mobile,
+      this.city,
+      this.birthdate,
+      this.isStaff,
+      this.isActive,
+      this.isPatient,
+      this.isSpecialist,
+      this.fcmToken});
 
-  String? top_degree;
-  int? examination_avg_period = 15;
-  String? job_title;
-  SpecialistProfile({
-    required this.email,
-    required this.username,
-    this.gender,
-    this.mobile,
-    required this.city,
-    required this.birthday,
-    this.avatar,
-    required this.type,
-    this.hour_cost,
-    this.daily_open_from,
-    this.daily_open_to,
-    this.top_degree,
-    this.examination_avg_period,
-    this.job_title,
-  });
-
-
-  Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-  
-    result.addAll({'email': email});
-    result.addAll({'username': username});
-    if(gender != null){
-      result.addAll({'gender': gender});
-    }
-    if(mobile != null){
-      result.addAll({'mobile': mobile});
-    }
-    result.addAll({'city': city});
-    result.addAll({'birthday': birthday});
-    if(avatar != null){
-      result.addAll({'avatar': avatar});
-    }
-    result.addAll({'type': type});
-    if(hour_cost != null){
-      result.addAll({'hour_cost': hour_cost});
-    }
-    if(daily_open_from != null){
-      result.addAll({'daily_open_from': daily_open_from});
-    }
-    if(daily_open_to != null){
-      result.addAll({'daily_open_to': daily_open_to});
-    }
-    if(top_degree != null){
-      result.addAll({'top_degree': top_degree});
-    }
-    if(examination_avg_period != null){
-      result.addAll({'examination_avg_period': examination_avg_period});
-    }
-    if(job_title != null){
-      result.addAll({'job_title': job_title});
-    }
-  
-    return result;
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    //avatar = json['avatar'];
+    lastLogin = json['last_login'];
+    isSuperuser = json['is_superuser'];
+    email = json['email'];
+    username = json['username'];
+    gender = json['gender'];
+    mobile = json['mobile'];
+    city = json['city'];
+    birthdate = json['birthdate'];
+    isStaff = json['is_staff'];
+    isActive = json['is_active'];
+    isPatient = json['is_patient'];
+    isSpecialist = json['is_specialist'];
+    fcmToken = json['fcm_token'];
   }
 
-  factory SpecialistProfile.fromMap(Map<String, dynamic> map) {
-    return SpecialistProfile(
-      email: map['email'] ?? '',
-      username: map['username'] ?? '',
-      gender: map['gender'],
-      mobile: map['mobile'],
-      city: map['city'] ?? '',
-      birthday: map['birthday'] ?? '',
-      avatar: map['avatar'],
-      type: map['type'] ?? '',
-      hour_cost: map['hour_cost']?.toInt(),
-      daily_open_from: map['daily_open_from'],
-      daily_open_to: map['daily_open_to'],
-      top_degree: map['top_degree'],
-      examination_avg_period: map['examination_avg_period']?.toInt(),
-      job_title: map['job_title'],
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    //data['avatar'] = this.avatar;
+    data['last_login'] = this.lastLogin;
+    data['is_superuser'] = this.isSuperuser;
+    data['email'] = this.email;
+    data['username'] = this.username;
+    data['gender'] = this.gender;
+    data['mobile'] = this.mobile;
+    data['city'] = this.city;
+    data['birthdate'] = this.birthdate;
+    data['is_staff'] = this.isStaff;
+    data['is_active'] = this.isActive;
+    data['is_patient'] = this.isPatient;
+    data['is_specialist'] = this.isSpecialist;
+    data['fcm_token'] = this.fcmToken;
+    return data;
+  }
+}
+
+class RattingScore {
+  double  starsAvg = 0;
+
+  //RattingScore({this.starsAvg});
+
+  RattingScore.fromJson(Map<String, dynamic> json) {
+    try {starsAvg = json['stars__avg'];} 
+    catch (e){}
+    
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory SpecialistProfile.fromJson(String source) => SpecialistProfile.fromMap(json.decode(source));
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['stars__avg'] = this.starsAvg;
+    return data;
+  }
 }

@@ -60,7 +60,7 @@ class AppStyle {
   static TextStyle txtRubikRegular20 = TextStyle(
     color: ColorConstant.bluegray500,
     fontSize: getFontSize(
-      20,
+      20.sp,
     ),
     fontFamily: 'Rubik',
     fontWeight: FontWeight.w400,

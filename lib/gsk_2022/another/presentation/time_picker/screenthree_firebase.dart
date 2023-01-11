@@ -240,13 +240,29 @@ class _ThreeScreenState extends State<ThreeScreen_new> {
                             //     end: provider.end!);
                             EasyLoading.show(
                                 status: 'Appointment is being booked ..... ');
+                            print('this is id doctor -----' +
+                                doctorId.toString());
+                            print(provider.user_api.id ?? 'no idddd patient');
                             await DioHelper.diohelper.addAppoiment(
                                 provider.start!,
                                 provider.end!,
                                 provider.date!,
-                                '1',
-                                doctorId!);
+                                provider.user_api.id.toString(),
+                                doctorId!.toString());
+
+                            print(
+                              provider.user_api.user.mobile
+                                  .toString()
+                                  .substring(1),
+                            );
+                            await DioHelper.diohelper.sendsms(
+                                provider.user_api.user.mobile
+                                    .toString()
+                                    .substring(1),
+                                'An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
+
                             EasyLoading.dismiss();
+                            Get.snackbar( 'New booking','An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
                             //provider.addNewAppoiment(app);
                             onTapConfirm();
                             //  Get.off(() => splash_test());

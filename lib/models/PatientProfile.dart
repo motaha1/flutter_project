@@ -1,75 +1,117 @@
-import 'dart:convert';
+
 
 class PatientProfile {
-  String email;
-  String username;
+  num? id;
+  User? user;
+  String? createdAt;
+  String? updatedAt;
+  String? bloodType;
+  bool? haveAllergies;
+  String? otp;
+  List<String>? chronicIllness;
+
+  PatientProfile(
+      {this.id,
+      this.user,
+      this.createdAt,
+      this.updatedAt,
+      this.bloodType,
+      this.haveAllergies,
+      this.otp,
+      this.chronicIllness});
+
+  PatientProfile.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    bloodType = json['blood_type'];
+    haveAllergies = json['have_allergies'];
+    otp = json['otp'];
+    chronicIllness = json['chronicIllness'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['blood_type'] = this.bloodType;
+    data['have_allergies'] = this.haveAllergies;
+    data['otp'] = this.otp;
+    data['chronicIllness'] = this.chronicIllness;
+    return data;
+  }
+}
+
+class User {
+  num? id;
+  String? avatar;
+  String? lastLogin;
+  bool? isSuperuser;
+  String? email;
+  String? username;
   String? gender;
   String? mobile;
-  String city;
-  String birthday;
-  String? avatar;
+  String? city;
+  String? birthdate;
+  bool? isStaff;
+  bool? isActive;
+  bool? isPatient;
+  bool? isSpecialist;
 
-  String? blood_type;
-  List? chronic_illness;
-  bool? have_allergies = false;
+  User(
+      {this.id,
+      this.avatar,
+      this.lastLogin,
+      this.isSuperuser,
+      this.email,
+      this.username,
+      this.gender,
+      this.mobile,
+      this.city,
+      this.birthdate,
+      this.isStaff,
+      this.isActive,
+      this.isPatient,
+      this.isSpecialist});
 
-  PatientProfile({
-    required this.email,
-    required this.username,
-    this.gender,
-    this.mobile,
-    required this.city,
-    required this.birthday,
-    this.avatar,
-    this.blood_type,
-    this.chronic_illness,
-    this.have_allergies,
-  });
-
-  Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'email': email});
-    result.addAll({'username': username});
-    if (gender != null) {
-      result.addAll({'gender': gender});
-    }
-    if (mobile != null) {
-      result.addAll({'mobile': mobile});
-    }
-    result.addAll({'city': city});
-    result.addAll({'birthday': birthday});
-    if (avatar != null) {
-      result.addAll({'avatar': avatar});
-    }
-    if (blood_type != null) {
-      result.addAll({'blood_type': blood_type});
-    }
-    if (chronic_illness != null) {
-      result.addAll({'chronic_illness': chronic_illness});
-    }
-    result.addAll({'have_allergies': have_allergies});
-
-    return result;
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    avatar = json['avatar'];
+    lastLogin = json['last_login'];
+    isSuperuser = json['is_superuser'];
+    email = json['email'];
+    username = json['username'];
+    gender = json['gender'];
+    mobile = json['mobile'];
+    city = json['city'];
+    birthdate = json['birthdate'];
+    isStaff = json['is_staff'];
+    isActive = json['is_active'];
+    isPatient = json['is_patient'];
+    isSpecialist = json['is_specialist'];
   }
 
-  factory PatientProfile.fromMap(Map<String, dynamic> map) {
-    return PatientProfile(
-      email: map['email'] ?? '',
-      username: map['username'] ?? '',
-      gender: map['gender'],
-      mobile: map['mobile'],
-      city: map['city'] ?? '',
-      birthday: map['birthday'] ?? '',
-      avatar: map['avatar'],
-      blood_type: map['blood_type'],
-      chronic_illness: map['chronic_illness'],
-      have_allergies: map['have_allergies'],
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['avatar'] = this.avatar;
+    data['last_login'] = this.lastLogin;
+    data['is_superuser'] = this.isSuperuser;
+    data['email'] = this.email;
+    data['username'] = this.username;
+    data['gender'] = this.gender;
+    data['mobile'] = this.mobile;
+    data['city'] = this.city;
+    data['birthdate'] = this.birthdate;
+    data['is_staff'] = this.isStaff;
+    data['is_active'] = this.isActive;
+    data['is_patient'] = this.isPatient;
+    data['is_specialist'] = this.isSpecialist;
+    return data;
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory PatientProfile.fromJson(String source) =>
-      PatientProfile.fromMap(json.decode(source));
 }
