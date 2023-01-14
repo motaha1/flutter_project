@@ -14,6 +14,7 @@ import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/models/appoiment.dart';
 import 'package:final_grad_proj/models/chat_model.dart';
 import 'package:final_grad_proj/models/doctor_model.dart';
+import 'package:final_grad_proj/models/favr.dart';
 import 'package:final_grad_proj/models/notification.dart';
 import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
 import 'package:final_grad_proj/screens_test/display_doctor.dart';
@@ -46,9 +47,10 @@ class AuthProvider extends ChangeNotifier {
     getallspecial();
     recumidation();
     getalldoctor();
-  getmedicaltype();
-    //getnotification() ; 
-
+    // getmedicaltype();
+    //getnotification() ;
+    rec_by_bot() ; 
+  
   }
   saveEmail(String email) {
     this.email = email;
@@ -196,11 +198,12 @@ class AuthProvider extends ChangeNotifier {
 
   List howiamtalk_string = [];
   List<Doctor> howiamtalk_user = [];
+
   gethowiamtalk() async {
     QuerySnapshot<Map<String, dynamic>> user_chat =
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(loggedUser!.email) //doc(logedin.email)
+            .doc('hellopatient@gmail.com') //doc(logedin.email)
             .collection('chats')
             .get();
     print(user_chat.docs.length.toString());
@@ -384,10 +387,10 @@ class AuthProvider extends ChangeNotifier {
 //   }
 
   late List<SpecialistProfile>? searchdoctor = alldoctor;
-  late String city;
-  late String home;
+  late String city = '';
+  late String home = '';
   var medical_type;
-  late String type;
+  late String type = '';
   getsearchdoctor() async {
     if (city == 'all') {
       city = '';
@@ -403,7 +406,8 @@ class AuthProvider extends ChangeNotifier {
     if (type == 'all') {
       type = '';
     }
-    searchdoctor = await DioHelper.diohelper.getdoctorfiltter(city, home, type);
+    searchdoctor = await DioHelper.diohelper
+        .getdoctorfiltter(city, home, type, specialtype);
     notifyListeners();
   }
 
@@ -414,9 +418,67 @@ class AuthProvider extends ChangeNotifier {
   List<Notify>? notify;
 
   getnotification() async {
-    print('hello world') ; 
-    notify = await DioHelper.diohelper.getnotify(user_api.user.email.toString());
-    notifyListeners() ; 
-
+    print('hello world');
+    notify =
+        await DioHelper.diohelper.getnotify(user_api.user.email.toString());
+    notifyListeners();
   }
+
+  List<Favr>? favspecial;
+
+  getfav() async {
+    favspecial = [];
+    favspecial = await DioHelper.diohelper.getfav(user_api.id.toString());
+    notifyListeners();
+  }
+
+  addfav(String special) async {
+    await DioHelper.diohelper.postfav(user_api.id.toString(), special);
+  }
+
+  List<SpecialistProfile>? specialtypelist;
+  late String specialtype;
+  getspecialtype() async {
+    specialtypelist = await DioHelper.diohelper.getspecialbytype(specialtype);
+
+    specialtypelist!.sort((a, b) =>
+        a.rattingScore!.starsAvg!.compareTo(-b.rattingScore!.starsAvg));
+    notifyListeners();
+  }
+
+  List<SpecialistProfile>? rec_via_type;
+
+  rec_by_type() async {
+    rec_via_type = await DioHelper.diohelper
+        .rec_via_type(specialtype, user_api.id.toString());
+
+    notifyListeners(); 
+  }
+
+List<SpecialistProfile>? rec_via_bot;
+  rec_by_bot() async {
+    rec_via_bot = await DioHelper.diohelper
+        .rec_via_bot( user_api.id.toString());
+
+    notifyListeners(); 
+  }
+
+
+String? fullname ; 
+
+// palid (String name , String id)async{
+
+// full
+
+
+// }
+
+
+
+not(){
+
+  notifyListeners() ; 
+}
+
+
 }

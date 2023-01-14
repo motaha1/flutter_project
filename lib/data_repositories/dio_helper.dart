@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/models/appoiment_api.dart';
+import 'package:final_grad_proj/models/favr.dart';
 import 'package:final_grad_proj/models/notification.dart';
 import 'package:final_grad_proj/models/speciallist.dart';
 import 'package:final_grad_proj/screens_test/no_connection_screen/presentation/noconnection_screen/noconnection_screen.dart';
@@ -179,9 +180,9 @@ class DioHelper {
   }
 
   Future<List<SpecialistProfile>> getdoctorfiltter(
-      String city, String home, String type) async {
+      String city, String home, String type, String specialtype) async {
     Response responce = await dio.get(
-        'http://192.168.1.76:8000/api/users/allspeciallist/?type=DOCTOR&at_home=${home}&medical_type=${type}&user__city=${city}');
+        'http://192.168.1.76:8000/api/users/allspeciallist/?type=${specialtype}&at_home=${home}&medical_type=${type}&user__city=${city}');
 
     List<SpecialistProfile> specialists1 =
         responce.data.map<SpecialistProfile>((e) {
@@ -225,6 +226,82 @@ class DioHelper {
     return not;
   }
 
+  postfav(String patient, String special) async {
+    Response response = await dio.post(
+        'http://192.168.1.76:8000/api/users/fav/',
+        data: {"patient": patient, "special": special});
+  }
 
-  
+  Future<List<Favr>> getfav(String patient) async {
+    Response responce = await dio
+        .get('http://192.168.1.76:8000/api/users/fav/?patient__id=${patient}');
+
+    List<Favr> specialists1 = responce.data.map<Favr>((e) {
+      return Favr.fromJson(e);
+    }).toList();
+
+    log(specialists1.length.toString());
+    return specialists1;
+  }
+
+  Future<List<SpecialistProfile>> getspecialbytype(String type) async {
+    Response responce = await dio
+        .get('http://192.168.1.76:8000/api/users/allspeciallist/?type=${type}');
+    //Specialists specialists = Specialists.fromJson(responce.data);
+    print(responce.data.toString());
+    log(responce.data.toString());
+
+    List<SpecialistProfile> specialists1 =
+        responce.data.map<SpecialistProfile>((e) {
+      return SpecialistProfile.fromJson(e);
+    }).toList();
+    // print(specialists1.length.toString());
+    // log(specialists1.length.toString());
+    return specialists1;
+  }
+
+  Future<List<SpecialistProfile>> rec_via_type(String type, String id) async {
+    Response responce = await dio.post(
+        'http://192.168.1.76:8000/api/users/rec_special/',
+        data: {'id': id, 'type': type});
+    //Specialists specialists = Specialists.fromJson(responce.data);
+    print(responce.data.toString());
+    log(responce.data.toString());
+
+    List<SpecialistProfile> specialists1 =
+        responce.data.map<SpecialistProfile>((e) {
+      return SpecialistProfile.fromJson(e);
+    }).toList();
+    // print(specialists1.length.toString());
+    // log(specialists1.length.toString());
+    return specialists1;
+  }
+
+  Future<List<SpecialistProfile>> rec_via_bot(String id) async {
+    Response responce = await dio
+        .post('http://192.168.1.76:8000/api/users/rec_chatbot/', data: {
+      'id': id,
+    });
+    //Specialists specialists = Specialists.fromJson(responce.data);
+    print(responce.data.toString());
+    log(responce.data.toString());
+
+    List<SpecialistProfile> specialists1 =
+        responce.data.map<SpecialistProfile>((e) {
+      return SpecialistProfile.fromJson(e);
+    }).toList();
+    // print(specialists1.length.toString());
+    // log(specialists1.length.toString());
+    return specialists1;
+  }
+
+  palid(String name, String id) async {
+    Response responce = await dio
+        .post('http://192.168.1.76:8000/api/users/palestineid/', data: {
+      "id": id,
+      "name" :name
+    });
+print(responce.data.toString()) ; 
+    return responce.data.toString() ; 
+  }
 }

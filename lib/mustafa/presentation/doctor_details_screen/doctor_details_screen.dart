@@ -1,11 +1,14 @@
+import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/screenthree_firebase.dart';
 import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
 import 'package:final_grad_proj/mustafa/widgets/custom_button.dart';
 import 'package:final_grad_proj/mustafa/presentation/favourite_specialists_screen/favourite_specialists_screen.dart';
 import 'package:final_grad_proj/mustafa/widgets/custom_icon_button.dart';
+import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/custom_image_view.dart';
 import '../Doctor.dart';
@@ -319,6 +322,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                                 false;
                                                           else
                                                             special!.Fav = true;
+                                                             DioHelper.diohelper.postfav(Provider.of<AuthProvider>(context , listen: false).user_api.id.toString(), special!.id.toString()) ; 
                                                         });
                                                       },
                                                     )

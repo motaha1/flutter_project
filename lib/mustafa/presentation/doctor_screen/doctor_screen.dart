@@ -4,6 +4,7 @@ import 'package:final_grad_proj/mustafa/presentation/search_doctors_screen/searc
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../Doctor.dart';
 import '../doctor_details_screen/doctor_details_screen.dart';
@@ -49,11 +50,11 @@ class _DoctorScreenState extends State<DoctorScreen> {
   ];
   int? from;
   String? recommended;
-  static List<SpecialistProfile>? x ;
-  static adddoctor()async{
+  static List<SpecialistProfile>? x;
+  static adddoctor() async {
+    x = await DioHelper.diohelper.alldoctors();
+  }
 
-    x= await DioHelper.diohelper.alldoctors();
-  } 
   _DoctorScreenState({required this.from});
 
   @override
@@ -93,221 +94,241 @@ class _DoctorScreenState extends State<DoctorScreen> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Consumer<AuthProvider>(
-                        builder: (context, provider , x) {
-                          return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 10.w, top: 36.h, right: 10.w),
-                                    child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Align(
-                                              alignment: Alignment.center,
-                                              child: Container(
-                                                  width: size.width,
-                                                  child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 20.w, right: 20.w),
-                                                      child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            CustomIconButton(
-                                                                height: 30.h,
-                                                                width: 30.w,
-                                                                onTap: () {
-                                                                  onTapBtntf();
-                                                                },
-                                                                child: CommonImageView(
-                                                                    svgPath:
-                                                                        ImageConstant
-                                                                            .imgArrowleftBluegray500)),
-                                                            Padding(
-                                                                padding:
-                                                                    EdgeInsets.only(
-                                                                        top: 6.h,
-                                                                        bottom:
-                                                                            6.h),
-                                                                child: InkWell(
-                                                                    onTap: () {
-                                                                      onTapImgSearch();
-                                                                    },
-                                                                    child: CommonImageView(
-                                                                        svgPath:
-                                                                            ImageConstant
-                                                                                .imgSearchBluegray500,
-                                                                        height:
-                                                                            18.00.h,
-                                                                        width: 18.00
-                                                                            .w)))
-                                                          ])))),
-                                          Align(
-                                              alignment: Alignment.center,
-                                              child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 25.h,
-                                                      right: 1.w,
-                                                      bottom: 15.h),
-                                                  child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(recommended!.tr,
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: AppStyle
-                                                                .txtRubikMedium18),
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 5.h,
-                                                                    bottom: 2.h,
-                                                                    right: 7.w),
-                                                            child: Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Text(
-                                                                      "lbl_see_all"
-                                                                          .tr,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                      style: AppStyle
-                                                                          .txtRubikLight10),
-                                                                  Padding(
-                                                                      padding: EdgeInsets.only(
-                                                                          left: 2.w,
-                                                                          top: 3.h,
-                                                                          bottom:
-                                                                              2.h),
-                                                                      child: CommonImageView(
-                                                                          svgPath:
-                                                                              ImageConstant
-                                                                                  .imgArrowright,
-                                                                          height:
-                                                                              10.00
-                                                                                  .h,
-                                                                          width: 5.00
-                                                                              .w))
-                                                                ]))
-                                                      ]))),
-                                        ])),
-                                Align(
-                                    alignment: Alignment.topRight,
-                                    child: Container(
-                                        height: 225.00.h,
-                                        width: 400.00.w,
-                                        child: ListView.builder(
-                                          padding: EdgeInsets.only(
-                                              left: 15.w, bottom: 0.h, right: 20.w),
-                                          scrollDirection: Axis.horizontal,
-                                          physics: BouncingScrollPhysics(),
-                                          itemCount: recom_doctorList.length,
-                                          // itemBuilder: (context,index) => cat_doctor();
-                                          itemBuilder: (context, index) {
-                                            return rec_doctor(
-                                                recom_doctorList[index]);
-                                          },
-                                        ))),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 0.w,
-                                        top: 15.h,
-                                        right: 285.w,
-                                        bottom: 15.h),
-                                    child: Text("lbl_category".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.right,
-                                        style: AppStyle.txtRubikMedium18)),
-                                Expanded(
-                                    child: Align(
-                                        alignment: Alignment.topLeft,
-                                        child: SingleChildScrollView(
+                          builder: (context, provider, x) {
+                        return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 10.w, top: 36.h, right: 10.w),
+                                  child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Align(
+                                            alignment: Alignment.center,
                                             child: Container(
-                                                height:
-                                                    135 * cat_doctorList.length.h,
-                                                width: 518.w,
-                                                child: Stack(
-                                                    alignment: Alignment.topRight,
+                                                width: size.width,
+                                                child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 20.w,
+                                                        right: 20.w),
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          CustomIconButton(
+                                                              height: 30.h,
+                                                              width: 30.w,
+                                                              onTap: () {
+                                                                onTapBtntf();
+                                                              },
+                                                              child: CommonImageView(
+                                                                  svgPath:
+                                                                      ImageConstant
+                                                                          .imgArrowleftBluegray500)),
+                                                          Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 6.h,
+                                                                      bottom:
+                                                                          6.h),
+                                                              child: InkWell(
+                                                                  onTap: () {
+                                                                    onTapImgSearch();
+                                                                  },
+                                                                  child: CommonImageView(
+                                                                      svgPath:
+                                                                          ImageConstant
+                                                                              .imgSearchBluegray500,
+                                                                      height:
+                                                                          18.00
+                                                                              .h,
+                                                                      width: 18.00
+                                                                          .w)))
+                                                        ])))),
+                                        Align(
+                                            alignment: Alignment.center,
+                                            child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 25.h,
+                                                    right: 1.w,
+                                                    bottom: 15.h),
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
                                                     children: [
-                                                      Align(
-                                                          alignment:
-                                                              Alignment.topCenter,
-                                                          child: Padding(
-                                                              padding:
-                                                                  EdgeInsets.only(
-                                                                      left: 15.w,
-                                                                      top: 10.h,
-                                                                      right: 5.w,
-                                                                      bottom: 2),
-                                                              child: Column(
+                                                      Text(recommended!.tr,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtRubikMedium18),
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 5.h,
+                                                                  bottom: 2.h,
+                                                                  right: 7.w),
+                                                          child:
+                                                          
+                                                          
+                                                           Consumer<AuthProvider>(
+                                                             builder: (context , provider , x) {
+                                                               return Row(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .min,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
                                                                   children: [
-                                                                  provider.alldoctor ==null ?Text('error') :
-                                                                    ListView
-                                                                        .builder(
-                                                                            physics:
-                                                                                NeverScrollableScrollPhysics(),
-                                                                            shrinkWrap:
-                                                                                true,
-                                                                            itemCount:
-                                                                                provider.alldoctor
-                                                                                    !.length,
-                                                                            itemBuilder:
-                                                                                (context,
-                                                                                    index) {
-                                                                              return cat_doctor(
-                                                                               provider.alldoctor![index]);
-                                                                            }),
-                                                                  ]))),
-                                                    ])))))
-                              ]);
-                        }
-                      ))
+                                                                    Text(
+                                                                        "lbl_see_all"
+                                                                            .tr,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .left,
+                                                                        style: AppStyle
+                                                                            .txtRubikLight10),
+                                                                    Padding(
+                                                                        padding: EdgeInsets.only(
+                                                                            left:
+                                                                                2.w,
+                                                                            top:
+                                                                                3.h,
+                                                                            bottom: 2
+                                                                                .h),
+                                                                        child: CommonImageView(
+                                                                            svgPath:
+                                                                                ImageConstant
+                                                                                    .imgArrowright,
+                                                                            height:
+                                                                                10.00
+                                                                                    .h,
+                                                                            width: 5.00
+                                                                                .w))
+                                                                  ]);
+                                                             }
+                                                           ))
+                                                    ]))),
+                                      ])),
+                              Align(
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                      height: 225.00.h,
+                                      width: 400.00.w,
+                                      child: 
+                                      provider.rec_via_type ==null ? Text('nothing') :
+                                      
+                                      ListView.builder(
+                                        padding: EdgeInsets.only(
+                                            left: 15.w,
+                                            bottom: 0.h,
+                                            right: 20.w),
+                                        scrollDirection: Axis.horizontal,
+                                        physics: BouncingScrollPhysics(),
+                                        itemCount: provider.rec_via_type!.length,
+                                        // itemBuilder: (context,index) => cat_doctor();
+                                        itemBuilder: (context, index) {
+                                          return rec_doctor(
+                                              provider.rec_via_type![index]);
+                                        },
+                                      ))),
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 0.w,
+                                      top: 15.h,
+                                      right: 285.w,
+                                      bottom: 15.h),
+                                  child: Text("lbl_category".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.right,
+                                      style: AppStyle.txtRubikMedium18)),
+                              Expanded(
+                                  child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: SingleChildScrollView(
+                                          child: Container(
+                                              height:
+                                                  135 * cat_doctorList.length.h,
+                                              width: 518.w,
+                                              child: Stack(
+                                                  alignment: Alignment.topRight,
+                                                  children: [
+                                                    Align(
+                                                        alignment:
+                                                            Alignment.topCenter,
+                                                        child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 15.w,
+                                                                    top: 10.h,
+                                                                    right: 5.w,
+                                                                    bottom: 2),
+                                                            child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  provider.specialtypelist ==
+                                                                          null
+                                                                      ? Text(
+                                                                          'error')
+                                                                      : ListView.builder(
+                                                                          physics: NeverScrollableScrollPhysics(),
+                                                                          shrinkWrap: true,
+                                                                          itemCount: provider.specialtypelist!.length,
+                                                                          itemBuilder: (context, index) {
+                                                                            return cat_doctor(provider.specialtypelist![index]);
+                                                                          }),
+                                                                ]))),
+                                                  ])))))
+                            ]);
+                      }))
                 ]))));
   }
 
-  onTapBtntf() {
+  onTapBtntf()  {
+
+
     Get.back();
   }
 
-  onTapImgSearch() {
+  onTapImgSearch() async {
+
+        Provider.of<AuthProvider>(context, listen: false).city = '';
+    Provider.of<AuthProvider>(context, listen: false).home = '';
+    Provider.of<AuthProvider>(context, listen: false).type = '';
+
+    await Provider.of<AuthProvider>(context, listen: false).getsearchdoctor();
     Get.to(SearchDoctorsScreen());
     //Get.toNamed(AppRoutes.searchDoctorsScreen);
   }
@@ -343,7 +364,8 @@ class _DoctorScreenState extends State<DoctorScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.00.r),
                   child: CommonImageView(
-                    url: special.user?.avatar ??'https://img.freepik.com/premium-psd/3d-doctor-cartoon-character-avatar-isolated-3d-rendering_235528-997.jpg?w=740',
+                    url: special.user?.avatar ??
+                        'https://img.freepik.com/premium-psd/3d-doctor-cartoon-character-avatar-isolated-3d-rendering_235528-997.jpg?w=740',
                     height: 82.00.h,
                     width: 82.00.w,
                     fit: BoxFit.cover,
@@ -451,7 +473,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
         ),
       );
 
-  Widget rec_doctor(ListFavItemModel recom_doctorList) => GestureDetector(
+  Widget rec_doctor(SpecialistProfile special) => GestureDetector(
         onTap: () {
           // Get.toNamed(AppRoutes.doctorScreen);
           // Navigator.push(
@@ -503,7 +525,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                         right: 21.w,
                       ),
                       child: Text(
-                        recom_doctorList.Name.tr,
+                        special.user?.username ?? 'Othman Othman',
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtRubikMedium14,
@@ -519,7 +541,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                         right: 23.w,
                       ),
                       child: Text(
-                        recom_doctorList.Specialist.tr,
+                        special.medicalType ??'Medicine',
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtRubikLight10,
@@ -531,7 +553,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                     child: RatingBar.builder(
                       ignoreGestures: true,
                       itemSize: 15.0,
-                      initialRating: recom_doctorList.rat,
+                      initialRating: special.rattingScore!.starsAvg,
                       minRating: 0,
                       direction: Axis.horizontal,
                       allowHalfRating: true,

@@ -3,6 +3,7 @@ import 'package:final_grad_proj/gsk_2022/another/presentation/three_screen/clock
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/Availability.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/TimeRangePickerDialog.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/day_night_picker_test.dart';
+import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/info.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/test.dart';
 import 'package:final_grad_proj/gsk_2022/presentation/thank_you_screen_dialog/controller/thank_you_screen_controller.dart';
 import 'package:final_grad_proj/gsk_2022/presentation/thank_you_screen_dialog/thank_you_screen_dialog.dart';
@@ -37,6 +38,8 @@ class ThreeScreen_new extends StatefulWidget {
 }
 
 class _ThreeScreenState extends State<ThreeScreen_new> {
+  String? value2;
+  var Where = ['booking for me', 'booking for another person'];
   String? doctorId;
   List<dynamic>? po = [];
   _ThreeScreenState(this.doctorId);
@@ -238,40 +241,87 @@ class _ThreeScreenState extends State<ThreeScreen_new> {
                             //     date: provider.date!,
                             //     start: provider.start!,
                             //     end: provider.end!);
-                            EasyLoading.show(
-                                status: 'Appointment is being booked ..... ');
-                            print('this is id doctor -----' +
-                                doctorId.toString());
-                            print(provider.user_api.id ?? 'no idddd patient');
-                            await DioHelper.diohelper.addAppoiment(
-                                provider.start!,
-                                provider.end!,
-                                provider.date!,
-                                provider.user_api.id.toString(),
-                                doctorId!.toString());
+                            // EasyLoading.show(
+                            //     status: 'Appointment is being booked ..... ');
+                            // print('this is id doctor -----' +
+                            //     doctorId.toString());
+                            // print(provider.user_api.id ?? 'no idddd patient');
+                            // await DioHelper.diohelper.addAppoiment(
+                            //     provider.start!,
+                            //     provider.end!,
+                            //     provider.date!,
+                            //     provider.user_api.id.toString(),
+                            //     doctorId!.toString());
 
-                            print(
-                              provider.user_api.user.mobile
-                                  .toString()
-                                  .substring(1),
-                            );
-                            await DioHelper.diohelper.sendsms(
-                                provider.user_api.user.mobile
-                                    .toString()
-                                    .substring(1),
+                            // print(
+                            //   provider.user_api.user.mobile
+                            //       .toString()
+                            //       .substring(1),
+                            // );
+                            // await DioHelper.diohelper.sendsms(
+                            //     provider.user_api.user.mobile
+                            //         .toString()
+                            //         .substring(1),
+                            //     'An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
+
+                            // EasyLoading.dismiss();
+                            Get.snackbar('New booking',
                                 'An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
-
-                            EasyLoading.dismiss();
-                            Get.snackbar( 'New booking','An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
                             //provider.addNewAppoiment(app);
-                            onTapConfirm();
-                            //  Get.off(() => splash_test());
+                            // onTapConfirm();
 
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (BuildContext context) =>
-                            //             DoctorAppointmentScreen()));
+                            Get.bottomSheet(
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.white,
+                                ),
+                                child: Center(
+                                    child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    DropdownButton(
+                                      // Initial Value
+                                      value: value2,
+                                      // Down Arrow Icon
+                                      icon:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      // Array list of items
+                                      items: Where.map((String Where) {
+                                        return DropdownMenuItem(
+                                          value: Where,
+                                          child: Text(
+                                            Where,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          this.value2 = (value.toString());
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Get.to(info());
+                                        },
+                                        child: Text('Next'))
+                                  ],
+                                )),
+                                height: 200,
+                              ),
+                              enterBottomSheetDuration: Duration(seconds: 1),
+                              exitBottomSheetDuration: Duration(seconds: 1),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(),
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                            );
                           },
                           width: 295,
                           text: "lbl_confirm".tr,

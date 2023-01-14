@@ -2,6 +2,7 @@ import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/bot.dart';
 import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/mustafa/presentation/doctor_details_screen/doctor_details_screen.dart';
+import 'package:final_grad_proj/mustafa/presentation/favourite_specialists_screen/favourite_specialists_screen.dart';
 import 'package:final_grad_proj/mustafa/presentation/notification_m_screen/notification_m_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -130,88 +131,100 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadiusStyle.customBorderBL20,
                           ),
                           child: Consumer<AuthProvider>(
-                            builder: (context , provider ,x) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                      width: size.width,
-                                      margin: EdgeInsets.only(
-                                        top: 20.h,
+                              builder: (context, provider, x) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    width: size.width,
+                                    margin: EdgeInsets.only(
+                                      top: 20.h,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 25.w,
+                                        right: 25.w,
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 25.w,
-                                          right: 25.w,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(
-                                                21.00.r,
-                                              ),
-                                              child: Expanded(
-                                                child: InkWell(
-                                                  onTap: _handleMenuButtonPressed,
-                                                  child: CommonImageView(
-                                                    url: Provider.of<AuthProvider>(
-                                                                context)
-                                                            .user_api
-                                                            .user
-                                                            .avatar ??
-                                                        'https://www.getillustrations.com/packs/3d-avatar-illustrations/male/_1x/Avatar,%203D%20_%20man,%20male,%20people,%20person,%20shirt,%20hairstyle_md.png',
-                                                    height: 60.00.h,
-                                                    width: 60.00.w,
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              21.00.r,
+                                            ),
+                                            child: Expanded(
+                                              child: InkWell(
+                                                onTap: _handleMenuButtonPressed,
+                                                child: CommonImageView(
+                                                  url: Provider.of<
+                                                                  AuthProvider>(
+                                                              context)
+                                                          .user_api
+                                                          .user
+                                                          .avatar ??
+                                                      'https://www.getillustrations.com/packs/3d-avatar-illustrations/male/_1x/Avatar,%203D%20_%20man,%20male,%20people,%20person,%20shirt,%20hairstyle_md.png',
+                                                  height: 60.00.h,
+                                                  width: 60.00.w,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                top: 0.h,
-                                                bottom: 0.h,
-                                              ),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  IconButton(
-                                                    icon: const Icon(
-                                                      Icons.notifications,
-                                                      color: Colors.white,
-                                                    ),
-                                                    onPressed: () async{
-                                                      // Get.toNamed(AppRoutes
-                                                      //     .notificationMScreen);
-                                                      EasyLoading.show(status: 'loading...');
-
-                                                      await provider.getnotification() ; 
-                                                      EasyLoading.dismiss();
-
-                                                     
-                                                      Get.to(NotificationMScreen()) ; 
-                                                    },
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: 0.h,
+                                              bottom: 0.h,
+                                            ),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                IconButton(
+                                                  icon: const Icon(
+                                                    Icons.notifications,
+                                                    color: Colors.white,
                                                   ),
-                                                  // CommonImageView(
-                                                  //   svgPath:
-                                                  //       ImageConstant.imgNotification,
-                                                  //   height: 24.00.h,
-                                                  //   width: 24.00.w,
-                                                  // ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      left: 16.w,
-                                                    ),
+                                                  onPressed: () async {
+                                                    // Get.toNamed(AppRoutes
+                                                    //     .notificationMScreen);
+                                                    EasyLoading.show(
+                                                        status: 'loading...');
+
+                                                    await provider
+                                                        .getnotification();
+                                                    EasyLoading.dismiss();
+
+                                                    Get.to(
+                                                        NotificationMScreen());
+                                                  },
+                                                ),
+                                                // CommonImageView(
+                                                //   svgPath:
+                                                //       ImageConstant.imgNotification,
+                                                //   height: 24.00.h,
+                                                //   width: 24.00.w,
+                                                // ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                    left: 16.w,
+                                                  ),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      EasyLoading.show(
+                                                          status: 'loading...');
+                                                      await provider.getfav();
+                                                      EasyLoading.dismiss();
+                                                      Get.to(
+                                                          FavouriteSpecialistsScreen());
+                                                    },
                                                     child: CommonImageView(
                                                       svgPath: ImageConstant
                                                           .imgGroup3637,
@@ -219,55 +232,57 @@ class _HomePageState extends State<HomePage> {
                                                       width: 24.00.w,
                                                     ),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 26.w,
-                                        top: 23.h,
-                                        right: 26.w,
-                                      ),
-                                      child: Text(
-                                        Provider.of<AuthProvider>(context,
-                                                listen: true)
-                                            .user_api
-                                            .user
-                                            .username, //user name
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtOverpassBold24WhiteA700,
-                                      ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 26.w,
+                                      top: 23.h,
+                                      right: 26.w,
+                                    ),
+                                    child: Text(
+                                      Provider.of<AuthProvider>(context,
+                                              listen: true)
+                                          .user_api
+                                          .user
+                                          .username, //user name
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style:
+                                          AppStyle.txtOverpassBold24WhiteA700,
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 26.w,
-                                        top: 3.h,
-                                        right: 26.w,
-                                        bottom: 45.h,
-                                      ),
-                                      child: Text(
-                                        "msg_looking_for_you".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtOverpassLight16WhiteA700,
-                                      ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 26.w,
+                                      top: 3.h,
+                                      right: 26.w,
+                                      bottom: 45.h,
+                                    ),
+                                    child: Text(
+                                      "msg_looking_for_you".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style:
+                                          AppStyle.txtOverpassLight16WhiteA700,
                                     ),
                                   ),
-                                ],
-                              );
-                            }
-                          ),
+                                ),
+                              ],
+                            );
+                          }),
                         ),
                       ),
                       // CustomSearchView(
@@ -360,7 +375,14 @@ class _HomePageState extends State<HomePage> {
                                           Align(
                                             alignment: Alignment.center,
                                             child: GestureDetector(
-                                              onTap: () {
+                                              onTap: () async {
+                                                provider.specialtype = 'DOCTOR';
+                                                EasyLoading.show(
+                                                    status: 'loading...');
+                                                await provider.getspecialtype();
+                                                await provider.rec_by_type();
+                                                EasyLoading.dismiss();
+
                                                 // Get.toNamed(AppRoutes.doctorScreen);
                                                 Navigator.push(
                                                   context,
@@ -455,7 +477,16 @@ class _HomePageState extends State<HomePage> {
                                             MainAxisAlignment.start,
                                         children: [
                                           GestureDetector(
-                                            onTap: () {
+                                            onTap: () async {
+                                              provider.specialtype = 'NURSE';
+                                              EasyLoading.show(
+                                                  status: 'loading...');
+                                              await provider.getspecialtype();
+                                              await provider.rec_by_type();
+                                              print(provider.specialtypelist![0]
+                                                  .user!.avatar);
+                                              EasyLoading.dismiss();
+
                                               // Get.toNamed(AppRoutes.doctorScreen);
                                               Navigator.push(
                                                 context,
@@ -552,7 +583,14 @@ class _HomePageState extends State<HomePage> {
                                           Align(
                                             alignment: Alignment.center,
                                             child: GestureDetector(
-                                              onTap: () {
+                                              onTap: () async {
+                                                provider.specialtype =
+                                                    'PHYSICIAN';
+                                                EasyLoading.show(
+                                                    status: 'loading...');
+                                                await provider.getspecialtype();
+                                                await provider.rec_by_type();
+                                                EasyLoading.dismiss();
                                                 // Get.toNamed(AppRoutes.doctorScreen);
                                                 Navigator.push(
                                                   context,
@@ -649,7 +687,14 @@ class _HomePageState extends State<HomePage> {
                                             MainAxisAlignment.start,
                                         children: [
                                           GestureDetector(
-                                            onTap: () {
+                                            onTap: () async {
+                                              provider.specialtype =
+                                                  'BABY_CARE';
+                                              EasyLoading.show(
+                                                  status: 'loading...');
+                                              await provider.getspecialtype();
+                                              await provider.rec_by_type();
+                                              EasyLoading.dismiss();
                                               // Get.toNamed(AppRoutes.doctorScreen);
                                               Navigator.push(
                                                 context,
@@ -742,7 +787,14 @@ class _HomePageState extends State<HomePage> {
                                             MainAxisAlignment.start,
                                         children: [
                                           GestureDetector(
-                                            onTap: () {
+                                            onTap: () async {
+                                              provider.specialtype =
+                                                  'ELDERLY_CARE';
+                                              EasyLoading.show(
+                                                  status: 'loading...');
+                                              await provider.getspecialtype();
+                                              await provider.rec_by_type();
+                                              EasyLoading.dismiss();
                                               // Get.toNamed(AppRoutes.doctorScreen);
                                               Navigator.push(
                                                 context,
@@ -1087,11 +1139,16 @@ class _HomePageState extends State<HomePage> {
                                             CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text(
-                                            "lbl_see_all".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtRubikLight12,
+                                          InkWell(
+                                            onTap: ()async {
+                                              await provider.rec_by_bot() ; 
+                                            },
+                                            child: Text(
+                                              "lbl_see_all".tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                              style: AppStyle.txtRubikLight12,
+                                            ),
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(
@@ -1118,7 +1175,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Container(
                                     height: 225.00.h,
                                     width: 400.00.w,
-                                    child: provider.rec == null
+                                    child: provider.rec_via_bot == null
                                         ? Text('nothing')
                                         : ListView.builder(
                                             padding: EdgeInsets.only(
@@ -1128,11 +1185,11 @@ class _HomePageState extends State<HomePage> {
                                                 top: 5.h),
                                             scrollDirection: Axis.horizontal,
                                             physics: BouncingScrollPhysics(),
-                                            itemCount: provider.rec!.length,
+                                            itemCount: provider.rec_via_bot!.length,
                                             // itemBuilder: (context,index) => cat_doctor();
                                             itemBuilder: (context, index) {
                                               return fav_spic(
-                                                  provider.rec![index], index);
+                                                  provider.rec_via_bot![index], index);
                                             },
                                           ))),
                           ],

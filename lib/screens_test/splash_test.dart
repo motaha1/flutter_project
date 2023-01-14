@@ -27,8 +27,9 @@ class splash_test extends StatelessWidget {
 
           //  await provider.gethowiamtalk(); 
           //  EasyLoading.dismiss();
+          provider.gethowiamtalk() ; 
 
-           Get.to(ThreeScreen_new('1'));
+          // Get.to(ThreeScreen_new('1'));
            //Get.to(chat_screen());
           },
         

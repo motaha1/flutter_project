@@ -1,4 +1,9 @@
+import 'package:final_grad_proj/models/SpecialistProfile.dart';
+import 'package:final_grad_proj/models/appoiment_api.dart';
+import 'package:final_grad_proj/models/favr.dart';
+import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_icon_button.dart';
@@ -37,7 +42,7 @@ class _FavouriteSpecialistsScreenState
     ListFavItemModel("mustafa", "fffrrrrsdfsffffff", "", 5, true)
   ];
 
-  static List<ListFavItemModel> Fav_ListSearch = [];
+  static List<Favr> Fav_ListSearch = [];
   bool homeIcon = false;
   bool favIcon = true;
   bool commentIcon = false;
@@ -63,143 +68,147 @@ class _FavouriteSpecialistsScreenState
                                   width: 375.00.w)),
                           Align(
                               alignment: Alignment.centerLeft,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Container(
-                                            width: size.width,
-                                            margin: EdgeInsets.only(top: 36.h),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  CustomIconButton(
-                                                      height: 30.h,
-                                                      width: 30.w,
-                                                      margin: EdgeInsets.only(
-                                                          left: 20.w),
-                                                      onTap: () {
-                                                        onTapBtntf();
-                                                      },
-                                                      child: CommonImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgArrowleftBluegray500)),
-                                                  Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 19.w,
-                                                          top: 5.h,
-                                                          bottom: 4.h),
-                                                      child: Text(
-                                                          "Favourite Specialists"
-                                                              .tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtRubikMedium18))
-                                                ]))),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: 20.w, right: 20.w, top: 10.h),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: TextField(
-                                        controller: txt_cont,
-                                        focusNode: _textFocusNode,
-                                        cursorColor: Colors.black,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            errorBorder: InputBorder.none,
-                                            disabledBorder: InputBorder.none,
-                                            hintText: 'Search here',
-                                            contentPadding: EdgeInsets.all(20)),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            Fav_ListSearch = Fav_List.where(
-                                                    (element) =>
-                                                        element.Name.contains(
-                                                            value /*.toLowerCase()*/))
-                                                .toList();
-                                            if (txt_cont!.text.isNotEmpty &&
-                                                Fav_List!.length == 0) {
-                                              print(
-                                                  'foodListSearch length ${Fav_List!.length}');
-                                            }
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    Expanded(
-                                        child: Align(
-                                            alignment: Alignment.topLeft,
-                                            child: SingleChildScrollView(
-                                                child: Container(
-                                                    height:
-                                                        135 * Fav_List.length.h,
-                                                    width: 518.w,
-                                                    child: Stack(
-                                                        alignment:
-                                                            Alignment.topRight,
-                                                        children: [
-                                                          Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .topCenter,
-                                                              child: Padding(
-                                                                  padding: EdgeInsets.only(
-                                                                      left:
-                                                                          15.w,
-                                                                      top: 10.h,
-                                                                      right:
-                                                                          5.w,
-                                                                      bottom:
-                                                                          2),
-                                                                  child: Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        GridView.builder(
-                                                                            shrinkWrap: true,
-                                                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(mainAxisExtent: 170.00.w, crossAxisCount: 2, mainAxisSpacing: 15.00.w, crossAxisSpacing: 15.00.h),
-                                                                            physics: BouncingScrollPhysics(),
-                                                                            itemCount: txt_cont!.text.isNotEmpty ? Fav_ListSearch!.length : Fav_List.length,
-                                                                            itemBuilder: (context, index) {
-                                                                              // if Fav_List[index].Fav==true
-                                                                              return fav_spic(txt_cont!.text.isNotEmpty ? Fav_ListSearch![index] : Fav_List[index], index);
-                                                                            }),
-                                                                      ]))),
-                                                        ])))))
-                                  ])),
+                              child: Consumer<AuthProvider>(
+                                builder: (context , provider , x) {
+                                  return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Container(
+                                                width: size.width,
+                                                margin: EdgeInsets.only(top: 36.h),
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: [
+                                                      CustomIconButton(
+                                                          height: 30.h,
+                                                          width: 30.w,
+                                                          margin: EdgeInsets.only(
+                                                              left: 20.w),
+                                                          onTap: () {
+                                                            onTapBtntf();
+                                                          },
+                                                          child: CommonImageView(
+                                                              svgPath: ImageConstant
+                                                                  .imgArrowleftBluegray500)),
+                                                      Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left: 19.w,
+                                                              top: 5.h,
+                                                              bottom: 4.h),
+                                                          child: Text(
+                                                              "Favourite Specialists"
+                                                                  .tr,
+                                                              overflow: TextOverflow
+                                                                  .ellipsis,
+                                                              textAlign:
+                                                                  TextAlign.left,
+                                                              style: AppStyle
+                                                                  .txtRubikMedium18))
+                                                    ]))),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              left: 20.w, right: 20.w, top: 10.h),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: TextField(
+                                            controller: txt_cont,
+                                            focusNode: _textFocusNode,
+                                            cursorColor: Colors.black,
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                focusedBorder: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                errorBorder: InputBorder.none,
+                                                disabledBorder: InputBorder.none,
+                                                hintText: 'Search here',
+                                                contentPadding: EdgeInsets.all(20)),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                Fav_ListSearch = provider.favspecial!.where(
+                                                        (element) =>
+                                                            element.specialist!.user!.username!.contains(
+                                                                value /*.toLowerCase()*/))
+                                                    .toList();
+                                                if (txt_cont!.text.isNotEmpty &&
+                                                    Fav_List!.length == 0) {
+                                                  print(
+                                                      'foodListSearch length ${Fav_List!.length}');
+                                                }
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        Expanded(
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: SingleChildScrollView(
+                                                    child: Container(
+                                                        height:
+                                                            135 * Fav_List.length.h,
+                                                        width: 518.w,
+                                                        child: Stack(
+                                                            alignment:
+                                                                Alignment.topRight,
+                                                            children: [
+                                                              Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topCenter,
+                                                                  child: Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          left:
+                                                                              15.w,
+                                                                          top: 10.h,
+                                                                          right:
+                                                                              5.w,
+                                                                          bottom:
+                                                                              2),
+                                                                      child: Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize
+                                                                                  .min,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment
+                                                                                  .start,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment
+                                                                                  .start,
+                                                                          children: [
+                                                                            GridView.builder(
+                                                                                shrinkWrap: true,
+                                                                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(mainAxisExtent: 170.00.w, crossAxisCount: 2, mainAxisSpacing: 15.00.w, crossAxisSpacing: 15.00.h),
+                                                                                physics: BouncingScrollPhysics(),
+                                                                                itemCount: txt_cont!.text.isNotEmpty ? Fav_ListSearch!.length : provider.favspecial!.length,
+                                                                                itemBuilder: (context, index) {
+                                                                                  // if Fav_List[index].Fav==true
+                                                                                  return fav_spic(txt_cont!.text.isNotEmpty ? Fav_ListSearch![index] : provider.favspecial![index], index);
+                                                                                }),
+                                                                          ]))),
+                                                            ])))))
+                                      ]);
+                                }
+                              )),
                         ]))))));
   }
 
-  Widget fav_spic(ListFavItemModel Fav_List, int index) => GestureDetector(
+  Widget fav_spic(Favr Fav_List, int index) => GestureDetector(
         onTap: () {
           // Get.toNamed(AppRoutes.doctorScreen);
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(
           //     builder: (context) => DoctorDetailsScreen(
-          //       Doctor: Fav_List /* فقط للتذكر :) */,
+          //       Doctor: Fav_List.specialist /* فقط للتذكر :) */,
           //     ),
           //   ),
           // );
@@ -237,8 +246,8 @@ class _FavouriteSpecialistsScreenState
                               : Icon(Icons.favorite_border),
                           onPressed: () {
                             setState(() {
-                              _FavouriteSpecialistsScreenState.Fav_List
-                                  .removeAt(index);
+                              Provider.of<AuthProvider>(context  ,listen: false).favspecial
+                                  !.removeAt(index);
                               // del(Fav_List);
                               // Fav_List.removeWhere((element) => element.id == 21);
                               if (Fav_List.Fav == true)
@@ -277,7 +286,7 @@ class _FavouriteSpecialistsScreenState
                       right: 10.w,
                     ),
                     child: Text(
-                      Fav_List.Name.tr,
+                      Fav_List.specialist?.user?.username ??'Othman Othman',
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: AppStyle.txtRubikMedium15,
@@ -291,7 +300,7 @@ class _FavouriteSpecialistsScreenState
                       bottom: 5.h,
                     ),
                     child: Text(
-                      Fav_List.Specialist.tr,
+                      Fav_List.specialist?.medicalType ??'Dental',
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: AppStyle.txtRubikRegular12IndigoA400,

@@ -1,4 +1,5 @@
 import 'dart:developer';
+//import 'dart:js';
 
 import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/doctor_info.dart';
@@ -38,12 +39,16 @@ void main() async {
   // print(fcmToken);
   // log(fcmToken!);
 
-  FirebaseMessaging.onMessage.listen((event) async{
+  FirebaseMessaging.onMessage.listen((event) async {
     print(event.data.toString());
     // print('2666666666666666');
     // log('26666666666666');
-    Get.snackbar(event.notification!.title.toString(), event.notification!.body.toString());
-    await DioHelper.diohelper.savenotify("7" , event.notification!.title.toString() ,event.notification!.body.toString()) ; 
+    Get.snackbar(event.notification!.title.toString(),
+        event.notification!.body.toString());
+    await DioHelper.diohelper.savenotify(
+        "7", 
+        event.notification!.title.toString(),
+        event.notification!.body.toString());
   });
 
   //await DbHelper.dbHelper.initDatabase();

@@ -1,4 +1,31 @@
-class SpecialistProfile {
+class Favr {
+  num? id;
+  Specialist? specialist;
+  
+  bool? Fav = true  ;
+
+  Favr({this.id, this.specialist});
+
+  Favr.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    specialist = json['specialist'] != null
+        ? new Specialist.fromJson(json['specialist'])
+        : null;
+
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    if (this.specialist != null) {
+      data['specialist'] = this.specialist!.toJson();
+    }
+
+    return data;
+  }
+}
+
+class Specialist {
   num? id;
   User? user;
   RattingScore? rattingScore;
@@ -15,9 +42,8 @@ class SpecialistProfile {
   bool? allowBooking;
   String? medicalType;
   bool? atHome;
-    bool? Fav;
 
-  SpecialistProfile(
+  Specialist(
       {this.id,
       this.user,
       this.rattingScore,
@@ -35,7 +61,7 @@ class SpecialistProfile {
       this.medicalType,
       this.atHome});
 
-  SpecialistProfile.fromJson(Map<String, dynamic> json) {
+  Specialist.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     rattingScore = json['rattingScore'] != null
@@ -83,8 +109,8 @@ class SpecialistProfile {
 }
 
 class User {
-  int? id;
-  String? avatar;
+  num? id;
+ 
   String? lastLogin;
   bool? isSuperuser;
   String? email;
@@ -101,7 +127,7 @@ class User {
 
   User(
       {this.id,
-      this.avatar,
+   
       this.lastLogin,
       this.isSuperuser,
       this.email,
@@ -118,7 +144,7 @@ class User {
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    avatar = json['avatar1'];
+
     lastLogin = json['last_login'];
     isSuperuser = json['is_superuser'];
     email = json['email'];
@@ -156,14 +182,12 @@ class User {
 }
 
 class RattingScore {
-  double  starsAvg = 0;
+  double? starsAvg;
 
-  //RattingScore({this.starsAvg});
+  RattingScore({this.starsAvg});
 
   RattingScore.fromJson(Map<String, dynamic> json) {
-    try {starsAvg = json['stars__avg'];} 
-    catch (e){}
-    
+    starsAvg = json['stars__avg'];
   }
 
   Map<String, dynamic> toJson() {
@@ -172,3 +196,8 @@ class RattingScore {
     return data;
   }
 }
+
+
+
+
+
