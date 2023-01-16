@@ -21,7 +21,7 @@ class CustomTextfield1 extends StatelessWidget {
     // TODO: implement build
     return TextFormField(
      // keyboardType: textInputType,
- 
+
       controller: controller,
       
       decoration: InputDecoration(
@@ -54,10 +54,10 @@ class CustomTextfield2 extends StatelessWidget {
     return TextFormField(
      // keyboardType: textInputType,
  
-      
-      
+       enabled: false,
+      initialValue:  label, 
       decoration: InputDecoration(
-          label: Text(label),
+       //   label: Text(label),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15))),
     );
   }

@@ -53,7 +53,7 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
   bool All = true;
   List<SpecialistProfile>? cat_doctorListSearch;
   String? value;
-  String?value3 ; 
+  String? value3;
   var City = [
     'all',
     'nablus',
@@ -67,46 +67,39 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
     'TolKarem',
   ];
 
-
-    var Type = [
-      'all' , 
- 'ALLERGY AND IMMUNOLOGY',
- 'ANESTHESIOLOGY',
+  var Type = [
+    'all',
+    'ALLERGY AND IMMUNOLOGY',
+    'ANESTHESIOLOGY',
     'DERMATOLOGY',
-  'DIAGNOSTIC RADIOLOGY',
-   'EMERGENCY MEDICINE',
-     'FAMILY MEDICINE',
-     'INTERNAL MEDICINE',
+    'DIAGNOSTIC RADIOLOGY',
+    'EMERGENCY MEDICINE',
+    'FAMILY MEDICINE',
+    'INTERNAL MEDICINE',
     'MEDICAL GENETICS',
- 'NEUROLOGY',
-   'NUCLEAR MEDICINE',
+    'NEUROLOGY',
+    'NUCLEAR MEDICINE',
     'OBSTETRICS AND GYNECOLOGY',
-   'OPHTHALMOLOGY',
+    'OPHTHALMOLOGY',
     'PATHOLOGY',
-     'PEDIATRICS',
+    'PEDIATRICS',
     'PHYSICAL MEDICINE AND REHABILITATION',
-     'PREVENTIVE MEDICINE',
-     'PSYCHIATRY',
+    'PREVENTIVE MEDICINE',
+    'PSYCHIATRY',
     'RADIATION ONCOLOGY',
-  'SURGERY',
-     'UROLOGY',
-   'OTHER',
+    'SURGERY',
+    'UROLOGY',
+    'OTHER',
   ];
 
-
-
-
-
   String? value2;
-  var Where = ['all' ,'at home', 'at the clinic'];
+  var Where = ['all', 'at home', 'at the clinic'];
 
-
-//List<String>? type = Provider.of<AuthProvider>(context , listen: true).type ;  
-
+//List<String>? type = Provider.of<AuthProvider>(context , listen: true).type ;
 
   @override
   Widget build(BuildContext context) {
-//List<String>? type = Provider.of<AuthProvider>(context , listen: true).type ;  
+//List<String>? type = Provider.of<AuthProvider>(context , listen: true).type ;
 
     return SafeArea(
         child: Scaffold(
@@ -241,7 +234,6 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-
                                                       Expanded(
                                                         child: Container(
                                                           decoration: AppDecoration
@@ -252,24 +244,28 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                                                                           .roundedBorder6),
                                                           width: 135.w,
                                                           height: 50,
-                                                          margin: EdgeInsets.only(
-                                                              left: 10.w),
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 10.w),
                                                           padding:
                                                               EdgeInsets.only(
                                                                   left: 10.w),
                                                           child: Expanded(
-                                                            child: DropdownButton(
+                                                            child:
+                                                                DropdownButton(
                                                               // Initial Value
-                                                              value: All == false
-                                                                  ? value
-                                                                  : null,
+                                                              value:
+                                                                  All == false
+                                                                      ? value
+                                                                      : null,
                                                               // Down Arrow Icon
                                                               icon: const Icon(Icons
                                                                   .keyboard_arrow_down),
-                                                      
+
                                                               // Array list of items
                                                               items: City.map(
-                                                                  (String City) {
+                                                                  (String
+                                                                      City) {
                                                                 return DropdownMenuItem(
                                                                   value: City,
                                                                   child: Text(
@@ -278,22 +274,28 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                                                                           .txtRubikLight14IndigoA400),
                                                                 );
                                                               }).toList(),
-                                                              onChanged: (value) {
+                                                              onChanged:
+                                                                  (value) {
                                                                 setState(
                                                                     () async {
                                                                   All = false;
-                                                                  this.value = (value
-                                                                      .toString());
+                                                                  this.value =
+                                                                      (value
+                                                                          .toString());
                                                                   provider.city =
                                                                       value
                                                                           .toString();
-                                                                                                                                              EasyLoading.show(status: 'loading...');
-EasyLoading.show(status: 'loading...');
+                                                                  EasyLoading.show(
+                                                                      status:
+                                                                          'loading...');
+                                                                  EasyLoading.show(
+                                                                      status:
+                                                                          'loading...');
 
-                                                                 await  provider.getsearchdoctor();
-                                                                 EasyLoading.dismiss();
-
-                                                                      
+                                                                  await provider
+                                                                      .getsearchdoctor();
+                                                                  EasyLoading
+                                                                      .dismiss();
                                                                 });
                                                               },
                                                             ),
@@ -311,8 +313,9 @@ EasyLoading.show(status: 'loading...');
                                                           // color: Color(50),
                                                           width: 129.w,
                                                           height: 50,
-                                                          margin: EdgeInsets.only(
-                                                              left: 10.w),
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 10.w),
                                                           padding:
                                                               EdgeInsets.only(
                                                                   left: 10.w),
@@ -327,94 +330,90 @@ EasyLoading.show(status: 'loading...');
                                                                 (String Where) {
                                                               return DropdownMenuItem(
                                                                 value: Where,
-                                                                child: Text(Where,
+                                                                child: Text(
+                                                                    Where,
                                                                     style: AppStyle
                                                                         .txtRubikLight14IndigoA400),
                                                               );
                                                             }).toList(),
                                                             onChanged: (value) {
-                                                              setState(() async{
-                                                              
+                                                              setState(
+                                                                  () async {
                                                                 this.value2 = (value
                                                                     .toString());
-                                                      
-                                                                    provider.home = value.toString() ; 
-                                                                    EasyLoading.show(status: 'loading...');
-                                                                    await provider.getsearchdoctor() ; 
-                                                                    EasyLoading.dismiss();
 
+                                                                provider.home =
+                                                                    value
+                                                                        .toString();
+                                                                EasyLoading.show(
+                                                                    status:
+                                                                        'loading...');
+                                                                await provider
+                                                                    .getsearchdoctor();
+                                                                EasyLoading
+                                                                    .dismiss();
                                                               });
                                                             },
                                                           ),
                                                         ),
                                                       ),
                                                     ]))),
- /////////////
+                                        /////////////
 // provider.type==null ?
 
-SizedBox(height: 10,) , 
-   Container(
-     decoration: AppDecoration
-         .fillTealA70014
-         .copyWith(
-             borderRadius:
-                 BorderRadiusStyle
-                     .roundedBorder6),
-     // color: Color(50),
-    
-     margin: EdgeInsets.only(
-         left: 10.w),
-     padding:
-         EdgeInsets.only(
-             left: 10.w),
-     child: DropdownButton(
-       // Initial Value
-       value :value3,
-       // Down Arrow Icon
-       icon: const Icon(Icons
-           .keyboard_arrow_down),
-       // Array list of items
-       items: Type!.map(
-           (String Type) {
-         return DropdownMenuItem(
-           value: Type,
-           child: Text(Type,
-           style: TextStyle(color: fromHex('#4157ff')),
-              ),
-         );
-       }).toList(),
-       onChanged: (value) {
-         setState(()async {
-           this.value3 = (value
-               .toString());
-               provider.type = value
-               .toString() ; 
-              EasyLoading.show(status: 'loading...');
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          decoration: AppDecoration
+                                              .fillTealA70014
+                                              .copyWith(
+                                                  borderRadius:
+                                                      BorderRadiusStyle
+                                                          .roundedBorder6),
+                                          // color: Color(50),
 
-               await provider.getsearchdoctor() ; 
-               EasyLoading.dismiss();
+                                          margin: EdgeInsets.only(left: 10.w),
+                                          padding: EdgeInsets.only(left: 10.w),
+                                          child: DropdownButton(
+                                            // Initial Value
+                                            value: value3,
+                                            // Down Arrow Icon
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            // Array list of items
+                                            items: Type!.map((String Type) {
+                                              return DropdownMenuItem(
+                                                value: Type,
+                                                child: Text(
+                                                  Type,
+                                                  style: TextStyle(
+                                                      color:
+                                                          fromHex('#4157ff')),
+                                                ),
+                                              );
+                                            }).toList(),
+                                            onChanged: (value) {
+                                              setState(() async {
+                                                this.value3 =
+                                                    (value.toString());
+                                                provider.type =
+                                                    value.toString();
+                                                EasyLoading.show(
+                                                    status: 'loading...');
 
+                                                await provider
+                                                    .getsearchdoctor();
+                                                EasyLoading.dismiss();
 
+                                                //  provider.home = value.toString() ;
+                                                // await provider.getsearchdoctor() ;
+                                              });
+                                            },
+                                          ),
+                                        ), //: Text('Doctors') ,
 
-
-                                             
-              //  provider.home = value.toString() ; 
-              // await provider.getsearchdoctor() ; 
-         });
-       },
-     ),
-    )  ,//: Text('Doctors') , 
-
-
-
-
-
-
-
-
-
-
- ///////////////
+                                        ///////////////
                                         // txt_cont!.text.isNotEmpty &&
                                         provider.searchdoctor!.length == 0
                                             ? Expanded(
@@ -583,29 +582,42 @@ SizedBox(height: 10,) ,
                   ),
                   Align(
                     alignment: Alignment.topRight,
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                          // left: 50.w,
-                          right: 0.w,
-                          bottom: 60.h,
-                        ),
-                        child: IconButton(
-                          iconSize: 20,
-                          icon: special.Fav == true
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(Icons.favorite_border),
-                          onPressed: () {
-                            setState(() {
-                              if (special.Fav == true)
-                                special.Fav = false;
-                              else
-                                special.Fav = true;
-                            });
-                          },
-                        )),
+                    child: Consumer<AuthProvider>(
+                      builder: (context , provider ,x) {
+                        return Padding(
+                            padding: EdgeInsets.only(
+                              // left: 50.w,
+                              right: 0.w,
+                              bottom: 60.h,
+                            ),
+                            child: IconButton(
+                              iconSize: 20,
+                              icon: special.Fav == true
+                                  ? Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(Icons.favorite_border),
+                              onPressed: () {
+                                setState(() async {
+                                  if (special.Fav == true) {
+                                    special.Fav = false;
+                                       EasyLoading.show(status: 'Loading......') ;
+                                      await provider
+                                          .fav_comp(special.id.toString());
+                                           EasyLoading.dismiss() ; 
+                                  } else {
+                                    special.Fav = true;
+                                       EasyLoading.show(status: 'Loading......') ;
+                                      await provider
+                                          .fav_comp(special.id.toString());
+                                           EasyLoading.dismiss() ; 
+                                  }
+                                });
+                              },
+                            ));
+                      }
+                    ),
                   ),
                 ],
               ),
@@ -624,9 +636,10 @@ SizedBox(height: 10,) ,
     Get.back();
   }
 }
- Color fromHex(String hexString) {
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    return Color(int.parse(buffer.toString(), radix: 16));
-  }
+
+Color fromHex(String hexString) {
+  final buffer = StringBuffer();
+  if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+  buffer.write(hexString.replaceFirst('#', ''));
+  return Color(int.parse(buffer.toString(), radix: 16));
+}

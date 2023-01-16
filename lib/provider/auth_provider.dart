@@ -178,7 +178,7 @@ class AuthProvider extends ChangeNotifier {
     //FirebaseFirestore.instance.collection('users')
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(loggedUser!.email)
+        .doc(user_api.user.email)
         .collection('chats')
         .doc(receiver)
         .collection('messages')
@@ -475,10 +475,28 @@ String? fullname ;
 
 
 
-not(){
-
+bool? forme ; 
+not(bool x){
+forme = x ; 
   notifyListeners() ; 
 }
 
+String? fav_compo ; 
+fav_comp(String id)async{
+
+  fav_compo = await DioHelper.diohelper.comp_fav(id , user_api.id.toString()) ; 
+  notifyListeners() ; 
+
+
+}
+
+
+notify_delete(String id)async{
+
+  fav_compo = await DioHelper.diohelper.notify_delete(id ) ; 
+  notifyListeners() ; 
+
+
+}
 
 }

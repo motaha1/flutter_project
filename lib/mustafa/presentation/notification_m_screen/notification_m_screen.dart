@@ -1,6 +1,7 @@
 import 'package:final_grad_proj/models/notification.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -284,18 +285,30 @@ class _NotificationMScreenState extends State<NotificationMScreen> {
                                                 top: 5.h,
                                                 bottom: 0.h,
                                                 left: 0.w),
-                                            child: IconButton(
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: Colors.grey,
-                                                size: 25,
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                              Provider.of<AuthProvider>(context , listen: false).notify
-                                                      !.removeAt(index);
-                                                });
-                                              },
+                                            child: Consumer<AuthProvider>(
+                                              builder: (context , provider , x) {
+                                                return IconButton(
+                                                  icon: const Icon(
+                                                    Icons.delete,
+                                                    color: Colors.grey,
+                                                    size: 25,
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() async {
+                                                  Provider.of<AuthProvider>(context , listen: false).notify
+                                                          !.removeAt(index);
+
+                                                                                EasyLoading.show(
+                                                            status: 'loading...');
+
+                                                        await provider
+                                                            .notify_delete(notify.id.toString());
+                                                        EasyLoading.dismiss();
+                                                          
+                                                    });
+                                                  },
+                                                );
+                                              }
                                             ),
                                           ),
                                         ]))),

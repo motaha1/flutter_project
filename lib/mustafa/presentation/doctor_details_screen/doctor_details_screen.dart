@@ -6,6 +6,7 @@ import 'package:final_grad_proj/mustafa/widgets/custom_button.dart';
 import 'package:final_grad_proj/mustafa/presentation/favourite_specialists_screen/favourite_specialists_screen.dart';
 import 'package:final_grad_proj/mustafa/widgets/custom_icon_button.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +76,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                               margin:
                                                   EdgeInsets.only(left: 20.w),
                                               onTap: () {
-                                                Get.to(HomePage()) ; 
+                                                Get.to(HomePage());
                                               },
                                               child: CommonImageView(
                                                   svgPath: ImageConstant
@@ -203,7 +204,9 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                               text: TextSpan(
                                                                 children: [
                                                                   TextSpan(
-                                                                    text: special?.medicalType ??'Dental / ',
+                                                                    text: special
+                                                                            ?.medicalType ??
+                                                                        'Dental / ',
                                                                     style:
                                                                         TextStyle(
                                                                       color: ColorConstant
@@ -302,29 +305,52 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                         ],
                                                       ),
                                                     ),
-                                                    IconButton(
-                                                      iconSize: 20,
-                                                      icon: special!.Fav == true
-                                                          ? Icon(
-                                                              Icons.favorite,
-                                                              color: Colors.red,
-                                                            )
-                                                          : Icon(Icons
-                                                              .favorite_border),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          // _FavouriteSpecialistsScreenState.Fav_List.removeAt(index);
-                                                          // del(Fav_List);
-                                                          // Fav_List.removeWhere((element) => element.id == 21);
-                                                          if (special!.Fav ==
-                                                              true)
-                                                            special!.Fav =
-                                                                false;
-                                                          else
-                                                            special!.Fav = true;
-                                                             DioHelper.diohelper.postfav(Provider.of<AuthProvider>(context , listen: false).user_api.id.toString(), special!.id.toString()) ; 
-                                                        });
-                                                      },
+                                                    Consumer<AuthProvider>(
+                                                      builder: (context , provider , x) {
+                                                        return IconButton(
+                                                          iconSize: 20,
+                                                          icon: special!.Fav == true
+                                                              ? Icon(
+                                                                  Icons.favorite,
+                                                                  color: Colors.red,
+                                                                )
+                                                              : Icon(Icons
+                                                                  .favorite_border),
+                                                          onPressed: () {
+                                                            setState(() async{
+                                                              // _FavouriteSpecialistsScreenState.Fav_List.removeAt(index);
+                                                              // del(Fav_List);
+                                                              // Fav_List.removeWhere((element) => element.id == 21);
+                                                              if (special!.Fav ==
+                                                                  true) {
+                                                                special!.Fav =
+                                                                    false;
+                                                                          EasyLoading.show(status: 'Loading......') ;
+                                      await provider
+                                          .fav_comp(special!.id.toString());
+                                           EasyLoading.dismiss() ; 
+                                                              } else {
+                                                                special!.Fav = true;
+                                                                      EasyLoading.show(status: 'Loading......') ;
+                                      await provider
+                                          .fav_comp(special!.id.toString());
+                                           EasyLoading.dismiss() ; 
+                                                                
+                                                              }
+                                                              DioHelper.diohelper.postfav(
+                                                                  Provider.of<AuthProvider>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .user_api
+                                                                      .id
+                                                                      .toString(),
+                                                                  special!.id
+                                                                      .toString());
+                                                            });
+                                                          },
+                                                        );
+                                                      }
                                                     )
                                                   ],
                                                 ),
@@ -776,7 +802,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                   ),
                                 ),
                                 child: Container(
-                            
                                   padding: EdgeInsets.only(
                                     top: 8.h,
                                     bottom: 8.h,
@@ -805,7 +830,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                     children: [
                                       CustomImageView(
                                         //ddsds
-                                        imagePath: ImageConstant.imgRectangle523,
+                                        imagePath:
+                                            ImageConstant.imgRectangle523,
                                         height: 180.00.h,
                                         width: 318.00.w,
                                         radius: BorderRadius.circular(
@@ -849,33 +875,38 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                         Alignment.bottomRight,
                                                     children: [
                                                       CustomImageView(
-                                                        svgPath:
-                                                            ImageConstant.imgMenu,
+                                                        svgPath: ImageConstant
+                                                            .imgMenu,
                                                         height: 35.00.h,
                                                         width: 100.00.w,
-                                                        alignment:
-                                                            Alignment.centerLeft,
+                                                        alignment: Alignment
+                                                            .centerLeft,
                                                       ),
                                                       Align(
-                                                        alignment:
-                                                            Alignment.bottomRight,
+                                                        alignment: Alignment
+                                                            .bottomRight,
                                                         child: Padding(
-                                                          padding: EdgeInsets.only(
+                                                          padding:
+                                                              EdgeInsets.only(
                                                             bottom: 7.h,
                                                           ),
                                                           child: Text(
                                                             "Location",
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                             textAlign:
                                                                 TextAlign.left,
                                                             style: TextStyle(
                                                               color: ColorConstant
                                                                   .indigoA400,
-                                                              fontSize: 14.00.sp,
-                                                              fontFamily: 'Rubik',
+                                                              fontSize:
+                                                                  14.00.sp,
+                                                              fontFamily:
+                                                                  'Rubik',
                                                               fontWeight:
-                                                                  FontWeight.w400,
+                                                                  FontWeight
+                                                                      .w400,
                                                             ),
                                                           ),
                                                         ),

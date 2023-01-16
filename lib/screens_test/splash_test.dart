@@ -22,17 +22,17 @@ class splash_test extends StatelessWidget {
         child: Center(
             child: ElevatedButton(
           child: Text('hello doctor'),
-          onPressed: () async{
-          //   EasyLoading.show(status: 'loading...');
+          onPressed: () async {
+            //   EasyLoading.show(status: 'loading...');
 
-          //  await provider.gethowiamtalk(); 
-          //  EasyLoading.dismiss();
-          provider.gethowiamtalk() ; 
+            //  await provider.gethowiamtalk();
+            //  EasyLoading.dismiss();
+            // provider.gethowiamtalk() ;
+            provider.getuserchat('motaha@engineer.com'); 
 
-          // Get.to(ThreeScreen_new('1'));
-           //Get.to(chat_screen());
+            // Get.to(ThreeScreen_new('1'));
+            //Get.to(chat_screen());
           },
-        
         )),
       );
     });

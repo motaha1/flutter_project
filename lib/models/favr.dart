@@ -124,6 +124,7 @@ class User {
   bool? isPatient;
   bool? isSpecialist;
   String? fcmToken;
+  String? avatar ; 
 
   User(
       {this.id,
@@ -140,7 +141,10 @@ class User {
       this.isActive,
       this.isPatient,
       this.isSpecialist,
-      this.fcmToken});
+      this.fcmToken, 
+      this.avatar , 
+      
+      });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -158,6 +162,7 @@ class User {
     isPatient = json['is_patient'];
     isSpecialist = json['is_specialist'];
     fcmToken = json['fcm_token'];
+    avatar = json['avatar1'];
   }
 
   Map<String, dynamic> toJson() {

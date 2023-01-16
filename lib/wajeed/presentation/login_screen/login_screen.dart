@@ -335,6 +335,7 @@ class LoginScreen extends State<MyWidgetLogin> {
                                                    //postLogin();
                                                    EasyLoading.show(status: 'loading...');
                                                    await provider.login(email1.text, password1.text) ;
+                                                   await provider.rec_by_bot() ; 
                                                     EasyLoading.dismiss();
 
                                                       // EasyLoading.showError('email or password invalid');

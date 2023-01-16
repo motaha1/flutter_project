@@ -304,4 +304,33 @@ class DioHelper {
 print(responce.data.toString()) ; 
     return responce.data.toString() ; 
   }
+
+
+
+comp_fav(String id ,String id1) async{
+Response responce = await dio
+        .post('http://192.168.1.76:8000/api/users/comp_fav/', data: {
+      "id": id,
+      "id1" :id1
+ 
+    });
+print(responce.data.toString()) ; 
+  return responce.data.toString() ; 
+
+}
+
+notify_delete(String id ) async{
+Response responce = await dio
+        .post('http://192.168.1.76:8000/api/users/notification_delete_specific/', data: {
+      "id": id,
+      
+ 
+    });
+print(responce.data.toString()) ; 
+  return responce.data.toString() ; 
+
+}
+
+
+
 }

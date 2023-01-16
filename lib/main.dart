@@ -46,7 +46,7 @@ void main() async {
     Get.snackbar(event.notification!.title.toString(),
         event.notification!.body.toString());
     await DioHelper.diohelper.savenotify(
-        "7", 
+        "7",
         event.notification!.title.toString(),
         event.notification!.body.toString());
   });

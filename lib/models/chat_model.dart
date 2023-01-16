@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 class Chat {
+  
   String sender;
   String receiver;
   String text;
   String time;
+
   Chat({
     required this.sender,
     required this.receiver,

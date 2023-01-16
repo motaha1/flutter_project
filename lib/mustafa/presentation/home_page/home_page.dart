@@ -1140,8 +1140,8 @@ class _HomePageState extends State<HomePage> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           InkWell(
-                                            onTap: ()async {
-                                              await provider.rec_by_bot() ; 
+                                            onTap: () async {
+                                              await provider.rec_by_bot();
                                             },
                                             child: Text(
                                               "lbl_see_all".tr,
@@ -1185,11 +1185,13 @@ class _HomePageState extends State<HomePage> {
                                                 top: 5.h),
                                             scrollDirection: Axis.horizontal,
                                             physics: BouncingScrollPhysics(),
-                                            itemCount: provider.rec_via_bot!.length,
+                                            itemCount:
+                                                provider.rec_via_bot!.length,
                                             // itemBuilder: (context,index) => cat_doctor();
                                             itemBuilder: (context, index) {
                                               return fav_spic(
-                                                  provider.rec_via_bot![index], index);
+                                                  provider.rec_via_bot![index],
+                                                  index);
                                             },
                                           ))),
                           ],
@@ -1391,17 +1393,17 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget fav_spic(SpecialistProfile special, int index) => GestureDetector(
-        // onTap: () {
-        //   // Get.toNamed(AppRoutes.doctorScreen);
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => DoctorDetailsScreen(
-        //         Doctor: Fav_List /* فقط للتذكر :) */,
-        //       ),
-        //     ),
-        //   );
-        // },
+        onTap: () {
+          // Get.toNamed(AppRoutes.doctorScreen);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DoctorDetailsScreen(
+                Doctor: special /* فقط للتذكر :) */,
+              ),
+            ),
+          );
+        },
         child: IntrinsicWidth(
           child: Align(
             alignment: Alignment.center,
@@ -1412,90 +1414,103 @@ class _HomePageState extends State<HomePage> {
               decoration: AppDecoration.outlineBlack9000f1.copyWith(
                 borderRadius: BorderRadiusStyle.roundedBorder6,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
+              child: Consumer<AuthProvider>(builder: (context, provider, x) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                          padding: EdgeInsets.only(
+                            // left: 50.w,
+                            right: 0.w,
+                            bottom: 0.h,
+                          ),
+                          child: IconButton(
+                            iconSize: 20,
+                            icon: special.Fav == true
+                                ? Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  )
+                                : Icon(Icons.favorite_border),
+                            onPressed: () {
+                              setState(() async {
+                                // _FavouriteSpecialistsScreenState.Fav_List.removeAt(index);
+                                // del(Fav_List);
+                                // Fav_List.removeWhere((element) => element.id == 21);
+                                if (special.Fav == true) {
+                                  special.Fav = false;
+                                  EasyLoading.show(status: 'Loading......') ; 
+                                  
+                                                                   await provider
+                                      .fav_comp(special.id.toString());
+                                      EasyLoading.dismiss() ; 
+                                } else {
+                                  special.Fav = true;
+                                  EasyLoading.show(status: 'Loading......') ;
+                                  await provider
+                                      .fav_comp(special.id.toString());
+                                       EasyLoading.dismiss() ; 
+                                }
+                              });
+                            },
+                          )),
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
                         padding: EdgeInsets.only(
-                          // left: 50.w,
-                          right: 0.w,
-                          bottom: 0.h,
+                          left: 31.w,
+                          top: 0.h,
+                          right: 31.w,
                         ),
-                        child: IconButton(
-                          iconSize: 20,
-                          icon: special.Fav == true
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(Icons.favorite_border),
-                          onPressed: () {
-                            setState(() {
-                              // _FavouriteSpecialistsScreenState.Fav_List.removeAt(index);
-                              // del(Fav_List);
-                              // Fav_List.removeWhere((element) => element.id == 21);
-                              if (special.Fav == true)
-                                special.Fav = false;
-                              else
-                                special.Fav = true;
-                            });
-                          },
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                            42.00.h,
+                          ),
+                          child: CommonImageView(
+                            url: special.user?.avatar ??
+                                'https://img.freepik.com/premium-psd/3d-doctor-cartoon-character-avatar-isolated-3d-rendering_235528-997.jpg?w=740',
+                            height: 84.00.h,
+                            width: 84.00.w,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: EdgeInsets.only(
-                        left: 31.w,
+                        left: 10.w,
                         top: 0.h,
-                        right: 31.w,
+                        right: 10.w,
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          42.00.h,
-                        ),
-                        child: CommonImageView(
-                          imagePath: ImageConstant.imgEllipse1414,
-                          height: 84.00.h,
-                          width: 84.00.w,
-                          fit: BoxFit.cover,
-                        ),
+                      child: Text(
+                        special.user?.username ?? 'Mohammad Taha',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: AppStyle.txtRubikMedium15,
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10.w,
-                      top: 0.h,
-                      right: 10.w,
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.w,
+                        top: 4.h,
+                        right: 5.w,
+                        bottom: 10.h,
+                      ),
+                      child: Text(
+                        special.medicalType ?? 'Dental',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: AppStyle.txtRubikRegular12IndigoA400,
+                      ),
                     ),
-                    child: Text(
-                      special.user?.username ?? 'Mohammad Taha',
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: AppStyle.txtRubikMedium15,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10.w,
-                      top: 4.h,
-                      right: 5.w,
-                      bottom: 10.h,
-                    ),
-                    child: Text(
-                      special.medicalType ?? 'Dental',
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: AppStyle.txtRubikRegular12IndigoA400,
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
             ),
           ),
         ),

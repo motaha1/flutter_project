@@ -15,7 +15,7 @@ class SpecialistProfile {
   bool? allowBooking;
   String? medicalType;
   bool? atHome;
-    bool? Fav;
+  bool? Fav;
 
   SpecialistProfile(
       {this.id,
@@ -33,7 +33,9 @@ class SpecialistProfile {
       this.allowMessages,
       this.allowBooking,
       this.medicalType,
-      this.atHome});
+      this.atHome , 
+      this.Fav
+      });
 
   SpecialistProfile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -54,6 +56,7 @@ class SpecialistProfile {
     allowBooking = json['allow_booking'];
     medicalType = json['medical_type'];
     atHome = json['at_home'];
+    Fav = json['Fav'] ; 
   }
 
   Map<String, dynamic> toJson() {

@@ -110,6 +110,15 @@ class _ThreeScreenState extends State<ThreeScreen_new> {
     );
   }
 
+
+  void setttt(){
+
+   setState(
+      () {},
+    );
+
+  }
+
   int convert(String x) {
     if (x == '09:00 AM') {
       return 9;
@@ -265,8 +274,8 @@ class _ThreeScreenState extends State<ThreeScreen_new> {
                             //     'An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
 
                             // EasyLoading.dismiss();
-                            Get.snackbar('New booking',
-                                'An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
+                            // Get.snackbar('New booking',
+                            //     'An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
                             //provider.addNewAppoiment(app);
                             // onTapConfirm();
 
@@ -298,8 +307,24 @@ class _ThreeScreenState extends State<ThreeScreen_new> {
                                         );
                                       }).toList(),
                                       onChanged: (value) {
+
+                                        this.value2 = (value.toString());
+                                       // setttt() ; 
                                         setState(() {
-                                          this.value2 = (value.toString());
+                                          
+
+
+                                          //'booking for me', 'booking for another person'
+                                          if (value.toString() == 'booking for me'){
+                                            provider.not(true) ; 
+                                            
+                                          }
+                                          else{
+provider.not(false) ; 
+
+                                          }
+
+
                                         });
                                       },
                                     ),
@@ -308,7 +333,7 @@ class _ThreeScreenState extends State<ThreeScreen_new> {
                                     ),
                                     ElevatedButton(
                                         onPressed: () {
-                                          Get.to(info());
+                                          Get.to(info(doctorId.toString()));
                                         },
                                         child: Text('Next'))
                                   ],

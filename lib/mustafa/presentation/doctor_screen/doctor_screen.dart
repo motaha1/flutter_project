@@ -2,6 +2,7 @@ import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/mustafa/presentation/search_doctors_screen/search_doctors_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
@@ -372,101 +373,119 @@ class _DoctorScreenState extends State<DoctorScreen> {
                   ),
                 ),
               ),
-              Container(
-                height: 72.00.h,
-                width: 230.00.w,
-                margin: EdgeInsets.only(
-                  left: 15.w,
-                  top: 16.h,
-                  right: 5.w,
-                  bottom: 16.h,
-                ),
-                child: Stack(
-                  // alignment: Alignment.topCenter,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          right: 3.w,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                right: 10.w,
-                              ),
-                              child: Text(
-                                special.user?.username ?? 'Mohammad Taha',
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtRubikMedium18,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: 5.h, right: 10.w, bottom: 5.h),
-                              child: Text(
-                                special.medicalType ?? 'Dental',
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtRubikLight14,
-                              ),
-                            ),
-                            Expanded(
-                              child: RatingBar.builder(
-                                itemSize: 20.0,
-                                initialRating: special.rattingScore!.starsAvg,
-                                minRating: 0,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 4.0),
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  print(rating);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+              Consumer<AuthProvider>(
+                builder: (context , provider , x) {
+                  return Container(
+                    height: 72.00.h,
+                    width: 230.00.w,
+                    margin: EdgeInsets.only(
+                      left: 15.w,
+                      top: 16.h,
+                      right: 5.w,
+                      bottom: 16.h,
                     ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                          padding: EdgeInsets.only(
-                            // left: 50.w,
-                            right: 0.w,
-                            bottom: 60.h,
+                    child: Stack(
+                      // alignment: Alignment.topCenter,
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              right: 3.w,
+                            ),
+                            child: Consumer<AuthProvider>(
+                              builder: (context , provider , x) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        right: 10.w,
+                                      ),
+                                      child: Text(
+                                        special.user?.username ?? 'Mohammad Taha',
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtRubikMedium18,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 5.h, right: 10.w, bottom: 5.h),
+                                      child: Text(
+                                        special.medicalType ?? 'Dental',
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtRubikLight14,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: RatingBar.builder(
+                                        itemSize: 20.0,
+                                        initialRating: special.rattingScore!.starsAvg,
+                                        minRating: 0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemPadding:
+                                            EdgeInsets.symmetric(horizontal: 4.0),
+                                        itemBuilder: (context, _) => Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        onRatingUpdate: (rating) {
+                                          print(rating);
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                            ),
                           ),
-                          child: IconButton(
-                            iconSize: 20,
-                            icon: special.Fav == true
-                                ? Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  )
-                                : Icon(Icons.favorite_border),
-                            onPressed: () {
-                              setState(() {
-                                if (special.Fav == true)
-                                  special.Fav = false;
-                                else
-                                  special.Fav = true;
-                              });
-                            },
-                          )),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                              padding: EdgeInsets.only(
+                                // left: 50.w,
+                                right: 0.w,
+                                bottom: 60.h,
+                              ),
+                              child: IconButton(
+                                iconSize: 20,
+                                icon: special.Fav == true
+                                    ? Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                      )
+                                    : Icon(Icons.favorite_border),
+                                onPressed: () {
+                                  setState(() async{
+                                    if (special.Fav == true) {
+                                      special.Fav = false;
+                                         EasyLoading.show(status: 'Loading......') ;
+                                      await provider
+                                          .fav_comp(special.id.toString());
+                                           EasyLoading.dismiss() ;
+                                      }
+                                    else{
+                                      special.Fav = true;
+                                         EasyLoading.show(status: 'Loading......') ;
+                                      await provider
+                                          .fav_comp(special.id.toString());
+                                           EasyLoading.dismiss() ;
+                                      }
+                                  });
+                                },
+                              )),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                }
               ),
             ],
           ),
@@ -509,7 +528,8 @@ class _DoctorScreenState extends State<DoctorScreen> {
                         bottomRight: Radius.circular(2.00.r),
                       ),
                       child: CommonImageView(
-                        imagePath: ImageConstant.imgRectangle508131X136,
+                        url: special.user?.avatar ??
+                        'https://img.freepik.com/premium-psd/3d-doctor-cartoon-character-avatar-isolated-3d-rendering_235528-997.jpg?w=740',
                         height: 150.00.h,
                         width: 185.00.w,
                         fit: BoxFit.cover,
