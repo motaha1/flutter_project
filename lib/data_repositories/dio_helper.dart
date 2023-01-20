@@ -6,6 +6,7 @@ import 'package:final_grad_proj/models/appoiment_api.dart';
 import 'package:final_grad_proj/models/favr.dart';
 import 'package:final_grad_proj/models/notification.dart';
 import 'package:final_grad_proj/models/speciallist.dart';
+import 'package:final_grad_proj/models/user_api.dart';
 import 'package:final_grad_proj/screens_test/no_connection_screen/presentation/noconnection_screen/noconnection_screen.dart';
 
 import 'package:get/get_core/get_core.dart';
@@ -296,41 +297,137 @@ class DioHelper {
   }
 
   palid(String name, String id) async {
-    Response responce = await dio
-        .post('http://192.168.1.76:8000/api/users/palestineid/', data: {
-      "id": id,
-      "name" :name
-    });
-print(responce.data.toString()) ; 
-    return responce.data.toString() ; 
+    Response responce = await dio.post(
+        'http://192.168.1.76:8000/api/users/palestineid/',
+        data: {"id": id, "name": name});
+    print(responce.data.toString());
+    return responce.data.toString();
+  }
+
+  comp_fav(String id, String id1) async {
+    Response responce = await dio.post(
+        'http://192.168.1.76:8000/api/users/comp_fav/',
+        data: {"id": id, "id1": id1});
+    print(responce.data.toString());
+    return responce.data.toString();
+  }
+
+  notify_delete(String id) async {
+    Response responce = await dio.post(
+        'http://192.168.1.76:8000/api/users/notification_delete_specific/',
+        data: {
+          "id": id,
+        });
+    print(responce.data.toString());
+    return responce.data.toString();
+  }
+
+  Future<List<AppoimentApi>> view_appoiment_specail(
+      String special, String date, String status) async {
+    List<AppoimentApi> appoiment = [];
+    Response responce;
+
+    try {
+      responce = await dio.get(
+          'http://192.168.1.76:8000/api/users/viewappoiment/?specialist__id=$special&date=$date&status=$status');
+      //Specialists specialists = Specialists.fromJson(responce.data);
+      print(responce.data.toString());
+
+      appoiment = responce.data.map<AppoimentApi>((e) {
+        return AppoimentApi.fromJson(e);
+      }).toList();
+      print(appoiment.length.toString());
+      return appoiment;
+    } on Exception catch (e) {
+      print(e.toString());
+      Get.to(NoconnectionScreen());
+    }
+
+    return appoiment;
   }
 
 
 
-comp_fav(String id ,String id1) async{
-Response responce = await dio
-        .post('http://192.168.1.76:8000/api/users/comp_fav/', data: {
-      "id": id,
-      "id1" :id1
- 
-    });
-print(responce.data.toString()) ; 
-  return responce.data.toString() ; 
 
-}
+    Future<List<AppoimentApi>> view_appoiment_patient(
+      String special, String date, String status) async {
+    List<AppoimentApi> appoiment = [];
+    Response responce;
 
-notify_delete(String id ) async{
-Response responce = await dio
-        .post('http://192.168.1.76:8000/api/users/notification_delete_specific/', data: {
-      "id": id,
-      
- 
-    });
-print(responce.data.toString()) ; 
-  return responce.data.toString() ; 
+    try {
+      responce = await dio.get(
+          'http://192.168.1.76:8000/api/users/viewappoiment/?patient__id=$special&date=$date&status=$status');
+      //Specialists specialists = Specialists.fromJson(responce.data);
+      print(responce.data.toString());
 
-}
+      appoiment = responce.data.map<AppoimentApi>((e) {
+        return AppoimentApi.fromJson(e);
+      }).toList();
+      print(appoiment.length.toString());
+      return appoiment;
+    } on Exception catch (e) {
+      print(e.toString());
+      Get.to(NoconnectionScreen());
+    }
+
+    return appoiment;
+  }
+
+  deleteappoiment(String id) async {
+    await dio.post('http://192.168.1.76:8000/api/users/appoiment_cancel/'
+     , data: {
+"id"  :id
+
+     }
+    );
+  }
 
 
+    doneappoiment(String id) async {
+    await dio.post('http://192.168.1.76:8000/api/users/appoiment_done/'
+     , data: {
+"id"  :id
+
+     }
+    );
+  }
+
+
+  sendmessage(String text , String sender , String receiver) async {
+    print ('ffff') ; 
+        await dio.post('http://192.168.1.76:8000/api/users/chat/'
+
+
+     , data: {
+         "text" : text  ,
+         "time" : DateTime.now().toString()   ,
+         "sender" : sender , 
+         "receiver"  :receiver
+
+     }
+    );
+
+  }
+
+  Future<List<Userapi>> how_i_am_talk( String email)async{
+   Response response =  await dio.post('http://192.168.1.76:8000/api/users/how_i_am_talk/'
+
+
+     , data: {
+    
+         "email" :email   ,
+     }
+    );
+
+    List<Userapi> user =
+        response.data.map<Userapi>((e) {
+      return Userapi.fromJson(e);
+    }).toList();
+    // print(specialists1.length.toString());
+    // log(specialists1.length.toString());
+    return user;
+
+
+  }
 
 }

@@ -12,23 +12,28 @@ import 'package:final_grad_proj/gsk_2022/another/presentation/appoiment_screen_f
 import 'package:final_grad_proj/models/PatientProfile.dart';
 import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/models/appoiment.dart';
+import 'package:final_grad_proj/models/appoiment_api.dart';
 import 'package:final_grad_proj/models/chat_model.dart';
 import 'package:final_grad_proj/models/doctor_model.dart';
 import 'package:final_grad_proj/models/favr.dart';
 import 'package:final_grad_proj/models/notification.dart';
+import 'package:final_grad_proj/models/user_api.dart';
 import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
 import 'package:final_grad_proj/screens_test/display_doctor.dart';
 import 'package:final_grad_proj/screens_test/main_screen.dart';
 import 'package:final_grad_proj/screens_test/open.dart';
 import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
 import 'package:final_grad_proj/screens_test/splash_test.dart';
+import 'package:final_grad_proj/wajeed2/presentation/specialist_screen_page/specialist_screen_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'package:string_validator/string_validator.dart';
 
 import '../models/app_user.dart';
+import '../wajeed2/presentation/message_screen/models/ChatMessage.dart';
 
 class AuthProvider extends ChangeNotifier {
   GlobalKey<FormState> signInKey = GlobalKey();
@@ -49,8 +54,7 @@ class AuthProvider extends ChangeNotifier {
     getalldoctor();
     // getmedicaltype();
     //getnotification() ;
-    rec_by_bot() ; 
-  
+    rec_by_bot();
   }
   saveEmail(String email) {
     this.email = email;
@@ -187,12 +191,13 @@ class AuthProvider extends ChangeNotifier {
       (event) {
         print(event.docs.length);
         chat = [];
-        event.docs.forEach((element) {
+    event.docs.forEach((element) {
           print(element.id);
           chat.add(Chat.fromMap(element.data()));
         });
       },
     );
+      listV() ; 
 //gethowiamtalk()
   }
 
@@ -358,6 +363,14 @@ class AuthProvider extends ChangeNotifier {
         SpecialistProfile specialists = SpecialistProfile.fromJson(loggin_user);
         user_api = specialists;
         print('hello special ' + user_api.user.username);
+        token = await FirebaseMessaging.instance.getToken();
+        print('this is token' + token!);
+        DioHelper.diohelper
+            .fcmtoken(user_api.user.id.toString(), token!.toString());
+        Get.to(SpecialistScreenPage());
+        EasyLoading.dismiss();
+        // SpecialistScreenPage
+        print('hello special ' + user_api.user.username);
       } else if (loggin_user['user']['is_patient'] == true) {
         PatientProfile patientProfile = PatientProfile.fromJson(loggin_user);
         user_api = patientProfile;
@@ -452,51 +465,205 @@ class AuthProvider extends ChangeNotifier {
     rec_via_type = await DioHelper.diohelper
         .rec_via_type(specialtype, user_api.id.toString());
 
-    notifyListeners(); 
+    notifyListeners();
   }
 
-List<SpecialistProfile>? rec_via_bot;
+  List<SpecialistProfile>? rec_via_bot;
   rec_by_bot() async {
-    rec_via_bot = await DioHelper.diohelper
-        .rec_via_bot( user_api.id.toString());
+    rec_via_bot = await DioHelper.diohelper.rec_via_bot(user_api.id.toString());
 
-    notifyListeners(); 
+    notifyListeners();
   }
 
-
-String? fullname ; 
+  String? fullname;
 
 // palid (String name , String id)async{
 
 // full
 
-
 // }
 
+  bool? forme;
+  not(bool x) {
+    forme = x;
+    notifyListeners();
+  }
+
+  String? fav_compo;
+  fav_comp(String id) async {
+    fav_compo = await DioHelper.diohelper.comp_fav(id, user_api.id.toString());
+    notifyListeners();
+  }
+
+  notify_delete(String id) async {
+    fav_compo = await DioHelper.diohelper.notify_delete(id);
+    notifyListeners();
+  }
+
+  String date_special = '';
+
+  List<AppoimentApi>? po;
+  view_appoiment_for_specail(String status) async {
+    print(date_special);
+    po = await DioHelper.diohelper
+        .view_appoiment_specail(user_api.id.toString(), date_special, status);
+    po!.sort((a, b) => convert(a.start).compareTo(convert(b.start)));
+    notifyListeners();
+  }
+
+  deleteappoimnet(String id) async {
+    await DioHelper.diohelper.deleteappoiment(id);
+
+    notifyListeners();
+  }
+
+  doneappoimnet(String id) async {
+    await DioHelper.diohelper.doneappoiment(id);
+
+    notifyListeners();
+  }
+
+  String date_patient = '';
+
+  List<AppoimentApi>? po1;
+  view_appoiment_for_patient(String status) async {
+    print(date_special);
+    po1 = await DioHelper.diohelper
+        .view_appoiment_patient(user_api.id.toString(), date_patient, status);
+    po1!.sort((a, b) => convert(a.start).compareTo(convert(b.start)));
+    notifyListeners();
+  }
+
+  int convert(String? x) {
+    if (x == '09:00 AM') {
+      return 9;
+    }
+
+    if (x == '10:00 AM') {
+      return 10;
+    }
+
+    if (x == '11:00 AM') {
+      return 11;
+    }
+
+    if (x == '12:00 PM') {
+      return 12;
+    }
+
+    if (x == '01:00 PM') {
+      return 13;
+    }
+
+    if (x == '02:00 PM') {
+      return 14;
+    }
+
+    if (x == '03:00 PM') {
+      return 15;
+    }
+    if (x == '04:00 PM') {
+      return 16;
+    }
+    if (x == '05:00 PM') {
+      return 17;
+    }
+    if (x == '06:00 PM') {
+      return 18;
+    }
+
+    if (x == '07:00 PM') {
+      return 19;
+    }
+    if (x == '08:00 PM') {
+      return 20;
+    }
+
+    if (x == '09:00 PM') {
+      return 21;
+    }
+
+    return 0;
+  }
+
+  String? chatting ; 
+
+  sendmessage_api(String text, String reciver) async {
+    await DioHelper.diohelper
+        .sendmessage(text, user_api.user.email.toString(), reciver);
+  }
 
 
-bool? forme ; 
-not(bool x){
-forme = x ; 
-  notifyListeners() ; 
-}
+List<Userapi>? how_i_am_talk_list ; 
+  how_i_am_talk_api() async {
 
-String? fav_compo ; 
-fav_comp(String id)async{
+//how_i_am_talk_list = await DioHelper.diohelper.how_i_am_talk(user_api.user.email.toString()) ; 
 
-  fav_compo = await DioHelper.diohelper.comp_fav(id , user_api.id.toString()) ; 
-  notifyListeners() ; 
+how_i_am_talk_list = await DioHelper.diohelper.how_i_am_talk('hellopatient@gmail.com') ; 
+print(how_i_am_talk_list) ; 
+return how_i_am_talk_list ; 
+// String typee ='' ; 
+//     if (user_api.user.is_specialist== true) {
+//       typee = 'special' ; 
+
+//     }
+
+//         if (user_api.user.is_patient== true) {
+//       typee = 'patient' ; 
+
+//     }
+//      dynamic user = await DioHelper.diohelper.how_i_am_talk(typee, user_api.user.email.toString());
+//     //dynamic user = await DioHelper.diohelper.how_i_am_talk(type, user_api.user.email.toString());
+
+//     if (user.runtimeType == String) {
+//       print('error');
+//     } else {
+//       if (user_api.user.is_specialist== true) {
+//         SpecialistProfile specialists = SpecialistProfile.fromJson(user);
+       
+//        return 
+//         EasyLoading.dismiss();
+//         // SpecialistScreenPage
+//         print('hello special ' + user_api.user.username);
+//       } else if (user_api.user.is_patient== true) {
+//         PatientProfile patientProfile = PatientProfile.fromJson(user);
+//         user_api = patientProfile;
+//         print('hello patient ' + user_api.user.username);
+//         token = await FirebaseMessaging.instance.getToken();
+//         print('this is token' + token!);
+//         DioHelper.diohelper
+//             .fcmtoken(user_api.user.id.toString(), token!.toString());
+//         Get.to(HomePage());
+//       }
+//     }
+  }
 
 
-}
-
-
-notify_delete(String id)async{
-
-  fav_compo = await DioHelper.diohelper.notify_delete(id ) ; 
-  notifyListeners() ; 
-
-
-}
-
+  List<ChatMessage>? arr;
+  listV()async {
+   chat.sort((b, a) => a.time.compareTo(b.time),) ; 
+    list.demeChatMessages  =[] ; 
+    for (int i = 0; i < chat.length; i++) {
+      final m;
+      if (chat[i].sender == user_api.user.email) {
+        m = ChatMessage(
+            text: chat[i].text,
+            messageType: ChatMessageType.text,
+            messageStatus: MessageStatus.viewed,
+            isSender: true);
+      } else {
+        m = ChatMessage(
+            text: chat[i].text,
+            messageType: ChatMessageType.text,
+            messageStatus: MessageStatus.viewed,
+            isSender: false);
+      }
+      list.demeChatMessages.add(m);
+      arr?.add(m);
+      debugPrint(list.demeChatMessages.length.toString());
+      //setState(() => {msgController.clear(), message = ""});
+      //print(list.demeChatMessages.length);
+    }
+    notifyListeners();
+  }
 }

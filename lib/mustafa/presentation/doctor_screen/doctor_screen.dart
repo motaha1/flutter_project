@@ -238,7 +238,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                               Align(
                                   alignment: Alignment.topRight,
                                   child: Container(
-                                      height: 225.00.h,
+                                      height:270.00.h,
                                       width: 400.00.w,
                                       child: 
                                       provider.rec_via_type ==null ? Text('nothing') :
@@ -480,9 +480,19 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                       }
                                   });
                                 },
-                              )),
+                              ) , 
+                              
+                              
+                              ),
+
+ 
+
+
+    
                         ),
+                    
                       ],
+                      
                     ),
                   );
                 }
@@ -494,15 +504,15 @@ class _DoctorScreenState extends State<DoctorScreen> {
 
   Widget rec_doctor(SpecialistProfile special) => GestureDetector(
         onTap: () {
-          // Get.toNamed(AppRoutes.doctorScreen);
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => DoctorDetailsScreen(
-          //       Doctor: recom_doctorList /* فقط للتذكر :) */,
-          //     ),
-          //   ),
-          // );
+          Get.toNamed(AppRoutes.doctorScreen);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DoctorDetailsScreen(
+                Doctor: special /* فقط للتذكر :) */,
+              ),
+            ),
+          );
         },
         child: IntrinsicWidth(
           child: Align(
@@ -561,13 +571,32 @@ class _DoctorScreenState extends State<DoctorScreen> {
                         right: 23.w,
                       ),
                       child: Text(
-                        special.medicalType ??'Medicine',
+                        special.medicalType ??'Medicine' ,
+                      //  '${special.medicalType ??'Medicine'} \n ${special.user?.city ??'nablus'}',
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtRubikLight10,
                       ),
                     ),
                   ),
+
+                  Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 20.w,
+                          top: 2.h,
+                          right: 23.w,
+                        ),
+                        child: Text(
+                          // recom_doctorList.Specialist.tr,
+                          special.user?.city ??'nablus',
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: AppStyle.txtRubikLight10,
+                        ),
+                      ),
+                    ),
                   Container(
                     height: 25.h,
                     child: RatingBar.builder(

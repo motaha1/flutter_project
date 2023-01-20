@@ -3,6 +3,8 @@ import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/screen
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/test.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/screens_test/chat_doctor.dart';
+import 'package:final_grad_proj/wajeed2/presentation/Specialist_Schedule/Specialist_Schedule.dart';
+import 'package:final_grad_proj/wajeed2/presentation/chat_page/chat_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -28,10 +30,15 @@ class splash_test extends StatelessWidget {
             //  await provider.gethowiamtalk();
             //  EasyLoading.dismiss();
             // provider.gethowiamtalk() ;
-            provider.getuserchat('motaha@engineer.com'); 
+           // provider.getuserchat('motaha@engineer.com');
+          //  provider.date_special = DateTime.now().toString().split(" ")[0] ;  
+          // await provider.view_appoiment_for_specail('') ; 
+          //  Get.to(SpecialistSchedule()) ; 
+await provider.how_i_am_talk_api() ; 
 
             // Get.to(ThreeScreen_new('1'));
-            //Get.to(chat_screen());
+  Get.to(ChatPage());
+
           },
         )),
       );

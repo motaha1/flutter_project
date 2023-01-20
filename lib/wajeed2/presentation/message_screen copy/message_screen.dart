@@ -1,4 +1,5 @@
 //import 'package:fina_proj/core/app_export.dart';
+import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/models/user_api.dart';
 import 'package:final_grad_proj/wajeed2/presentation/calls_screen/calls_screen.dart';
 import 'package:final_grad_proj/wajeed2/presentation/calls_screen/models/usercall.dart';
@@ -10,20 +11,21 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:final_grad_proj/wajeed2/core/app_export.dart';
 
-class MyWidgetMS extends StatefulWidget {
+class taha_copy extends StatefulWidget {
 
- Userapi api = Userapi() ; 
- MyWidgetMS(this.api) ; 
+ SpecialistProfile? api = SpecialistProfile() ; 
+ taha_copy(this.api) ; 
 
   @override
-  State<MyWidgetMS> createState() => MessagesScreen(api);
+  State<taha_copy> createState() => MessagesScreen(api);
 }
 
-class MessagesScreen extends State<MyWidgetMS> {
+class MessagesScreen extends State<taha_copy> {
   // userChat usercall =
   //     userChat(countmessage: "", subtitel: "", time: "", titel: "");
 
-   Userapi api = Userapi() ; 
+ SpecialistProfile? api = SpecialistProfile() ; 
+   
 
 
    MessagesScreen(this.api) ; 
@@ -58,7 +60,7 @@ class MessagesScreen extends State<MyWidgetMS> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                api.username ??'Othman Othman',
+                api?.user?.username ??'Othman Othman',
                 style: TextStyle(fontSize: 16),
               ),
     

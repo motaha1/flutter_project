@@ -138,7 +138,7 @@ class Body extends State<MyWidgetB> {
                           onPressed: () async{
   
                             if (message != "") {
-                                          print(provider.chatting) ; 
+                                                                                   print(provider.chatting) ; 
                               EasyLoading.show(status: 'sending ...');
                               //await DioHelper.diohelper.sendmessage(message, provider.user_api.user.email, provider.chatting ??) ; 
                                 await provider.sendmessage_api(message,

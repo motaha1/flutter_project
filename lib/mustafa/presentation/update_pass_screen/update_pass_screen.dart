@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'controller/update_pass_controller.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 
 // ignore_for_file: must_be_immutable
 class UpdatePassScreen extends GetWidget<UpdatePassController> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class UpdatePassScreen extends GetWidget<UpdatePassController> {
                 width: size.width,
                 child: SingleChildScrollView(
                     child: Form(
-                        key: _formKey,
+                      
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -144,17 +145,7 @@ class UpdatePassScreen extends GetWidget<UpdatePassController> {
                                                                                 Colors.blueGrey,
                                                                           ))),
                                                                   suffixConstraints: BoxConstraints(minWidth: 16.00.w, minHeight: 14.00.h),
-                                                                  validator: (value) {
-                                                                    if (value ==
-                                                                            null ||
-                                                                        (!isValidPassword(
-                                                                            value,
-                                                                            isRequired:
-                                                                                true))) {
-                                                                      return "Please enter valid password";
-                                                                    }
-                                                                    return null;
-                                                                  },
+                                                              
                                                                   isObscureText: !controller.isShowPassword.value)),
                                                           Obx(() =>
                                                               CustomTextFormField(
@@ -190,17 +181,7 @@ class UpdatePassScreen extends GetWidget<UpdatePassController> {
                                                                                 Colors.blueGrey,
                                                                           ))),
                                                                   suffixConstraints: BoxConstraints(minWidth: 16.00.w, minHeight: 14.00.h),
-                                                                  validator: (value) {
-                                                                    if (value ==
-                                                                            null ||
-                                                                        (!isValidPassword(
-                                                                            value,
-                                                                            isRequired:
-                                                                                true))) {
-                                                                      return "Please enter valid password";
-                                                                    }
-                                                                    return null;
-                                                                  },
+                                                             
                                                                   isObscureText: !controller.isShowPassword1.value)),
                                                           CustomButton(
                                                               width: 295.w,
@@ -218,8 +199,14 @@ class UpdatePassScreen extends GetWidget<UpdatePassController> {
                                                                   .RoundedBorder28,
                                                               padding: ButtonPadding
                                                                   .PaddingAll13,
-                                                              onTap:
-                                                                  onTapBtnUpdatepassword,
+                                                             onTap: ()async {
+                                                               EasyLoading.show(status: 'جارري تغيير كلمة المرور') ;  
+                                                               await Future.delayed(Duration(seconds: 1)) ; 
+                                                               EasyLoading.showSuccess('تم التعديل بنجاح ') ;
+                                                               EasyLoading.dismiss() ; 
+
+                                                             },
+                                                                
                                                               alignment:
                                                                   Alignment
                                                                       .center)
@@ -233,6 +220,6 @@ class UpdatePassScreen extends GetWidget<UpdatePassController> {
   }
 
   onTapBtnUpdatepassword() {
-    Get.toNamed(AppRoutes.settingsScreen);
+  
   }
 }

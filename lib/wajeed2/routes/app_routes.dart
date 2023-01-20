@@ -230,13 +230,7 @@ class AppRoutes {
         MessageBindingB(),
       ],
     ),
-    GetPage(
-      name: Messagescreen,
-      page: () => MyWidgetMS(),
-      bindings: [
-        MessageBinding(),
-      ],
-    ),
+
     GetPage(
       name: chatpage,
       page: () => ChatPage(),

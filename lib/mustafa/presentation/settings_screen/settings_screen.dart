@@ -1,16 +1,31 @@
+import 'package:final_grad_proj/localization/mylocalecontroller.dart';
+import 'package:final_grad_proj/mustafa/presentation/update_pass_screen/controller/update_pass_controller.dart';
+import 'package:final_grad_proj/mustafa/presentation/update_pass_screen/update_pass_screen.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../settings_screen/widgets/listlanguages_item_widget.dart';
 import 'controller/settings_controller.dart';
 import 'models/listlanguages_item_model.dart';
-import 'package:final_grad_proj/mustafa/core/app_export.dart';
-import 'package:final_grad_proj/mustafa/widgets/custom_icon_button.dart';
-import 'package:final_grad_proj/mustafa/widgets/custom_switch.dart';
+import 'package:final_grad_proj/core/app_export.dart';
+import 'package:final_grad_proj/widgets/custom_icon_button.dart';
+import 'package:final_grad_proj/widgets/custom_switch.dart';
 import 'package:flutter/material.dart';
 
-class SettingsScreen extends GetWidget<SettingsController> {
+class SettingsScreen extends StatefulWidget {
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+bool state1 = false;
+bool state2 = false;
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  var Where = ['English', 'العربية'];
+  String? value2;
   @override
   Widget build(BuildContext context) {
+    Lang o = Get.find();
     return SafeArea(
         child: Scaffold(
             backgroundColor: ColorConstant.whiteA700,
@@ -92,7 +107,9 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              onTapRowplay_Change_Pas!();
+                                              print('ok')  ; 
+                                               Get.put(UpdatePassController());
+    Get.to(UpdatePassScreen());
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.only(
@@ -201,12 +218,13 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                                       Padding(
                                                         padding:
                                                             EdgeInsets.only(
-                                                          left: 20.w,
+                                                          left: 15.w,
                                                           top: 6.h,
                                                           bottom: 7.h,
                                                         ),
                                                         child: Text(
-                                                          "Notification".tr,
+                                                          "lbl_notifications"
+                                                              .tr,
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
@@ -278,7 +296,7 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                                           bottom: 7.h,
                                                         ),
                                                         child: Text(
-                                                          "Statistics".tr,
+                                                          "lbl_statistics".tr,
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
@@ -350,7 +368,7 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                                           bottom: 7.h,
                                                         ),
                                                         child: Text(
-                                                          "About Us".tr,
+                                                          "lbl_about_us".tr,
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
@@ -422,15 +440,19 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                                       textAlign: TextAlign.left,
                                                       style: AppStyle
                                                           .txtRubikLight16)),
-                                              Obx(() => CustomSwitch(
-                                                  margin:
-                                                      EdgeInsets.only(top: 1.h),
-                                                  value: controller
-                                                      .isSelectedSwitch.value,
-                                                  onChanged: (value) {
-                                                    controller.isSelectedSwitch
-                                                        .value = value;
-                                                  }))
+                                              Switch(
+                                                  value: state1,
+                                                  onChanged:
+                                                      (bool value) async {
+                                                    EasyLoading.show(
+                                                        status: 'wait'.tr);
+                                                    await Future.delayed(
+                                                        Duration(seconds: 1));
+                                                    EasyLoading.dismiss();
+                                                    setState(() {
+                                                      state1 = value;
+                                                    });
+                                                  })
                                             ])),
                                     Container(
                                         height: 1.00.h,
@@ -459,13 +481,19 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                                       textAlign: TextAlign.left,
                                                       style: AppStyle
                                                           .txtRubikLight16)),
-                                              Obx(() => CustomSwitch(
-                                                  value: controller
-                                                      .isSelectedSwitch1.value,
-                                                  onChanged: (value) {
-                                                    controller.isSelectedSwitch1
-                                                        .value = value;
-                                                  }))
+                                              Switch(
+                                                  value: state2,
+                                                  onChanged:
+                                                      (bool value) async {
+                                                    EasyLoading.show(
+                                                        status: 'wait'.tr);
+                                                    await Future.delayed(
+                                                        Duration(seconds: 1));
+                                                    EasyLoading.dismiss();
+                                                    setState(() {
+                                                      state2 = value;
+                                                    });
+                                                  })
                                             ])),
                                     Container(
                                         height: 1.00.h,
@@ -510,14 +538,69 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                                     mainAxisSize:
                                                         MainAxisSize.min,
                                                     children: [
-                                                      Text(
-                                                        "lbl_english".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtRubikLight12,
+                                                      InkWell(
+                                                        onTap: () {
+                                                          Get.defaultDialog(
+                                                            title:
+                                                                "lbl_languages"
+                                                                    .tr,
+                                                            content:
+                                                                DropdownButton(
+                                                              // Initial Value
+                                                              value: value2,
+                                                              // Down Arrow Icon
+                                                              icon: const Icon(Icons
+                                                                  .keyboard_arrow_down),
+                                                              // Array list of items
+                                                              items: Where.map(
+                                                                  (String
+                                                                      Where) {
+                                                                return DropdownMenuItem(
+                                                                  value: Where,
+                                                                  child: Text(
+                                                                    Where,
+                                                                  ),
+                                                                );
+                                                              }).toList(),
+                                                              onChanged:
+                                                                  (value) {
+                                                                this.value2 = (value
+                                                                    .toString());
+                                                                print(value
+                                                                    .toString());
+
+                                                                if (value2 ==
+                                                                    'English') {
+                                                                  o.changelang(
+                                                                      'en_US');
+                                                                }
+
+                                                                if (value2 ==
+                                                                    'العربية') {
+                                                                  o.changelang(
+                                                                      'ar');
+                                                                }
+                                                                setState(() {
+                                                                  SettingsScreen;
+
+                                                                  //  provider.not();
+                                                                });
+                                                              },
+                                                            ),
+                                                            textCancel:
+                                                                'cancel'.tr,
+                                                            onCancel: () {},
+                                                          );
+                                                        },
+                                                        child: Text(
+                                                          "lbl_english".tr,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtRubikLight12,
+                                                        ),
                                                       ),
                                                       Padding(
                                                         padding:
@@ -526,12 +609,17 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                                           top: 1.h,
                                                           bottom: 1.h,
                                                         ),
-                                                        child: CommonImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgArrowright,
-                                                          color: Colors.black54,
-                                                          height: 12.00.h,
-                                                          width: 7.00.w,
+                                                        child: InkWell(
+                                                          onTap: () {},
+                                                          child:
+                                                              CommonImageView(
+                                                            svgPath: ImageConstant
+                                                                .imgArrowright,
+                                                            color:
+                                                                Colors.black54,
+                                                            height: 12.00.h,
+                                                            width: 7.00.w,
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
@@ -540,128 +628,6 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                               ],
                                             ),
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: 15.0.h,
-                                              bottom: 15.0.w,
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  "Currency".tr,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style:
-                                                      AppStyle.txtRubikLight16,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: 205.w,
-                                                    top: 2.h,
-                                                    bottom: 3.h,
-                                                  ),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                        "\$-USD".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtRubikLight12,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                          left: 10.w,
-                                                          top: 1.h,
-                                                          bottom: 1.h,
-                                                        ),
-                                                        child: CommonImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgArrowright,
-                                                          color: Colors.black54,
-                                                          height: 12.00.h,
-                                                          width: 7.00.w,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: 15.0.h,
-                                              bottom: 15.0.w,
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  "Linked accounts".tr,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style:
-                                                      AppStyle.txtRubikLight16,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: 90.w,
-                                                    top: 2.h,
-                                                    bottom: 3.h,
-                                                  ),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                        "Facebook, Google".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtRubikLight12,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                          left: 10.w,
-                                                          top: 1.h,
-                                                          bottom: 1.h,
-                                                        ),
-                                                        child: CommonImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgArrowright,
-                                                          color: Colors.black54,
-                                                          height: 12.00.h,
-                                                          width: 7.00.w,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
                                         ],
                                       ),
                                       // Obx(() =>
@@ -695,13 +661,14 @@ class SettingsScreen extends GetWidget<SettingsController> {
                                             right: 19.w,
                                             bottom: 50.h),
                                         decoration: BoxDecoration(
-                                            color: ColorConstant.tealA70014))
+                                            color: ColorConstant.tealA70014)),
                                   ]))
                         ]))))));
   }
 
   onTapRowplay() {
-    Get.toNamed(AppRoutes.notificationSScreen);
+    Get.put(UpdatePassController());
+    Get.to(UpdatePassScreen());
   }
 
   onTapRowplay_Change_Pas() {

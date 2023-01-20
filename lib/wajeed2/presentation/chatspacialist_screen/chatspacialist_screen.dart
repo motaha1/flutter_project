@@ -138,8 +138,7 @@ class ChatspacialistScreen extends StatelessWidget {
   }
 
   onTapRowtime() {
-    MyWidgetMS.name = userchats[i].titel;
-    Get.toNamed(AppRoutes.Messagescreen);
+
   }
 
   onTapCall1() {

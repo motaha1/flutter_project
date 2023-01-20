@@ -1,11 +1,15 @@
 import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/screenthree_firebase.dart';
 import 'package:final_grad_proj/models/SpecialistProfile.dart';
+import 'package:final_grad_proj/models/user_api.dart';
 import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
 import 'package:final_grad_proj/mustafa/widgets/custom_button.dart';
 import 'package:final_grad_proj/mustafa/presentation/favourite_specialists_screen/favourite_specialists_screen.dart';
 import 'package:final_grad_proj/mustafa/widgets/custom_icon_button.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:final_grad_proj/wajeed2/presentation/chat_page/chat_page.dart';
+import 'package:final_grad_proj/wajeed2/presentation/chat_page/widgets/chat_item_widget.dart';
+import 'package:final_grad_proj/wajeed2/presentation/message_screen%20copy/message_screen.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -660,92 +664,101 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                   //   alignment: Alignment.center,
                                   // ),
 
-                                  Row(
+                                  Consumer<AuthProvider>(
+                                    builder: (context , provider , x) {
+                                      return Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
-                                      //   ),
-                                      // );
-                                    },
-                                    child: CustomImageView(
-                                      //ddsds
-                                      imagePath: ImageConstant.imgco1,
-                                      height: 26.00.h,
-                                      width: 26.00.w,
-                                      radius: BorderRadius.circular(
-                                        10.00.r,
+                                      GestureDetector(
+                                        onTap: () {
+                                          print('jjj') ; 
+                                        provider.chatting = special!.user!.email ;
+                                          //dynamic a = special!.user ; 
+                                          Get.to(taha_copy(special)) ;  
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
+                                          //   ),
+                                          // );
+                                        },
+                                        child: CustomImageView(
+                                          //ddsds
+                                          imagePath: ImageConstant.imgco1,
+                                          height: 26.00.h,
+                                          width: 26.00.w,
+                                          radius: BorderRadius.circular(
+                                            10.00.r,
+                                          ),
+                                          alignment: Alignment.center,
+                                        ),
                                       ),
-                                      alignment: Alignment.center,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
-                                      //   ),
-                                      // );
-                                    },
-                                    child: CustomImageView(
-                                      //ddsds
-                                      imagePath: ImageConstant.imgco2,
-                                      height: 26.00.h,
-                                      width: 26.00.w,
-                                      radius: BorderRadius.circular(
-                                        10.00.r,
+                                      GestureDetector(
+                                        onTap: () async{
+                                        
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
+                                          //   ),
+                                          // );
+                                        },
+                                        child: CustomImageView(
+                                          //ddsds
+                                          imagePath: ImageConstant.imgco2,
+                                          height: 26.00.h,
+                                          width: 26.00.w,
+                                          radius: BorderRadius.circular(
+                                            10.00.r,
+                                          ),
+                                          alignment: Alignment.center,
+                                        ),
                                       ),
-                                      alignment: Alignment.center,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
-                                      //   ),
-                                      // );
-                                    },
-                                    child: CustomImageView(
-                                      //ddsds
-                                      imagePath: ImageConstant.imgco3,
-                                      height: 26.00.h,
-                                      width: 26.00.w,
-                                      radius: BorderRadius.circular(
-                                        10.00.r,
+                                      GestureDetector(
+                                        onTap: () {
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
+                                          //   ),
+                                          // );
+                                        },
+                                        child: CustomImageView(
+                                          //ddsds
+                                          imagePath: ImageConstant.imgco3,
+                                          height: 26.00.h,
+                                          width: 26.00.w,
+                                          radius: BorderRadius.circular(
+                                            10.00.r,
+                                          ),
+                                          alignment: Alignment.center,
+                                        ),
                                       ),
-                                      alignment: Alignment.center,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
-                                      //   ),
-                                      // );
-                                    },
-                                    child: CustomImageView(
-                                      //ddsds
-                                      imagePath: ImageConstant.imgco4,
-                                      height: 26.00.h,
-                                      width: 26.00.w,
-                                      radius: BorderRadius.circular(
-                                        10.00.r,
+                                      GestureDetector(
+                                        onTap: () {
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => DoctorDetailsScreen(Doctor: Fav_List/* فقط للتذكر :) */,),
+                                          //   ),
+                                          // );
+                                        },
+                                        child: CustomImageView(
+                                          //ddsds
+                                          imagePath: ImageConstant.imgco4,
+                                          height: 26.00.h,
+                                          width: 26.00.w,
+                                          radius: BorderRadius.circular(
+                                            10.00.r,
+                                          ),
+                                          alignment: Alignment.center,
+                                        ),
                                       ),
-                                      alignment: Alignment.center,
-                                    ),
-                                  ),
                                 ],
-                              ),
+                              );
+                                    }
+                                  ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(

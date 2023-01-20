@@ -5,7 +5,9 @@ import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/gsk_2022/another/presentation/time_picker/doctor_info.dart';
 import 'package:final_grad_proj/gsk_2022/presentation/doctor_appointment_screen/booking.dart';
 import 'package:final_grad_proj/helper/db_helper.dart';
+import 'package:final_grad_proj/localization/mylocalecontroller.dart';
 import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
+import 'package:final_grad_proj/mustafa/presentation/settings_screen/settings_screen.dart';
 import 'package:final_grad_proj/presentation/menu_screen/menu_screen.dart';
 import 'package:final_grad_proj/presentation/splash_screen/splash_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
@@ -27,6 +29,7 @@ import 'core/app_export.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'wajeed/presentation/login_screen/login_screen.dart';
+import 'wajeed2/presentation/specialist_screen_page/specialist_screen_page.dart';
 
 void main() async {
   initializeDateFormatting();
@@ -45,10 +48,10 @@ void main() async {
     // log('26666666666666');
     Get.snackbar(event.notification!.title.toString(),
         event.notification!.body.toString());
-    await DioHelper.diohelper.savenotify(
-        "7",
-        event.notification!.title.toString(),
-        event.notification!.body.toString());
+    // await DioHelper.diohelper.savenotify(
+    //     "7",
+    //     event.notification!.title.toString(),
+    //     event.notification!.body.toString());
   });
 
   //await DbHelper.dbHelper.initDatabase();
@@ -88,9 +91,13 @@ class AppInit extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+      Get.put(Lang());
     return ScreenUtilInit(
+      
         designSize: const Size(375, 812),
+        
         builder: (context, child) {
+        
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             translations: AppLocalization(),

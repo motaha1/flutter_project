@@ -4,7 +4,11 @@ import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/mustafa/presentation/doctor_details_screen/doctor_details_screen.dart';
 import 'package:final_grad_proj/mustafa/presentation/favourite_specialists_screen/favourite_specialists_screen.dart';
 import 'package:final_grad_proj/mustafa/presentation/notification_m_screen/notification_m_screen.dart';
+import 'package:final_grad_proj/mustafa/presentation/privacy_policy_screen/privacy_policy_screen.dart';
+import 'package:final_grad_proj/mustafa/presentation/settings_screen/settings_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:final_grad_proj/wajeed2/presentation/Patient_Schedule/Patient_Schedule.dart';
+import 'package:final_grad_proj/wajeed2/presentation/chat_page/chat_page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -1124,7 +1128,7 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      "msg_feature_special".tr,
+                                      "recommended from chatbot".tr,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtRubikMedium18,
@@ -1210,72 +1214,106 @@ class _HomePageState extends State<HomePage> {
           child: ListTileTheme(
             textColor: Colors.white,
             iconColor: Colors.white,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: 128.0,
-                  height: 128.0,
-                  margin: const EdgeInsets.only(
-                    top: 24.0,
-                    bottom: 64.0,
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.network(
-                    'https://www.getillustrations.com/packs/3d-avatar-illustrations/male/_1x/Avatar,%203D%20_%20man,%20male,%20people,%20person,%20shirt,%20hairstyle_md.png',
-                  ),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: Icon(Icons.account_circle_rounded),
-                  title: Text('My Profile'),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: Icon(Icons.book_online_outlined),
-                  title: Text('Speciallist Records'),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: Icon(Icons.folder_open_sharp),
-                  title: Text('Privacy & Policy'),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                ),
-                ListTile(
-                  onTap: () {
-                    Get.to(chat_bot());
-                  },
-                  leading: Icon(Icons.chat),
-                  title: Text('Chat bot'),
-                ),
-                Spacer(),
-                DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white54,
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 16.0,
+            child: Consumer<AuthProvider>(builder: (context, provider, x) {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    width: 128.0,
+                    height: 128.0,
+                    margin: const EdgeInsets.only(
+                      top: 24.0,
+                      bottom: 64.0,
                     ),
-                    child: Text('Terms of Service | Privacy Policy'),
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.network(provider.user_api.user.avatar ??'https://www.getillustrations.com/packs/3d-avatar-illustrations/male/_1x/Avatar,%203D%20_%20man,%20male,%20people,%20person,%20shirt,%20hairstyle_md.png'
+                      ,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                  ListTile(
+                    onTap: () {},
+                    leading: Icon(Icons.home),
+                    title: Text('Home'),
+                  ),
+                  ListTile(
+                    onTap: () {},
+                    leading: Icon(Icons.account_circle_rounded),
+                    title: Text('My Profile'),
+                  ),
+                  ListTile(
+                    onTap: () {},
+                    leading: Icon(Icons.book_online_outlined),
+                    title: Text('Speciallist Records'),
+                  ),
+                  ListTile(
+                    onTap: () {
+
+                      Get.to(PrivacyPolicyScreen()) ; 
+                    },
+                    leading: Icon(Icons.folder_open_sharp),
+                    title: Text('Privacy & Policy'),
+                  ),
+                  ListTile(
+                    onTap: () {
+
+                      Get.to(SettingsScreen()) ; 
+                    },
+                    leading: Icon(Icons.settings),
+                    title: Text('Settings'),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Get.to(chat_bot());
+                    },
+                    leading: Icon(Icons.chat),
+                    title: Text('Chat bot'),
+                  ),
+
+                                    ListTile(
+                    onTap: ()async {
+                      EasyLoading.show(status: 'loading....') ;  
+
+                      await provider.how_i_am_talk_api() ; 
+                          EasyLoading.dismiss() ; 
+
+            // Get.to(ThreeScreen_new('1'));
+  Get.to(ChatPage());
+                    },
+                    leading: Icon(Icons.chat_rounded),
+                    title: Text('chat'),
+                  ),
+                  ListTile(
+                    onTap: () async {
+                      print ('fffff') ; 
+                      provider.date_patient =DateTime.now().toString().split(" ")[0] ;
+                      EasyLoading.show(status: 'loading....') ;  
+                          await provider.view_appoiment_for_patient('');
+                          EasyLoading.dismiss() ; 
+                      Get.to(PatientSchedule());
+                    },
+                    leading: Icon(Icons.chat),
+                    title: Text('Your appoiment'),
+                  ),
+                  Spacer(),
+                  DefaultTextStyle(
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white54,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 16.0,
+                      ),
+                      child: Text('Terms of Service | Privacy Policy'),
+                    ),
+                  ),
+                ],
+              );
+            }),
           ),
         ),
       ),
@@ -1443,17 +1481,17 @@ class _HomePageState extends State<HomePage> {
                                 // Fav_List.removeWhere((element) => element.id == 21);
                                 if (special.Fav == true) {
                                   special.Fav = false;
-                                  EasyLoading.show(status: 'Loading......') ; 
-                                  
-                                                                   await provider
-                                      .fav_comp(special.id.toString());
-                                      EasyLoading.dismiss() ; 
-                                } else {
-                                  special.Fav = true;
-                                  EasyLoading.show(status: 'Loading......') ;
+                                  EasyLoading.show(status: 'Loading......');
+
                                   await provider
                                       .fav_comp(special.id.toString());
-                                       EasyLoading.dismiss() ; 
+                                  EasyLoading.dismiss();
+                                } else {
+                                  special.Fav = true;
+                                  EasyLoading.show(status: 'Loading......');
+                                  await provider
+                                      .fav_comp(special.id.toString());
+                                  EasyLoading.dismiss();
                                 }
                               });
                             },
@@ -1508,6 +1546,21 @@ class _HomePageState extends State<HomePage> {
                         style: AppStyle.txtRubikRegular12IndigoA400,
                       ),
                     ),
+                                      Padding(
+                    padding: EdgeInsets.only(
+                      left: 10.w,
+                      top: 0.h,
+                      right: 5.w,
+                      bottom: 5.h,
+                    ),
+                    child: Text(
+                      // Fav_List.Specialist.tr,
+                      special.user?.city ??'nablus',
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: AppStyle.txtRubikRegular12IndigoA400,
+                    ),
+                  ),
                   ],
                 );
               }),
