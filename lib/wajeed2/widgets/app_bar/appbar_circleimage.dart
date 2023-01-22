@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
 
 // ignore: must_be_immutable
 class AppbarCircleimage extends StatelessWidget {

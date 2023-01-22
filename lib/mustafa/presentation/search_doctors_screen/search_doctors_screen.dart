@@ -57,13 +57,13 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
   var City = [
     'all',
     'nablus',
-    'Jarusalem',
+    'Jerusalem',
     'Jenen',
     'Ram-Allah',
     'Hebron',
     'Selfet',
     'BetLahem',
-    'Areha',
+    'Jerecho',
     'TolKarem',
   ];
 
@@ -582,42 +582,41 @@ class _SearchDoctorsScreenState extends State<SearchDoctorsScreen> {
                   ),
                   Align(
                     alignment: Alignment.topRight,
-                    child: Consumer<AuthProvider>(
-                      builder: (context , provider ,x) {
-                        return Padding(
-                            padding: EdgeInsets.only(
-                              // left: 50.w,
-                              right: 0.w,
-                              bottom: 60.h,
-                            ),
-                            child: IconButton(
-                              iconSize: 20,
-                              icon: special.Fav == true
-                                  ? Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    )
-                                  : Icon(Icons.favorite_border),
-                              onPressed: () {
-                                setState(() async {
-                                  if (special.Fav == true) {
-                                    special.Fav = false;
-                                       EasyLoading.show(status: 'Loading......') ;
-                                      await provider
-                                          .fav_comp(special.id.toString());
-                                           EasyLoading.dismiss() ; 
-                                  } else {
-                                    special.Fav = true;
-                                       EasyLoading.show(status: 'Loading......') ;
-                                      await provider
-                                          .fav_comp(special.id.toString());
-                                           EasyLoading.dismiss() ; 
-                                  }
-                                });
-                              },
-                            ));
-                      }
-                    ),
+                    child:
+                        Consumer<AuthProvider>(builder: (context, provider, x) {
+                      return Padding(
+                          padding: EdgeInsets.only(
+                            // left: 50.w,
+                            right: 0.w,
+                            bottom: 60.h,
+                          ),
+                          child: IconButton(
+                            iconSize: 20,
+                            icon: special.Fav == true
+                                ? Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  )
+                                : Icon(Icons.favorite_border),
+                            onPressed: () {
+                              setState(() async {
+                                if (special.Fav == true) {
+                                  special.Fav = false;
+                                  EasyLoading.show(status: 'Loading......');
+                                  await provider
+                                      .fav_comp(special.id.toString());
+                                  EasyLoading.dismiss();
+                                } else {
+                                  special.Fav = true;
+                                  EasyLoading.show(status: 'Loading......');
+                                  await provider
+                                      .fav_comp(special.id.toString());
+                                  EasyLoading.dismiss();
+                                }
+                              });
+                            },
+                          ));
+                    }),
                   ),
                 ],
               ),

@@ -8,14 +8,19 @@ import 'package:final_grad_proj/helper/db_helper.dart';
 import 'package:final_grad_proj/localization/mylocalecontroller.dart';
 import 'package:final_grad_proj/mustafa/presentation/home_page/home_page.dart';
 import 'package:final_grad_proj/mustafa/presentation/settings_screen/settings_screen.dart';
+import 'package:final_grad_proj/presentation/help_center_screen/controller/help_center_controller.dart';
+import 'package:final_grad_proj/presentation/help_center_screen/help_center_screen.dart';
 import 'package:final_grad_proj/presentation/menu_screen/menu_screen.dart';
-import 'package:final_grad_proj/presentation/splash_screen/splash_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/provider/provider.dart';
 import 'package:final_grad_proj/provider/special.dart';
 import 'package:final_grad_proj/screens_test/main_screen.dart';
 import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
-import 'package:final_grad_proj/screens_test/splash_test.dart';
+
+import 'package:final_grad_proj/wajeed/presentation/sign_up_screen/controller/sign_up_controller.dart';
+import 'package:final_grad_proj/wajeed/presentation/sign_up_screen/sign_up_screen.dart';
+import 'package:final_grad_proj/wajeed/presentation/splash_screen/splash_screen.dart';
+import 'package:final_grad_proj/wajeed2/presentation/comments_page/comments_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +34,7 @@ import 'core/app_export.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'wajeed/presentation/login_screen/login_screen.dart';
+import 'wajeed2/presentation/patient_details/Patient_screen.dart';
 import 'wajeed2/presentation/specialist_screen_page/specialist_screen_page.dart';
 
 void main() async {
@@ -46,8 +52,8 @@ void main() async {
     print(event.data.toString());
     // print('2666666666666666');
     // log('26666666666666');
-    Get.snackbar(event.notification!.title.toString(),
-        event.notification!.body.toString());
+    // Get.snackbar(event.notification!.title.toString(),
+    //     event.notification!.body.toString());
     // await DioHelper.diohelper.savenotify(
     //     "7",
     //     event.notification!.title.toString(),
@@ -91,13 +97,12 @@ class AppInit extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-      Get.put(Lang());
+    Get.put(Lang());
+    Get.put(SignUpController()); 
+    Get.put(HelpCenterController()) ; 
     return ScreenUtilInit(
-      
         designSize: const Size(375, 812),
-        
         builder: (context, child) {
-        
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             translations: AppLocalization(),
@@ -106,7 +111,7 @@ class AppInit extends StatelessWidget {
             title: 'final_grad_proj',
             // initialBinding: InitialBindings(),
             // initialRoute: AppRoutes.signintest,
-            home: MyWidgetLogin(),
+            home: SplashScreen(),
 
             builder: EasyLoading.init(),
 

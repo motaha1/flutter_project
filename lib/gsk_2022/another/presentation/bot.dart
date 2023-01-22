@@ -1,5 +1,8 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
+import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 import 'Messages.dart';
 
 // void main() => runApp(MyApp());
@@ -40,7 +43,19 @@ class _HomeState extends State<chat_bot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ask For Care chatbot'),
+        title: GestureDetector(child: Text('Ask For Care chatbot') ,
+        onTap: () async{
+          
+                                                 EasyLoading.show(
+                                                  status:
+                                                  'change from chat boot-firebase realtime ....');
+                                              await Provider.of<AuthProvider>(context , listen: false).rec_by_bot();
+                                              EasyLoading.dismiss();
+        },
+        
+        
+        ),
+
       ),
       body: Container(
         child: Column(

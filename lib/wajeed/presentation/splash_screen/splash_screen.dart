@@ -1,3 +1,4 @@
+import 'package:final_grad_proj/presentation/walkthrough_three_screen/walkthrough_three_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'controller/splash_controller.dart';
@@ -56,6 +57,6 @@ class SplashScreen extends StatelessWidget {
   }
 
   onTapImgBg() {
-    Get.toNamed(AppRoutes.walkthroughOneScreen);
+   Get.to(WalkthroughThreeScreen()) ; 
   }
 }

@@ -142,7 +142,7 @@ class MyWidgetState extends State<MyWidgetCommentsPage> {
                                       ])))
                         ]))))
           ])),
-      bottomNavigationBar: CustomBottomBar(onChanged: (BottomBarEnum type) {}),
+     
     ));
   }
 

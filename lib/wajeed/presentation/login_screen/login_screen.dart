@@ -1,4 +1,6 @@
 import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:final_grad_proj/wajeed/presentation/sign_up_screen/controller/sign_up_controller.dart';
+import 'package:final_grad_proj/wajeed/presentation/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
@@ -372,7 +374,8 @@ class LoginScreen extends State<MyWidgetLogin> {
                                                                 .txtRubikRegular14IndigoA400))),
                                                 GestureDetector(
                                                     onTap: () {
-                                                  getLogin();
+                                                     Get.put(SignUpController()) ; 
+    Get.to(SignUpScreen());
                                                       
                                                   
                                                     },

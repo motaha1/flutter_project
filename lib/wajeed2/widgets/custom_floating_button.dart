@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomFloatingButton extends StatelessWidget {
@@ -74,7 +74,9 @@ class CustomFloatingButton extends StatelessWidget {
     switch (shape) {
       default:
         return BorderRadius.circular(
-          (22.5.r),
+          (
+            22.5.r
+          ),
         );
     }
   }

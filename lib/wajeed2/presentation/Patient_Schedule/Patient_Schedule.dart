@@ -1,3 +1,4 @@
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:final_grad_proj/models/appoiment_api.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/wajeed2/presentation/Patient%20Records/models/userPatient.dart';
@@ -50,6 +51,9 @@ class MyWidgetState extends State<PatientSchedule> {
   //   userPatient(Name: "Wajeed", Date: "Ahmad", time: "Anas"),
   //   userPatient(Name: "Ali", Date: "Mohammad", time: "Anas"),
   // ];
+    DatePickerController _controller = DatePickerController();
+
+  DateTime _selectedValue = DateTime.now();
   @override
   Widget build(BuildContext context) {
     List<AppoimentApi>? GlobalList = Provider.of<AuthProvider>(context).po1;
@@ -67,41 +71,35 @@ class MyWidgetState extends State<PatientSchedule> {
                       imagePath: ImageConstant.BackgroundChat,
                       height: 812.h,
                       width: 375.w)),
+    
               Align(
                   alignment: Alignment.topCenter,
-                  child: Row(
-                    children: [
-                      Container(
-                          margin: EdgeInsets.only(
-                              left: 130.w, top: 20.h, bottom: 13.h),
-                          child: Text("Speciallist List",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtRobotoMedium24)),
-                    ],
-                  )),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: 23.w, right: 23.w, bottom: 10.h, top: 65.h),
-                child: Align(
-                    alignment: Alignment.topCenter,
-                    child: CustomSearchView(
-                        width: 327.w,
-                        focusNode: FocusNode(),
-                        hintText: "Search For Patient",
-                        margin: EdgeInsets.only(left: 1.w),
-                        prefix: Container(
-                            margin: EdgeInsets.only(
-                                left: 22.w,
-                                top: 18.h,
-                                right: 10.w,
-                                bottom: 18.h),
-                            child: CommonImageView(
-                                svgPath: ImageConstant.imgSearch)),
-                        prefixConstraints: BoxConstraints(
-                            minWidth: getSize(14.00),
-                            minHeight: getSize(14.00)))),
-              ),
+                  child:DatePicker(
+                  DateTime.now(),
+                  width: 60,
+                  height: 100,
+                  controller: _controller,
+                  initialSelectedDate: DateTime.now(),
+                  selectionColor: Colors.black,
+                  selectedTextColor: Colors.white,
+                  inactiveDates: [
+            
+                  ],
+                  onDateChange: (date) async {
+                    // New date selected
+                    setState(() {
+                      _selectedValue = date;
+                      // print(_selectedValue.toString().split(" ")[0]);
+                      print(provider.date);
+                      provider.date_patient =
+                          _selectedValue.toString().split(" ")[0];
+                      print( provider.date_patient);
+                    });
+EasyLoading.show(status: 'loading....') ; 
+                    await provider.view_appoiment_for_patient('');
+                    EasyLoading.dismiss() ; 
+                  },
+                )),
               Row(
                 children: [
                   CustomButton(

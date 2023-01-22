@@ -26,7 +26,7 @@ class ChatItemWidget extends StatelessWidget {
             //alignment: Alignment.bottomLeft,
             child: GestureDetector(
           onTap: () async{
-            EasyLoading.show(status: 'loading..') ; 
+        EasyLoading.show(status: 'loading..') ; 
 
             await provider.getuserchat(api.email ??'motaha@enginner.com') ; 
             

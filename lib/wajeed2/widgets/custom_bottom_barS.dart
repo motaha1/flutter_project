@@ -1,5 +1,11 @@
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
+import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:final_grad_proj/wajeed2/presentation/Specialist_Schedule/Specialist_Schedule.dart';
+import 'package:final_grad_proj/wajeed2/presentation/chat_page/chat_page.dart';
+import 'package:final_grad_proj/wajeed2/presentation/specialist_screen_page/specialist_screen_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 
 class CustomBottomBar extends StatelessWidget {
   CustomBottomBar({this.onChanged});
@@ -15,7 +21,7 @@ class CustomBottomBar extends StatelessWidget {
             size: 25,
           ),
           onPressed: () {
-            Get.toNamed(AppRoutes.Specialist_screen);
+      Get.to(SpecialistScreenPage()) ; 
           },
         ),
         type: BottomBarEnum.ImggroupindigoA400,
@@ -28,7 +34,7 @@ class CustomBottomBar extends StatelessWidget {
             size: 25,
           ),
           onPressed: () {
-            Get.toNamed(AppRoutes.Specialist_Schedule);
+         Get.to(SpecialistSchedule()) ; 
           },
         ),
         type: BottomBarEnum.Groupindigoa40029x20,
@@ -41,7 +47,7 @@ class CustomBottomBar extends StatelessWidget {
             size: 25,
           ),
           onPressed: () {
-            Get.toNamed(AppRoutes.CommentsSp);
+       
           },
         ),
         type: BottomBarEnum.Imggroupbluegray400,
@@ -53,8 +59,17 @@ class CustomBottomBar extends StatelessWidget {
             color: ColorConstant.indigoA400,
             size: 25,
           ),
-          onPressed: () {
-            Get.toNamed(AppRoutes.Chatspacialist);
+          onPressed: () async{
+
+                              EasyLoading.show(status: 'loading....');
+
+//await Provider.of<AuthProvider>(context , listen: false).how_i_am_talk_api();
+                     // await Provider.o.how_i_am_talk_api();
+                      EasyLoading.dismiss();
+
+                      // Get.to(ThreeScreen_new('1'));
+                      Get.to(ChatPage());
+       
           },
         ),
         type: BottomBarEnum.Imggroupbluegray40018X26,

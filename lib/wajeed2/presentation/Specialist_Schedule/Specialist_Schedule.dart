@@ -106,7 +106,7 @@ class MyWidgetState extends State<SpecialistSchedule> {
                 children: [
                   CustomButton(
                       width: 95.w,
-                      text: "Upcoming",
+                      text: "coming",
                       margin: EdgeInsets.only(
                           left: 17.w, top: 120.h, right: 17.w, bottom: 45.h),
                       shape: ButtonShape.RoundedBorder28,

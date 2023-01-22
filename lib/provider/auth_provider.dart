@@ -191,13 +191,13 @@ class AuthProvider extends ChangeNotifier {
       (event) {
         print(event.docs.length);
         chat = [];
-    event.docs.forEach((element) {
+        event.docs.forEach((element) {
           print(element.id);
           chat.add(Chat.fromMap(element.data()));
         });
       },
     );
-      listV() ; 
+    listV();
 //gethowiamtalk()
   }
 
@@ -337,8 +337,10 @@ class AuthProvider extends ChangeNotifier {
   getallspecial() async {
     allspecial = await DioHelper.diohelper.getallspecial();
     notifyListeners();
-    allspecial!.sort((a, b) =>
-        a.rattingScore!.starsAvg!.compareTo(-b.rattingScore!.starsAvg));
+    allspecial!.sort((b, a) =>
+        a.rattingScore!.starsAvg!.compareTo(b.rattingScore!.starsAvg));
+
+    allspecial = allspecial!.take(5).toList() ; 
 
     // fruits.sort((a, b) => getPrice(a).compareTo(getPrice(b)));
   }
@@ -470,6 +472,7 @@ class AuthProvider extends ChangeNotifier {
 
   List<SpecialistProfile>? rec_via_bot;
   rec_by_bot() async {
+    rec_via_bot = [];
     rec_via_bot = await DioHelper.diohelper.rec_via_bot(user_api.id.toString());
 
     notifyListeners();
@@ -586,30 +589,29 @@ class AuthProvider extends ChangeNotifier {
     return 0;
   }
 
-  String? chatting ; 
+  String? chatting;
 
   sendmessage_api(String text, String reciver) async {
     await DioHelper.diohelper
         .sendmessage(text, user_api.user.email.toString(), reciver);
   }
 
-
-List<Userapi>? how_i_am_talk_list ; 
+  List<Userapi>? how_i_am_talk_list;
   how_i_am_talk_api() async {
+//how_i_am_talk_list = await DioHelper.diohelper.how_i_am_talk(user_api.user.email.toString()) ;
 
-//how_i_am_talk_list = await DioHelper.diohelper.how_i_am_talk(user_api.user.email.toString()) ; 
-
-how_i_am_talk_list = await DioHelper.diohelper.how_i_am_talk('hellopatient@gmail.com') ; 
-print(how_i_am_talk_list) ; 
-return how_i_am_talk_list ; 
-// String typee ='' ; 
+    how_i_am_talk_list =
+        await DioHelper.diohelper.how_i_am_talk(user_api?.user?.email ?? 'hellopatient@gmail.com');
+    print(how_i_am_talk_list);
+    return how_i_am_talk_list;
+// String typee ='' ;
 //     if (user_api.user.is_specialist== true) {
-//       typee = 'special' ; 
+//       typee = 'special' ;
 
 //     }
 
 //         if (user_api.user.is_patient== true) {
-//       typee = 'patient' ; 
+//       typee = 'patient' ;
 
 //     }
 //      dynamic user = await DioHelper.diohelper.how_i_am_talk(typee, user_api.user.email.toString());
@@ -620,8 +622,8 @@ return how_i_am_talk_list ;
 //     } else {
 //       if (user_api.user.is_specialist== true) {
 //         SpecialistProfile specialists = SpecialistProfile.fromJson(user);
-       
-//        return 
+
+//        return
 //         EasyLoading.dismiss();
 //         // SpecialistScreenPage
 //         print('hello special ' + user_api.user.username);
@@ -638,11 +640,12 @@ return how_i_am_talk_list ;
 //     }
   }
 
-
   List<ChatMessage>? arr;
-  listV()async {
-   chat.sort((b, a) => a.time.compareTo(b.time),) ; 
-    list.demeChatMessages  =[] ; 
+  listV() async {
+    chat.sort(
+      (b, a) => a.time.compareTo(b.time),
+    );
+    list.demeChatMessages = [];
     for (int i = 0; i < chat.length; i++) {
       final m;
       if (chat[i].sender == user_api.user.email) {

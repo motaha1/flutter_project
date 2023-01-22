@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
 
 // ignore: must_be_immutable
 class AppbarSubtitle1 extends StatelessWidget {
@@ -23,10 +23,7 @@ class AppbarSubtitle1 extends StatelessWidget {
           text,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
-          style: AppStyle.txtRobotoMedium20.copyWith(
-            height: 1.20,
-            color: ColorConstant.whiteA700,
-          ),
+
         ),
       ),
     );

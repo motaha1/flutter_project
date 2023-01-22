@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
@@ -24,12 +24,7 @@ class AppbarSubtitle5 extends StatelessWidget {
           text,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
-          style: AppStyle.txtBeVietnamProSemiBold1464.copyWith(
-            fontSize: 25.sp,
-            letterSpacing: 0.20,
-            height: 1.30,
-            color: ColorConstant.whiteA701,
-          ),
+
         ),
       ),
     );

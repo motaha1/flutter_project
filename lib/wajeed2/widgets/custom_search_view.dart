@@ -1,4 +1,4 @@
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchView extends StatelessWidget {
@@ -198,17 +198,14 @@ enum SearchViewShape {
   CircleBorder25,
   RoundedBorder6,
 }
-
 enum SearchViewPadding {
   PaddingAll18,
 }
-
 enum SearchViewVariant {
   OutlineBlack9000c,
   OutlineBlack90011,
   OutlineBlack90011_1,
 }
-
 enum SearchViewFontStyle {
   RubikRegular15,
   OverpassRegular13,

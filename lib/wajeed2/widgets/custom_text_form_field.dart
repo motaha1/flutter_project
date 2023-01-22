@@ -1,4 +1,4 @@
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +21,8 @@ class CustomTextFormField extends StatelessWidget {
       this.prefixConstraints,
       this.suffix,
       this.suffixConstraints,
-      this.validator});
+      this.validator
+      });
 
   TextFormFieldShape? shape;
 
@@ -58,6 +59,7 @@ class CustomTextFormField extends StatelessWidget {
   BoxConstraints? suffixConstraints;
 
   FormFieldValidator<String>? validator;
+
 
   @override
   Widget build(BuildContext context) {
@@ -237,8 +239,7 @@ enum TextFormFieldShape {
 }
 
 enum TextFormFieldPadding {
-  PaddingAll16,
-  PaddingAll9,
+  PaddingAll16, PaddingAll9,
 }
 
 enum TextFormFieldVariant {

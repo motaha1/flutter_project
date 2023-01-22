@@ -671,11 +671,23 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                         MainAxisAlignment.spaceEvenly,
                                 children: [
                                       GestureDetector(
-                                        onTap: () {
+                                        onTap: () async 
+                                        {
+                                              EasyLoading.show(status: 'loading..') ; 
+
+            await provider.getuserchat(special!.user!.email ??'motaha@enginner.com') ; 
+            
+           await Future.delayed(Duration(seconds: 1)) ; 
+            Get.to(taha_copy(special)) ; 
+            //Get.to(MyWidgetMS(api)) ; 
+             provider.chatting = special!.user!.email ; 
+            EasyLoading.dismiss() ; 
                                           print('jjj') ; 
-                                        provider.chatting = special!.user!.email ;
+                                          
+                                 
+                         
                                           //dynamic a = special!.user ; 
-                                          Get.to(taha_copy(special)) ;  
+                            
                                           // Navigator.push(
                                           //   context,
                                           //   MaterialPageRoute(

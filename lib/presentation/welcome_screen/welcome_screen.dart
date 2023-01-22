@@ -1,5 +1,8 @@
 import 'package:final_grad_proj/gsk_2022/another/presentation/three_screen/three_screen.dart';
 import 'package:final_grad_proj/screens_test/sign_in_screen.dart';
+import 'package:final_grad_proj/wajeed/presentation/login_screen/login_screen.dart';
+import 'package:final_grad_proj/wajeed/presentation/sign_up_screen/controller/sign_up_controller.dart';
+import 'package:final_grad_proj/wajeed/presentation/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -136,11 +139,7 @@ class WelcomeScreen extends StatelessWidget {
                                   width: (18.00.w)))),
                       GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                       SignInScreen()));
+onTapTxtLogin() ; 
                           },
                           child: Padding(
                               padding: EdgeInsets.only(
@@ -156,7 +155,8 @@ class WelcomeScreen extends StatelessWidget {
   }
 
   onTapBtnSignupwithem() {
-    Get.toNamed(AppRoutes.signUpScreen);
+    Get.put(SignUpController()) ; 
+    Get.to(SignUpScreen());
   }
 
   onTapRowfacebook() async {
@@ -175,6 +175,6 @@ class WelcomeScreen extends StatelessWidget {
   }
 
   onTapTxtLogin() {
-    Get.to(SignInScreen());
+    Get.to(MyWidgetLogin());
   }
 }

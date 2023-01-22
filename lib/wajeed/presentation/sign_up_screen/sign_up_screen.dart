@@ -1,3 +1,5 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../../widgets/app_bar/appbar_stack.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import 'controller/sign_up_controller.dart';
@@ -25,7 +27,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                 child: SingleChildScrollView(
                     child: Form(
                         key: _formKey,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                       // autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: Container(
                             height: size.height,
                             width: size.width,
@@ -169,12 +171,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                                       left: 20.w,
                                                       top: 20.h,
                                                       right: 20.w),
-                                                  validator: (value) {
-                                                    if (!isText(value)) {
-                                                      return "Please enter valid Name";
-                                                    }
-                                                    return null;
-                                                  }),
+                                             ),
                                             ),
                                             Expanded(
                                               child: CustomTextFormField(
@@ -187,13 +184,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                                       left: 20.w,
                                                       top: 20.h,
                                                       right: 20.w),
-                                                  validator: (value) {
-                                                    Email = value.toString();
-                                                    if (!isValidEmail(value)) {
-                                                      return "Please enter valid email";
-                                                    }
-                                                    return null;
-                                                  }),
+                                           ),
                                             ),
                                             Expanded(
                                               child: CustomTextFormField(
@@ -206,12 +197,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                                       left: 20.w,
                                                       top: 20.h,
                                                       right: 20.w),
-                                                  validator: (value) {
-                                                    if (!isValidPhone(value)) {
-                                                      return "Please enter valid phone number";
-                                                    }
-                                                    return null;
-                                                  }),
+                                              ),
                                             ),
                                             Obx(() => Expanded(
                                                   child: CustomTextFormField(
@@ -380,8 +366,11 @@ class SignUpScreen extends GetWidget<SignUpController> {
     });
   }
 
-  onTapBtnSignup() {
+  onTapBtnSignup() async{
     Page = 1; //userSpecialist
+    EasyLoading.show(status: 'loading....') ;
+   await Future.delayed(Duration(seconds: 1)) ; 
+    EasyLoading.dismiss() ;  
     Get.toNamed(AppRoutes.verifyOtpScreen);
   }
 

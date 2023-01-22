@@ -4,11 +4,17 @@ import 'package:final_grad_proj/models/SpecialistProfile.dart';
 import 'package:final_grad_proj/mustafa/presentation/doctor_details_screen/doctor_details_screen.dart';
 import 'package:final_grad_proj/mustafa/presentation/favourite_specialists_screen/favourite_specialists_screen.dart';
 import 'package:final_grad_proj/mustafa/presentation/notification_m_screen/notification_m_screen.dart';
-import 'package:final_grad_proj/mustafa/presentation/privacy_policy_screen/privacy_policy_screen.dart';
+import 'package:final_grad_proj/presentation/help_center_screen/controller/help_center_controller.dart';
+import 'package:final_grad_proj/presentation/help_center_screen/help_center_screen.dart';
+import 'package:final_grad_proj/presentation/privacy_policy_screen/controller/privacy_policy_controller.dart';
+import 'package:final_grad_proj/presentation/privacy_policy_screen/privacy_policy_screen.dart';
 import 'package:final_grad_proj/mustafa/presentation/settings_screen/settings_screen.dart';
+import 'package:final_grad_proj/presentation/walkthrough_three_screen/walkthrough_three_screen.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
+import 'package:final_grad_proj/wajeed/presentation/login_screen/login_screen.dart';
 import 'package:final_grad_proj/wajeed2/presentation/Patient_Schedule/Patient_Schedule.dart';
 import 'package:final_grad_proj/wajeed2/presentation/chat_page/chat_page.dart';
+import 'package:final_grad_proj/wajeed2/presentation/patient_details/Patient_screen.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -221,21 +227,27 @@ class _HomePageState extends State<HomePage> {
                                                     left: 16.w,
                                                   ),
                                                   child: InkWell(
-                                                    onTap: () async {
-                                                      EasyLoading.show(
-                                                          status: 'loading...');
-                                                      await provider.getfav();
-                                                      EasyLoading.dismiss();
-                                                      Get.to(
-                                                          FavouriteSpecialistsScreen());
-                                                    },
-                                                    child: CommonImageView(
-                                                      svgPath: ImageConstant
-                                                          .imgGroup3637,
-                                                      height: 24.00.h,
-                                                      width: 24.00.w,
-                                                    ),
-                                                  ),
+                                                      onTap: () async {
+                                                        EasyLoading.show(
+                                                            status:
+                                                                'loading...');
+                                                        await provider.getfav();
+                                                        EasyLoading.dismiss();
+                                                        Get.to(
+                                                            FavouriteSpecialistsScreen());
+                                                      },
+                                                      child: Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.white,
+                                                      )
+
+                                                      // CommonImageView(
+                                                      //   svgPath: ImageConstant
+                                                      //       .imgGroup3637,
+                                                      //   height: 24.00.h,
+                                                      //   width: 24.00.w,
+                                                      // ),
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -1047,7 +1059,7 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      "msg_popular_special".tr,
+                                      "top 5 specialist in this week",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtRubikMedium18,
@@ -1145,7 +1157,11 @@ class _HomePageState extends State<HomePage> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
+                                              EasyLoading.show(
+                                                  status:
+                                                      'change from chat boot-firebase realtime  ....');
                                               await provider.rec_by_bot();
+                                              EasyLoading.dismiss();
                                             },
                                             child: Text(
                                               "lbl_see_all".tr,
@@ -1230,8 +1246,9 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black26,
                       shape: BoxShape.circle,
                     ),
-                    child: Image.network(provider.user_api.user.avatar ??'https://www.getillustrations.com/packs/3d-avatar-illustrations/male/_1x/Avatar,%203D%20_%20man,%20male,%20people,%20person,%20shirt,%20hairstyle_md.png'
-                      ,
+                    child: Image.network(
+                      provider.user_api.user.avatar ??
+                          'https://www.getillustrations.com/packs/3d-avatar-illustrations/male/_1x/Avatar,%203D%20_%20man,%20male,%20people,%20person,%20shirt,%20hairstyle_md.png',
                     ),
                   ),
                   ListTile(
@@ -1240,27 +1257,46 @@ class _HomePageState extends State<HomePage> {
                     title: Text('Home'),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(patientScreen());
+                    },
                     leading: Icon(Icons.account_circle_rounded),
                     title: Text('My Profile'),
                   ),
+            
                   ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.book_online_outlined),
+                    onTap: () async {
+                      print('fffff');
+                      provider.date_patient =
+                          DateTime.now().toString().split(" ")[0];
+                      EasyLoading.show(status: 'loading....');
+                      await provider.view_appoiment_for_patient('');
+                      EasyLoading.dismiss();
+                      Get.to(PatientSchedule());
+                    },
+                    leading: Icon(Icons.book_rounded),
                     title: Text('Speciallist Records'),
                   ),
                   ListTile(
                     onTap: () {
+                      Get.put(PrivacyPolicyController());
 
-                      Get.to(PrivacyPolicyScreen()) ; 
+                      Get.to(PrivacyPolicyScreen());
                     },
-                    leading: Icon(Icons.folder_open_sharp),
+                    leading: Icon(Icons.privacy_tip_outlined),
                     title: Text('Privacy & Policy'),
                   ),
                   ListTile(
                     onTap: () {
-
-                      Get.to(SettingsScreen()) ; 
+                      Get.put(HelpCenterController());
+                      Get.to(HelpCenterScreen());
+                    },
+                    leading: Icon(Icons.help_center),
+                    title: Text('Help Center'),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Get.to(SettingsScreen());
                     },
                     leading: Icon(Icons.settings),
                     title: Text('Settings'),
@@ -1269,34 +1305,38 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       Get.to(chat_bot());
                     },
-                    leading: Icon(Icons.chat),
+                    leading: Icon(Icons.android),
                     title: Text('Chat bot'),
                   ),
 
-                                    ListTile(
-                    onTap: ()async {
-                      EasyLoading.show(status: 'loading....') ;  
+          
+                  ListTile(
+                    onTap: () async {
+                      EasyLoading.show(status: 'loading....');
 
-                      await provider.how_i_am_talk_api() ; 
-                          EasyLoading.dismiss() ; 
+                      await provider.how_i_am_talk_api();
+                      EasyLoading.dismiss();
 
-            // Get.to(ThreeScreen_new('1'));
-  Get.to(ChatPage());
+                      // Get.to(ThreeScreen_new('1'));
+                      Get.to(ChatPage());
                     },
                     leading: Icon(Icons.chat_rounded),
                     title: Text('chat'),
                   ),
-                  ListTile(
-                    onTap: () async {
-                      print ('fffff') ; 
-                      provider.date_patient =DateTime.now().toString().split(" ")[0] ;
-                      EasyLoading.show(status: 'loading....') ;  
-                          await provider.view_appoiment_for_patient('');
-                          EasyLoading.dismiss() ; 
-                      Get.to(PatientSchedule());
+
+                                     ListTile(
+                    onTap: () {
+                      Get.defaultDialog(title:'logout' , middleText: 'are you sure to logout ?'  ,textCancel: 'cancel' , onCancel: () {
+                        
+                      },
+                      textConfirm: 'yes' , 
+                      onConfirm: () {
+                        Get.to(MyWidgetLogin());
+                      },
+                      ); 
                     },
-                    leading: Icon(Icons.chat),
-                    title: Text('Your appoiment'),
+                    leading: Icon(Icons.logout),
+                    title: Text('Logout' , style: TextStyle(color: Colors.red)),
                   ),
                   Spacer(),
                   DefaultTextStyle(
@@ -1396,7 +1436,7 @@ class _HomePageState extends State<HomePage> {
                         right: 23.w,
                       ),
                       child: Text(
-                        special.medicalType ?? 'Dental',
+                        "${special.type}",
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtRubikLight10,
@@ -1546,21 +1586,21 @@ class _HomePageState extends State<HomePage> {
                         style: AppStyle.txtRubikRegular12IndigoA400,
                       ),
                     ),
-                                      Padding(
-                    padding: EdgeInsets.only(
-                      left: 10.w,
-                      top: 0.h,
-                      right: 5.w,
-                      bottom: 5.h,
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.w,
+                        top: 0.h,
+                        right: 5.w,
+                        bottom: 5.h,
+                      ),
+                      child: Text(
+                        // Fav_List.Specialist.tr,
+                        special.user?.city ?? 'nablus',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: AppStyle.txtRubikRegular12IndigoA400,
+                      ),
                     ),
-                    child: Text(
-                      // Fav_List.Specialist.tr,
-                      special.user?.city ??'nablus',
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: AppStyle.txtRubikRegular12IndigoA400,
-                    ),
-                  ),
                   ],
                 );
               }),

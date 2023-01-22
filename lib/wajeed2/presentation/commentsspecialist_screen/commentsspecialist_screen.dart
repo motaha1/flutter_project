@@ -1,7 +1,9 @@
+import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/wajeed2/presentation/commentsspecialist_screen/models/comments_list.dart';
 import 'package:final_grad_proj/wajeed2/widgets/custom_button.dart';
 import 'package:final_grad_proj/wajeed2/widgets/custom_search_view.dart';
 import 'package:final_grad_proj/wajeed2/widgets/custom_text_form_field.dart';
+import 'package:provider/provider.dart';
 
 import '../commentsspecialist_screen/widgets/listbg_one_item_widget.dart';
 import 'controller/commentsspecialist_controller.dart';
@@ -64,88 +66,92 @@ class MyWidgetState extends State<CommentsspecialistScreen> {
         child: Scaffold(
             backgroundColor: ColorConstant.indigoA400, //Colors.white,
             body: Container(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                  Container(
-                      height: (50.h),
-                      width: size.width,
-                      child: Stack(alignment: Alignment.topCenter, children: [
-                        CustomAppBar(
-                          height: (size.height),
-                          leadingWidth: 60,
-                          title: AppbarSubtitle5(
-                              text: "Comments".toUpperCase(),
-                              margin: EdgeInsets.only(left: 115.w)),
-                        )
-                      ])),
-                  Align(
-                      alignment: Alignment.topCenter,
-                      child: CustomSearchView(
-                          width: 300.w,
-                          focusNode: FocusNode(),
-                          hintText: "msg_search_for_your".tr,
-                          margin: EdgeInsets.only(left: 1.w),
-                          prefix: Container(
-                              margin: EdgeInsets.only(
-                                  left: 15.w,
-                                  top: 0.h,
-                                  right: 25.w,
-                                  bottom: 0.h),
-                              child: CommonImageView(
-                                  svgPath: ImageConstant.imgSearch)),
-                          prefixConstraints: BoxConstraints(
-                              minWidth: getSize(14.00),
-                              minHeight: getSize(14.00)))),
-                  Expanded(
-                      child: SingleChildScrollView(
-                          child: Container(
-                              height: size.height,
-                              width: size.width,
-                              margin: EdgeInsets.only(right: 1),
-                              child:
-                                  Stack(alignment: Alignment.center, children: [
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                        height: size.height,
-                                        width: size.width,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white))),
-                                Align(
-                                    alignment: Alignment.center,
-                                    child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 40.w,
-                                            //top: 40,
-                                            right: 29.w,
-                                            bottom: 40.h),
-                                        child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: ListView.builder(
-                                                    physics:
-                                                        NeverScrollableScrollPhysics(),
-                                                    //shrinkWrap: true,
-                                                    itemCount:
-                                                        Commentslist.length,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      i = index;
-                                                      return ListbgOneItemWidget(
-                                                          Commentslist);
-                                                    }),
-                                              ),
-                                            ])))
-                              ]))))
-                ])),
+                child: Consumer<AuthProvider>(
+                  builder: (context , provider ,x) {
+                    return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                      Container(
+                          height: (50.h),
+                          width: size.width,
+                          child: Stack(alignment: Alignment.topCenter, children: [
+                            CustomAppBar(
+                              height: (size.height),
+                              leadingWidth: 60,
+                              title: AppbarSubtitle5(
+                                  text: "Comments".toUpperCase(),
+                                  margin: EdgeInsets.only(left: 115.w)),
+                            )
+                          ])),
+                      Align(
+                          alignment: Alignment.topCenter,
+                          child: CustomSearchView(
+                              width: 300.w,
+                              focusNode: FocusNode(),
+                              hintText: "msg_search_for_your".tr,
+                              margin: EdgeInsets.only(left: 1.w),
+                              prefix: Container(
+                                  margin: EdgeInsets.only(
+                                      left: 15.w,
+                                      top: 0.h,
+                                      right: 25.w,
+                                      bottom: 0.h),
+                                  child: CommonImageView(
+                                      svgPath: ImageConstant.imgSearch)),
+                              prefixConstraints: BoxConstraints(
+                                  minWidth: getSize(14.00),
+                                  minHeight: getSize(14.00)))),
+                      Expanded(
+                          child: SingleChildScrollView(
+                              child: Container(
+                                  height: size.height,
+                                  width: size.width,
+                                  margin: EdgeInsets.only(right: 1),
+                                  child:
+                                      Stack(alignment: Alignment.center, children: [
+                                    Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Container(
+                                            height: size.height,
+                                            width: size.width,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white))),
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 40.w,
+                                                //top: 40,
+                                                right: 29.w,
+                                                bottom: 40.h),
+                                            child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: ListView.builder(
+                                                        physics:
+                                                            NeverScrollableScrollPhysics(),
+                                                        //shrinkWrap: true,
+                                                        itemCount:
+                                                            Commentslist.length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          i = index;
+                                                          return ListbgOneItemWidget(
+                                                              Commentslist);
+                                                        }),
+                                                  ),
+                                                ])))
+                                  ]))))
+                    ]);
+                  }
+                )),
             bottomNavigationBar:
                 CustomBottomBar(onChanged: (BottomBarEnum type) {}),
             floatingActionButton: Padding(

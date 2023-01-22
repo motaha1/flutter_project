@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:final_grad_proj/wajeed2/core/app_export.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 class AppStyle {
   static TextStyle txtRobotoRegular20Black90037 = TextStyle(
     color: ColorConstant.black900,
@@ -19,7 +20,7 @@ class AppStyle {
     fontWeight: FontWeight.w700,
   );
 
-  static TextStyle txtPoppinsMedium20 = TextStyle(
+   static TextStyle txtPoppinsMedium20 = TextStyle(
     color: ColorConstant.black900,
     fontSize: getFontSize(
       20,

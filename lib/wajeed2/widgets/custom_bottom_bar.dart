@@ -1,4 +1,4 @@
-import 'package:final_grad_proj/wajeed2/core/app_export.dart';
+import 'package:final_grad_proj/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomBar extends StatelessWidget {
@@ -41,8 +41,7 @@ class CustomBottomBar extends StatelessWidget {
             size: 25,
           ),
           onPressed: () {
-            Get.toNamed(AppRoutes.Commentsp);
-          },
+       },
         ),
         type: BottomBarEnum.Imggroupbluegray400,
         titel: "Comments"),
@@ -54,7 +53,7 @@ class CustomBottomBar extends StatelessWidget {
             size: 25,
           ),
           onPressed: () {
-            Get.toNamed(AppRoutes.chatpage);
+        
           },
         ),
         type: BottomBarEnum.Imggroupbluegray40018X26,
