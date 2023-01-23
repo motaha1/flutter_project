@@ -669,4 +669,5 @@ class AuthProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+  int xx = 1 ; 
 }

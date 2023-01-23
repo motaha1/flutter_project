@@ -196,6 +196,12 @@ backgroundColor: Colors.black,
                                   provider.date!,
                                   provider.user_api.id.toString(),
                                   idd!.toString());
+
+                              // await DioHelper.diohelper.sendsms(
+                              //   provider.user_api.user.mobile
+                              //       .toString()
+                              //       .substring(1),
+                              //   'An appointment has been booked for you  from ${provider.start.toString()} to ${provider.end.toString()}');
         
                                                               // await DioHelper.diohelper.sendsms(
                               //     provider.user_api.user.mobile

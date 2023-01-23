@@ -3,6 +3,7 @@ import 'package:final_grad_proj/wajeed2/presentation/commentsspecialist_screen/m
 import 'package:final_grad_proj/wajeed2/widgets/custom_button.dart';
 import 'package:final_grad_proj/wajeed2/widgets/custom_search_view.dart';
 import 'package:final_grad_proj/wajeed2/widgets/custom_text_form_field.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 import '../commentsspecialist_screen/widgets/listbg_one_item_widget.dart';
@@ -32,13 +33,14 @@ class MyWidgetState extends State<CommentsspecialistScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   static int i = 0;
   String CommentText = "";
+  //String name = Provider.of<AuthProvider>(context).user_api.user.username.toString() ; 
   static List<Comments> Commentslist = [
     const Comments(
-        unlike: 3,
-        like: 2,
-        comment: "how are yougjfjhm" + "ngngngn",
-        time: "1:50 am",
-        Name: "Ahmaddddd4332"),
+        unlike: 0,
+        like: 1,
+        comment: "how are every one" ,
+        time: "",
+        Name:"ammar kmail" ),
     // const Comments(
     //     unlike: 3,
     //     like: 2,
@@ -251,7 +253,7 @@ class MyWidgetState extends State<CommentsspecialistScreen> {
                                                       left: 35.w,
                                                       top: 40.h,
                                                       right: 19.w),
-                                                  child: Text("Dr.Wajeed",
+                                                  child: Text(Provider.of<AuthProvider>(context).user_api.user.username.toString(),
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
@@ -303,18 +305,22 @@ class MyWidgetState extends State<CommentsspecialistScreen> {
                                                 ),
                                                 shape:
                                                     ButtonShape.RoundedBorder28,
-                                                onTap: () {
+                                                onTap: () async{
+EasyLoading.show(status: 'loading ...') ; 
+                                                  await Future.delayed(Duration(seconds: 1)) ;
+
+                                                  EasyLoading.dismiss() ;  
                                                   if (_formKey1.currentState!
                                                       .validate()) {
-                                                    Get.snackbar('Error',
+                                                    Get.snackbar('ok',
                                                         "Done Add Comment");
 
                                                     final co = Comments(
-                                                        unlike: 3,
-                                                        like: 2,
+                                                        unlike: 0,
+                                                        like: 0,
                                                         comment: CommentText,
-                                                        time: "1:50 am",
-                                                        Name: "Ahmaddddd4332");
+                                                        time: DateTime.now().toString(),
+                                                        Name: Provider.of<AuthProvider>(context , listen: false).user_api.user.username.toString());
 
                                                     setState(() {
                                                       Commentslist.add(co);

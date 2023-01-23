@@ -625,7 +625,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: Text(
-                                                  "4.67",
+                                                  special!.rattingScore!.starsAvg.toString(),
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,

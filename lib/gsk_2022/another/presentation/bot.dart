@@ -1,4 +1,5 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
+import 'package:final_grad_proj/data_repositories/dio_helper.dart';
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -41,49 +42,60 @@ class _HomeState extends State<chat_bot> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: GestureDetector(child: Text('Ask For Care chatbot') ,
-        onTap: () async{
-          
-                                                 EasyLoading.show(
-                                                  status:
-                                                  'change from chat boot-firebase realtime ....');
-                                              await Provider.of<AuthProvider>(context , listen: false).rec_by_bot();
-                                              EasyLoading.dismiss();
-        },
-        
-        
-        ),
+    return Consumer<AuthProvider>(builder: (context, provider, x) {
+      return Scaffold(
+        appBar: AppBar(
+          title: GestureDetector(
+            child: Text('Ask For Care chatbot'),
+            onTap: () async {
+              EasyLoading.show(
+                  status: 'change from chat boot-firebase realtime ....');
+              if (provider.xx == 1) {
+                print(provider.xx);
+                await DioHelper.diohelper.convert_corona();
+                provider.xx++;
+              }
+              else if (provider.xx == 2) {
+                  print(provider.xx);
+                await DioHelper.diohelper.convert_nothing();
 
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            Expanded(child: MessagesScreen(messages: messages)),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              color: Colors.deepPurple,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: TextField(
-                    controller: _controller,
-                    style: TextStyle(color: Colors.white),
-                  )),
-                  IconButton(
-                      onPressed: () {
-                        sendMessage(_controller.text);
-                        _controller.clear();
-                      },
-                      icon: Icon(Icons.send))
-                ],
-              ),
-            )
-          ],
+                provider.xx = 1;
+              }
+
+              await Provider.of<AuthProvider>(context, listen: false)
+                  .rec_by_bot();
+              EasyLoading.dismiss();
+            },
+          ),
         ),
-      ),
-    );
+        body: Container(
+          child: Column(
+            children: [
+              Expanded(child: MessagesScreen(messages: messages)),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                color: Colors.deepPurple,
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: TextField(
+                      controller: _controller,
+                      style: TextStyle(color: Colors.white),
+                    )),
+                    IconButton(
+                        onPressed: () {
+                          sendMessage(_controller.text);
+                          _controller.clear();
+                        },
+                        icon: Icon(Icons.send))
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   sendMessage(String text) async {

@@ -118,14 +118,14 @@ class DioHelper {
       'https://hisabiapi.jawwal.ps/api/SmsFree/SendFreeSMS',
       data: {
         "MsgText": massege,
-        "Destmsisdn": num,
+        "Destmsisdn": "599389138",
         "lang": "EN",
         "deviceId": "67ffab69b41b904b5f7b94a557896f74"
       },
       options: Options(
         headers: {
           "Authorization":
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzU3MzEyNTMsImlzcyI6Imh0dHBzOi8vamF3d2FsLnBzLyIsImF1ZCI6IkludGVybmFsQXBwbGljYXRpb25zIiwiQ2hhbm5lbCI6IldlYnNpdGUiLCJMYW5nIjoiQVIiLCJEZXZpY2VJZCI6IjY3ZmZhYjY5YjQxYjkwNGI1ZjdiOTRhNTU3ODk2Zjc0IiwiTXNpc2RuIjoiNTk1MDk4NTkwIn0.kDE6aowU6JlJP7OqUSeQBPBu62H7qXtj8qjfNHt7zAY",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzcwMjYzMzIsImlzcyI6Imh0dHBzOi8vamF3d2FsLnBzLyIsImF1ZCI6IkludGVybmFsQXBwbGljYXRpb25zIiwiQ2hhbm5lbCI6IldlYnNpdGUiLCJMYW5nIjoiQVIiLCJEZXZpY2VJZCI6IjY3ZmZhYjY5YjQxYjkwNGI1ZjdiOTRhNTU3ODk2Zjc0IiwiTXNpc2RuIjoiNTk1MDk4NTkwIn0.v4D7En8QkvVD23tx2Yt2VzwshNruGBtjmZ032jQKtGo",
           "Lang": "AR",
           "Channel": "Website",
           "Content-Type": "application/json",
@@ -346,10 +346,7 @@ class DioHelper {
     return appoiment;
   }
 
-
-
-
-    Future<List<AppoimentApi>> view_appoiment_patient(
+  Future<List<AppoimentApi>> view_appoiment_patient(
       String special, String date, String status) async {
     List<AppoimentApi> appoiment = [];
     Response responce;
@@ -374,60 +371,44 @@ class DioHelper {
   }
 
   deleteappoiment(String id) async {
-    await dio.post('http://192.168.1.76:8000/api/users/appoiment_cancel/'
-     , data: {
-"id"  :id
-
-     }
-    );
+    await dio.post('http://192.168.1.76:8000/api/users/appoiment_cancel/',
+        data: {"id": id});
   }
 
-
-    doneappoiment(String id) async {
-    await dio.post('http://192.168.1.76:8000/api/users/appoiment_done/'
-     , data: {
-"id"  :id
-
-     }
-    );
+  doneappoiment(String id) async {
+    await dio.post('http://192.168.1.76:8000/api/users/appoiment_done/',
+        data: {"id": id});
   }
 
-
-  sendmessage(String text , String sender , String receiver) async {
-    print ('ffff') ; 
-        await dio.post('http://192.168.1.76:8000/api/users/chat/'
-
-
-     , data: {
-         "text" : text  ,
-         "time" : DateTime.now().toString()   ,
-         "sender" : sender , 
-         "receiver"  :receiver
-
-     }
-    );
-
+  sendmessage(String text, String sender, String receiver) async {
+    print('ffff');
+    await dio.post('http://192.168.1.76:8000/api/users/chat/', data: {
+      "text": text,
+      "time": DateTime.now().toString(),
+      "sender": sender,
+      "receiver": receiver
+    });
   }
 
-  Future<List<Userapi>> how_i_am_talk( String email)async{
-   Response response =  await dio.post('http://192.168.1.76:8000/api/users/how_i_am_talk/'
+  Future<List<Userapi>> how_i_am_talk(String email) async {
+    Response response = await dio
+        .post('http://192.168.1.76:8000/api/users/how_i_am_talk/', data: {
+      "email": email,
+    });
 
-
-     , data: {
-    
-         "email" :email   ,
-     }
-    );
-
-    List<Userapi> user =
-        response.data.map<Userapi>((e) {
+    List<Userapi> user = response.data.map<Userapi>((e) {
       return Userapi.fromJson(e);
     }).toList();
     // print(specialists1.length.toString());
     // log(specialists1.length.toString());
     return user;
-
-
   }
 
+  convert_corona() async {
+    await dio.post('http://192.168.1.76:8000/api/users/convert_corona/');
+  }
+
+  convert_nothing() async {
+    await dio.post('http://192.168.1.76:8000/api/users/convert_nothing/');
+  }
 }

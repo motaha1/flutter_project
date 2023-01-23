@@ -7,6 +7,7 @@ import 'package:final_grad_proj/presentation/privacy_policy_screen/privacy_polic
 import 'package:final_grad_proj/provider/auth_provider.dart';
 import 'package:final_grad_proj/wajeed/presentation/login_screen/login_screen.dart';
 import 'package:final_grad_proj/wajeed2/presentation/chat_page/chat_page.dart';
+import 'package:final_grad_proj/wajeed2/presentation/commentsspecialist_screen/commentsspecialist_screen.dart';
 import 'package:final_grad_proj/wajeed2/presentation/specialist_screen_page/models/userPatient.dart';
 //import 'package:final_grad_proj/wajeed2/presentation/walkthrough_three_screen/walkthrough_three_screen.dart';
 import 'package:final_grad_proj/wajeed2/widgets/custom_bottom_barS.dart';
@@ -175,13 +176,17 @@ class MyWidgetStateS extends State<SpecialistScreenPage> {
                                                                     IconButton(
                                                                       icon: Icon(
                                                                         Icons
-                                                                            .location_city,
+                                                                            .comment,
                                                                         color: Colors
                                                                             .white,
                                                                         size: 25,
                                                                       ),
-                                                                      onPressed: () {
+                                                                      onPressed: () async{
+                                                                        EasyLoading.show(status: 'loading ...') ; 
+                                                 await Future.delayed(Duration(seconds: 1)) ;
+                                                       EasyLoading.dismiss() ; 
                                                                         // onTap_chat_Bot();
+                                                                        Get.to(CommentsspecialistScreen())  ; 
                                                                       },
                                                                     ),
                                                                     IconButton(
