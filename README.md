@@ -124,8 +124,6 @@ Follow this to run backend on your machine:
 5- aws services for backend :
 url : http://askcare-env.eba-8e7fmuzm.eu-central-1.elasticbeanstalk.com/
 
-
-**** Note :its a individual work . 
   
   
   
